@@ -25,4 +25,4 @@ DrumPi for changes to take effect.
   etc, up to `WaveN.wav`.
 - These waves are played at a frequency dictated by the midi note number and individual samples of the wave files are interpolated according to the morph parameter (mapped to a physical midi CC control)
     - E.g. the midi note number 33 is played which sets the playing speed of the wav files in the active bank to A0=22.5Hz
-      then the morph paramater ranges 1 to N (number of wave files)  and its value set the amount of interpolation between the different parallel wave samples; (eg if morph =  only wav file 1 is heard, if morph =1.6 then an interpolation is made with 0.4 weight to wav 1 and 0.6 weight to wav 2 and so on).
+      then the morph paramater ranges 1 to N (number of wave files)  and its value set the amount of interpolation between the different parallel wave samples; (eg if morph = 1, only wav file 1 is heard, if morph =1.6 then an interpolation is made with 0.4 weight to wav 1 and 0.6 weight to wav 2 and so on).
