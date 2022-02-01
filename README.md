@@ -1,2 +1,1 @@
-# Realtime Wavetable Synth
- 
+# Realtime Wavetable Synth (SynthPi)
