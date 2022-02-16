@@ -1,6 +1,6 @@
 #include "audioLibrary.hpp"
 
-using namespace drumpi;
+using namespace SYNTHPI;
 using namespace audio;
 
 AudioLibrary::AudioLibrary() {
@@ -8,18 +8,18 @@ AudioLibrary::AudioLibrary() {
 
     bankDirPre = "bank";
 
-    drumNamePre = "drum";
+    waveNamePre = "wave";
 
     extensions[SOURCE_GENERALISED] = "";
     extensions[SOURCE_PREGENERATED] = ".wav";
 }
 
-std::string AudioLibrary::getFilepath(drumID_t drum, int bank, sampleSourceType_t type) {
+std::string AudioLibrary::getFilepath(WaveID_t wave, int bank, sampleSourceType_t type) {
     return
-        DRUMPI_DIR // DrumPi root directory
+        SYNTHPI_DIR // SYNTHPI root directory
         + audioDir // Audio directory
         + bankDirPre + std::to_string(bank) + "/" // Bank directory
-        + drumNamePre + std::to_string(drum + 1) // File name
+        + waveNamePre + std::to_string(wave + 1) // File name
         + extensions[type] // File extension
     ;
 }
