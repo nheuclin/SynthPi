@@ -1,20 +1,19 @@
-# Drum Banks
-  made a change
+# Wave Banks
 The wave banks and samples contained in this directory are completely 
 modifiable, deletable and reorderable, and you can add your own banks and 
 samples as long as they follow a simple structure.
-Banks and samples are read at runtime, so you do not need to recompile the
-DrumPi for changes to take effect.
+Banks and samples are read at runtime, so you do not need to recompile SynthPi
+for changes to take effect.
 
 ## Banks:
 - A 'bank' is simply a directory of audio files.
 - There can be as many or as few banks as you want, but `bank1` must
   always exist.
 - Banks must have the name `bankX`, where `X` is a positive number.
-    - This number is what will show on the DrumPi's display when 'banking'.
+    - This number is what will show on the SynthPi's display when 'banking'.
     - Banks should be consecutively numbered, otherwise you won't be able to
       reach some of them!
-- Banks must be in this directory (DrumPi/audio/).
+- Banks must be in this directory (SynthPi/audio/).
     - Banks in other directories (inc. subdirectories) will not be read.
 - Banks must contain (at least) 4 .wav files with the names detailed below.
 
