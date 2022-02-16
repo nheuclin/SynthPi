@@ -1,45 +1,55 @@
 // File: defs.hpp
-#ifndef DRUMPI_DEFS_H
-#define DRUMPI_DEFS_H
+#ifndef SYNTHPI_DEFS_H
+#define SYNTHPI_DEFS_H
 
 /*! Use this file to define types, constants etc that are needed in the program.
 DO NOT instantiate any objects, variables etc here. */
 
 #include <jack/jack.h>
 
-namespace drumpi {
+namespace SYNTHPI {
 
-/*! DrumPi project root directory.
+/*! SYNTHPI project root directory.
 Used for loading audio files where the absolute path is required. */
-#define DRUMPI_DIR PROJECT_ROOT_DIR
+#define SYNTHPI_DIR PROJECT_ROOT_DIR
 
-/*! ID numbers for each of the DrumPi's drums. */
-typedef enum _DrumIDs {
-    DRUM_1 = 0,
-    DRUM_2,
-    DRUM_3,
-    DRUM_4,
-    DRUM_5,
-    DRUM_6,
-    DRUM_7,
-    DRUM_8,
+/*! ID numbers for each of the SYNTHPI's waves. */
+typedef enum _WaveIDs {
+    Wave_1 = 0,
+    Wave_2,
+    Wave_3,
+    Wave_4,
 
-    // Number of drums
+    // Number of Waves
     // ALWAYS LEAVE LAST!
-    _NUM_DRUMS
-} drumID_t;
+    _NUM_WAVES
+} WaveID_t;
 
-/*! The number of drums available in the DrumPi. */
-#define NUM_DRUMS (int)_DrumIDs::_NUM_DRUMS
+/*! The number of waves available in the SYNTHPI. */
+#define NUM_WAVES (int)_WaveIDs::_NUM_WAVES
 
-/*! ID labels for the DrumPi's operational modes. */
+/*! ID numbers for each of the SYNTHPI's voices. */
+typedef enum _VoiceIDs {
+    Voice_1 = 0,
+    Voice_2,
+    Voice_3,
+    Voice_4,
+    Voice_5,
+    Voice_6,
+    Voice_7,
+    Voice_8,
+    // Number of Waves
+    // ALWAYS LEAVE LAST!
+    _NUM_VOICES
+} VoiceID_t;
+
+/*! The number of voices available in the SYNTHPI. */
+#define NUM_VOICES (int)_WaveIDs::_NUM_VOICES
+
+/*! ID labels for the SYNTHPI's operational modes. */
 typedef enum _StateLabels {
-    PERFORMANCE_MODE,
-    SEQUENCER_MODE,
-    SET_MASTER_VOLUME_MODE,
-    SET_DRUM_VOLUME_MODE,
-    SET_TEMPO_MODE,
-    SET_DRUM_BANK_MODE
+    PLAY_MODE,
+    SET_WAVE_BANK_MODE
 } stateLabel_t;
 
 /*! The namespace for audio system related items. */
@@ -111,6 +121,6 @@ typedef enum _AudioError {
 } audioError_t;
 
 } // namespace audio
-} // namespace drumpi
+} // namespace SYNTHPI
 
 #endif
