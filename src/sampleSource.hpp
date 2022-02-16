@@ -1,13 +1,13 @@
 // File: sampleSource.hpp
-#ifndef DRUMPI_SAMPLE_H
-#define DRUMPI_SAMPLE_H
+#ifndef SYNTHPI_SAMPLE_H
+#define SYNTHPI_SAMPLE_H
 
 #include <string>
 #include <vector>
 
 #include "defs.hpp"
 
-namespace drumpi {
+namespace SYNTHPI {
 namespace audio {
 
 /*! Abstract class for sample retieval. */
@@ -55,7 +55,7 @@ class SampleSourceFile : public SampleSource {
 };
 
 
-/*! Handler class for pre-generated drum samples. */
+/*! Handler class for pre-generated single cycle waveforms. */
 class AudioClip : public SampleSourceFile {
     public:
         /*! Class constructor.
@@ -91,11 +91,9 @@ class AudioClip : public SampleSourceFile {
         /*! The number of samples of playback elapsed. */
         int playhead;
 
-        /*! Calculates the number of samples remaining for output. */
-        int samplesRemaining();
 };
 
 } // namespace audio
-} // namespace drumpi
+} // namespace SYNTHPI
 
-#endif // define DRUMPI_SAMPLE_H
+#endif // define SYNTHPI_SAMPLE_H
