@@ -16,12 +16,11 @@
  */
 class SoundModelMono : public SoundModel {
 
-	StringAllocator violin; /* Physical model of violin (adapted) */
+	WaveOSC waveosc; /* Physical model of violin (adapted) */
 	bool noteOn;		/* True if a note is currently playing (not counting release) */
 	int  currentNote;	/* Current note being played */
 	int release;		/* Countdown for how long isPlaying should return true after note released */
-	double pedalSpeed;	/* Current pedal speed (needs to be stored here) */
-
+	
 	Lock lock; /* Main lock for all methods */
 
 	public:
@@ -31,9 +30,9 @@ class SoundModelMono : public SoundModel {
 		 *
 		 * Note that this is not usually called by anything other than a factory.
 		 * 
-		 * @param sr Operating sample rate
+		 * @param samplerate Operating sample rate
 		 */
-		SoundModelMono(const int st); 
+		SoundModelMono(const int samplerate); 
 
 		/**
 		 * @return true if note is currently on
@@ -41,12 +40,13 @@ class SoundModelMono : public SoundModel {
 		bool isPlaying();
 
 		/**
-		 * Store samples in provided buffer, and advanced time by the length of the buffer.
+		 * Store samples in provided buffer.
 		 *
-		 * @param samples Array to which samples should be written
-		 * @param bufferSize length of array
+		 * @param nSamples number of samples to retrieve
+		 * @return buffer of samples
 		 */
-		void getSamples(short samples[], int bufferSize);
+		std::vector<sample_t> getSamples(int nSamples);
+
 
 		/**
  		 * Start playing a note. Will turn of currently playing notes.
@@ -65,19 +65,6 @@ class SoundModelMono : public SoundModel {
  		 */
 		virtual void setNoteOff(int semitone);
 
-		/**
- 		 * Set the pedal speed.
- 		 *
- 		 * @param speed Speed of the pedal in metres per second
- 		 */
-		virtual void setPedalSpeed(double speed);
-
-		/**
-		 * Return the current gain. For a mono sound model,
-		 * there is no polyphonic mixing so the gain is always 1.0
-		 *
-		 */
-		virtual double getOutputGain(void) { return 1.0; }
 };
 
 #endif /* SOUND_MODEL_H */

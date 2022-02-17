@@ -1,40 +1,37 @@
-#include "StringAllocator.h"
+#include "waveosc.hpp"
 #include "SoundModelMono.h"
 #include "OutputAdaptor.h"
 #include "Lock.h"
-#include "ViolinFingering.h"
 #include <string>
 #include <iostream>
 
 #define RELEASE_INIT (1024*1600)
-#define DEFAULT_PEDAL_SPEED 1;
 
-SoundModelMono::SoundModelMono(const int sr)
- : violin(sr) {
+SoundModelMono::SoundModelMono(const int samplerate)
+ : waveosc(samplerate) {
 
 	this->noteOn = false;
 	this->currentNote = -1;
 	this->release = 0;
-	this->pedalSpeed = DEFAULT_PEDAL_SPEED;
 
 }
 
-void SoundModelMono::getSamples(short samples[], int bufferSize) {
+std::vector<sample_t> SoundModelMono::getSamples(int nSamples) {
 
-	ViolinFingering vf;
+	//ViolinFingering vf;
 	
 	lock.acquire();
 
 	/* Allows us to render sound when in release or on state */
 	if(noteOn || release > 0) {
-		violin.getSamples(samples, bufferSize);
+		waveosc.getSamples(nSamples);
 		release -= bufferSize;
 		if(release < 0) release = 0;
-	}  else {
-            std::fill(samples, samples + bufferSize, 0);
+	}  
+	else {
+            std::fill(samples, nSamples, 0);
 		/* This is negligable in terms of time compared to rendering the sound */
 	}
-
 
 	lock.release();
 }
@@ -59,8 +56,7 @@ void SoundModelMono::setNoteOn(int midinote) {
 	if(noteOn == false || currentNote != midinote) {
 
 		try{
-			violin.setSemitone(midinote);
-			violin.setPedalSpeed(pedalSpeed);
+			waveosc.setSemitone(midinote);
 			noteOn = true;
 			currentNote = midinote;
 
@@ -82,21 +78,9 @@ void SoundModelMono::setNoteOff(int midinote) {
 	if(currentNote == midinote) { 
 		noteOn = false;
 		release = RELEASE_INIT;
-		violin.silence();
+		waveosc.trigRelease();
 	}
 
 	lock.release();
 
 }
-
-void SoundModelMono::setPedalSpeed(double speed) {
-
-	lock.acquire();
-
-	if(noteOn) violin.setPedalSpeed(speed); /* This avoids the model playing sound */
-	pedalSpeed = speed;
-
-	lock.release();
-
-}
-
