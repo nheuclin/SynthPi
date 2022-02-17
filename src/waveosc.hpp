@@ -17,18 +17,35 @@ namespace audio {
 Retrieves Samples from the sample sources and mix/interpolate between them to 
 return the number of samples requested at the right frequency !*/
 
-class WaveOSC {
+class WaveOSC{
+    /*! Number of samples to request from sample source to return buffer at the right frequency !*/
+    int mSamples; 
+
+    /*! frequency to play at from midinote !*/
+    float fm; 
+
+    /*! float value to know which waves to average !*/
+    float wavemix_val;
+
+
     public:
-        /*! Constructor. */
+        /*! Constructor. 
+        \param samplerate  Operating sample rate */
         WaveOSC(const int samplerate);
 
-        /*! sets osc frequency */
+        /*! sets osc frequency 
+        \param midinote Semitone value to be played (0-127) */
         void setSemitone(int midinote);
+
+        /*! get current mix value
+        \param MIX_CC current value of mix CC control */
+        void getMixVal(int MIX_CC);
+
 
         /*! Retrieves wave samples.
         \param nSamples number of samples to return.
         \return a buffer of samples. */
-        std::vector<sample_t> getSamples(int nSamples) override;
+        std::vector<sample_t> getSamples(int nSamples) ; //override ? don't think it's needed
 
         /*! Loads a bank of waves of a homogenous \ref sampleSourceType_t.
         Equivalent to calling \ref setSource for each wave with the given arguments.
@@ -49,14 +66,17 @@ class WaveOSC {
         /*! Returns the source \ref sampleSourceType_t for the given drum. 
         \return source type. */
         sampleSourceType_t getSourceType(drumID_t drum);
+
+        /*! virtual function to trigger ADSR attack stage*/
+        virtual void trigAttack() = 0;
+
+        /*! virtual function to trigger ADSR release stage*/
+        virtual void trigRelease() = 0;
     
+
     private:
         /*! Library manager for the audio sources. */
         AudioLibrary library;
-
-        /*! Number of samples to request from sample source to return buffer at the right frequency !*/
-        int mSamples;
-
 
         /*! Buffer of samples to allow transfer to SoundModelMono. */
         std::vector<sample_t> buffer;

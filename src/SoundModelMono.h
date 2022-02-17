@@ -1,6 +1,6 @@
 #include "Thread.h"
-#include "StringAllocator.h"
-#include "OutputAdaptor.h"
+#include "waveosc.h"
+//#include "OutputAdaptor.h"
 #include "SoundModel.h"
 #include "Lock.h"
 #include <string>
@@ -16,7 +16,7 @@
  */
 class SoundModelMono : public SoundModel {
 
-	WaveOSC waveosc; /* Physical model of violin (adapted) */
+	WaveOSC waveosc; /* instance of a wave oscillator */
 	bool noteOn;		/* True if a note is currently playing (not counting release) */
 	int  currentNote;	/* Current note being played */
 	int release;		/* Countdown for how long isPlaying should return true after note released */
@@ -67,4 +67,4 @@ class SoundModelMono : public SoundModel {
 
 };
 
-#endif /* SOUND_MODEL_H */
+#endif /* SOUND_MODEL_MONO_H */

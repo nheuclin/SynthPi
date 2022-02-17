@@ -46,25 +46,17 @@ class SoundModel {
 		 */
 		virtual void setNoteOff(int semitone) = 0;
 
-		/**
-		 * Update the current pedal speed.
-		 *
-		 * @param speed Speed value of the pedal, measured in metres per second
-		 */
-		virtual void setPedalSpeed(double speed) = 0;
 
 		/**
 		 * Return true if there is currently at least one note playing
 		 */
 		virtual bool isPlaying() = 0;
 
-		/**
-		 * Render a period of sound data and store in samples. 
-		 *
-		 * @param samples Array to which samples should be written
-		 * @param bufferSize length of array
-		 */
-		virtual void getSamples(short samples[], int bufferSize) = 0;
+
+        /*! Render a period of sound data and store in samples.
+        \param nSamples number of samples to return.
+        \return a buffer of samples. */
+        virtual std::vector<sample_t> getSamples(int nSamples) = 0;
 
 
 };

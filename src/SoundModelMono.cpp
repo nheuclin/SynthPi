@@ -18,8 +18,6 @@ SoundModelMono::SoundModelMono(const int samplerate)
 
 std::vector<sample_t> SoundModelMono::getSamples(int nSamples) {
 
-	//ViolinFingering vf;
-	
 	lock.acquire();
 
 	/* Allows us to render sound when in release or on state */
@@ -29,7 +27,7 @@ std::vector<sample_t> SoundModelMono::getSamples(int nSamples) {
 		if(release < 0) release = 0;
 	}  
 	else {
-            std::fill(samples, nSamples, 0);
+            std::fill(SoundModelMono::getSamples, SoundModelMono::getSamples.begin(), SoundModelMono::getSamples.end(), 0); //might just get rid of that if the ADSR returns 0 when called and not in any states
 		/* This is negligable in terms of time compared to rendering the sound */
 	}
 
@@ -57,6 +55,7 @@ void SoundModelMono::setNoteOn(int midinote) {
 
 		try{
 			waveosc.setSemitone(midinote);
+			waveosc.trigAttack();
 			noteOn = true;
 			currentNote = midinote;
 
