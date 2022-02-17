@@ -1,11 +1,5 @@
-//----------------------------------//
-// ADSR class for Arduino
-// by mo-thunderz
-// version 1.1
-// last update: 29.12.2020
-//----------------------------------//
 
-#include "Arduino.h"
+#include <iostream>
 
 #ifndef ADSR
 #define ADSR
@@ -21,15 +15,20 @@ class adsr
 {
 	public:
 		// constructor
-		adsr(int dacSize);
+		adsr(int SampleRate);
 
-		void setAttack(unsigned long l_attack);
-		void setDecay(unsigned long l_decay);
-		void setSustain(int l_sustain);
-		void setRelease(unsigned long l_release);
-		void noteOn(unsigned long l_micros);
-		void noteOff(unsigned long l_micros);
-		int getWave(unsigned long l_micros);
+		//destructor
+		~adsr();
+
+		void setAttack(int AttackCC);
+		void setDecay(int DecayCC);
+		void setSustain(int SustainCC));
+		void setRelease(int ReleaseCC);
+
+		void noteOn();
+		void noteOff();
+
+		std::vector<sample_t> getWave(nSamples); /*sample_t is float*/
 
 	private:
 		int _attack_table[ARRAY_SIZE];
