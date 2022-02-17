@@ -1,21 +1,12 @@
-//----------------------------------//
-// ADSR class for Arduino
-// by mo-thunderz
-// version 1.1
-// last update: 29.12.2020
-//----------------------------------//
-
-#include "Arduino.h"
 #include "adsr.h"
 #include <math.h>
 
-adsr::adsr(int l_vertical_resolution)
+adsr::adsr(int samplerate)
 {
-	_vertical_resolution = l_vertical_resolution;						// store vertical resolution (DAC_Size)
-	_attack = 100000;																				// take 100ms as initial value for Attack
-	_sustain = l_vertical_resolution/2;											// take half the DAC_size as initial value for sustain
-	_decay = 100000;																				// take 100ms as initial value for Decay
-	_release = 100000;																			// take 100ms as initial value for Release
+	float attack = 0.1;												// take 100ms as initial value for Attack
+	float sustain = 0.75;											// take half the DAC_size as initial value for sustain
+	float decay = 0.1;												// take 100ms as initial value for Decay
+	float release = 0.2;											// take 100ms as initial value for Release
 
 	for (int i = 0; i<ARRAY_SIZE; i++) {												// Create look-up table for Attack
 		_attack_table[i] = i;
@@ -33,43 +24,44 @@ adsr::adsr(int l_vertical_resolution)
 	}
 }
 
-void adsr::setAttack(unsigned long l_attack)
+void adsr::setAttack(int AttackCC)
 {
-	_attack = l_attack;
+	attack = (AttackCC/127)*100;
 }
 
-void adsr::setDecay(unsigned long l_decay)
+void adsr::setDecay(int DecayCC)
 {
-	_decay = l_decay;
+	decay = (DecayCC/127)*100;
 }
 
-void adsr::setSustain(int l_sustain)
+void adsr::setSustain(int SustainCC)
 {
-	if(l_sustain < 0)
-		l_sustain = 0;
-	if(l_sustain >= _vertical_resolution)
-		l_sustain = _vertical_resolution - 1;
-	_sustain = l_sustain;
+	sustain = (SustainCC/127)*100;
 }
 
-void adsr::setRelease(unsigned long l_release)
+void adsr::setRelease(int ReleaseCC)
 {
-	_release = l_release;
+	release = (ReleaseCC/127)*100;
 }
 
-void adsr::noteOn(unsigned long l_micros) {
+void adsr::noteOn() {
 	_t_note_on = l_micros;							// set new timestamp for note_on
 	_attack_start = _adsr_output;				// set start value new Attack
 	_notes_pressed++;										// increase number of pressed notes with one
 }
 
-void adsr::noteOff(unsigned long l_micros) {
+void adsr::noteOff() {
 	_notes_pressed--;
 	if(_notes_pressed <= 0) {						// if all notes are depressed - start release
 		_t_note_off = l_micros;						// set timestamp for note off
 		_release_start = _adsr_output;		// set start value for release
 		_notes_pressed = 0;
 	}
+}
+
+
+std::vector<sample_t> getWave(nSamples){
+
 }
 
 int adsr::getWave(unsigned long l_micros)
