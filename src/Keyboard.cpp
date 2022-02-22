@@ -6,7 +6,7 @@
 #include "Controller.h"
 #include <set>
 #include <alsa/asoundlib.h>
-
+#include "defs.hpp"
 
 Keyboard::Keyboard(Controller *controller, int keyId, int keyPort, int verbosity) :
 announce(verbosity > 0)
@@ -170,6 +170,8 @@ void Keyboard::midiAction() {
 				break;
 
 			}
+
+			case CC1: //handle different CCs being received, need to link that to the CC defined in defs.hpp
 		
 			break;
 
