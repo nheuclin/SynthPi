@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 #include <array>
-
+#include "SoundModel.h"
 #include "defs.hpp"
 #include "audio.hpp"
 #include "sampleSource.hpp"
@@ -18,11 +18,13 @@ namespace audio {
 Manages audio clips for sending to output.
 An instance of this class is used as the callback class for the \ref JackClient. */
 class PlaybackEngine : public AudioCallback {
+    
     public:
+
         /*! Constructor.
         *\param playout (*) address of the soundmodelpoly to pass samples to jack
         */
-        PlaybackEngine(SoundModel *playout); //pass adress to soundmodelpoly ?     
+        PlaybackEngine(SoundModel *playout);
 
         /*! Retrieves samples.
         \param nSamples number of samples to return.
@@ -51,7 +53,7 @@ class PlaybackEngine : public AudioCallback {
         std::vector<sample_t> buffer;
 
         /*! \ref SampleSource object pointers. */
-        std::array<std::unique_ptr<SampleSource>, NUM_DRUMS> sources;  //replace sources to pointer to soundmodelpoly ? 
+        std::array<std::unique_ptr<SampleSource>, NUM_DRUMS> sources;  //replace sources to pointer to soundmodelpoly ? is it needed at all ? 
 
         /*! Lookup table for exponential volume control.
         Indexed as a percentage. */

@@ -25,23 +25,26 @@ typedef enum _WaveIDs {
     _NUM_WAVES
 } WaveID_t;
 
-/*! The number of waves available in the SYNTHPI. */
-#define NUM_WAVES (int)_WaveIDs::_NUM_WAVES
+/*!number of available voices*/
+int poly=8; //number of voices
 
-/*! ID numbers for each of the SYNTHPI's voices. */
-typedef enum _VoiceIDs {
-    Voice_1 = 0,
-    Voice_2,
-    Voice_3,
-    Voice_4,
-    Voice_5,
-    Voice_6,
-    Voice_7,
-    Voice_8,
-    // Number of Waves
+/*! ID and port to connect midi keyboard to*/
+int keyboard_ID=128;
+int keyboard_port=0;
+
+/*! ID numbers for each of the SYNTHPI's control changes. */
+enum class ControlChanges {
+    CC1 = 30, //output volume
+    CC2 = 31, //avemix value
+    CC3 = 32, //Attack value
+    CC4 = 33, //Decay value
+    CC5 = 34, //Sustain Value
+    CC6 = 35, //Release value
+
+    // Number of CCs
     // ALWAYS LEAVE LAST!
-    _NUM_VOICES
-} VoiceID_t;
+    _NUM_CCs
+};
 
 /*! The number of voices available in the SYNTHPI. */
 #define NUM_VOICES (int)_WaveIDs::_NUM_VOICES

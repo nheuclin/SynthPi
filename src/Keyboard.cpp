@@ -169,11 +169,12 @@ void Keyboard::midiAction() {
 				}
 				break;
 
+			case ControlChanges::CC1: //handle different CCs being received, need to link that to the CC defined in defs.hpp
+
+				break;
 			}
 
-			case CC1: //handle different CCs being received, need to link that to the CC defined in defs.hpp
-		
-			break;
+	
 
 		}
 	

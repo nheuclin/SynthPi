@@ -82,7 +82,7 @@ class Keyboard : public Thread {
 		* @param verbosity Print note on/off announcement if > 0
 		*/
 		Keyboard(Controller* controller, int keyId, int keyPort,
-				int verbosity = 1);
+				int verbosity = 0);
 		
 		/**
 		* Poll the MIDI keyboard for key events.

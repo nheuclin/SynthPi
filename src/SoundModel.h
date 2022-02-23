@@ -1,34 +1,16 @@
 #ifndef SOUNDMODEL_H 
 #define SOUNDMODEL_H
 
+
+namespace SYNTHPI {
+namespace audio {
+
 /**
  * Interface for classes providing the ability to play notes.
  */
 class SoundModel {
 
-
-	protected:
-		double gain;		/**< Current output gain */
-		double target_gain;	/**< Gain to aim for at the end of this buffer */
-
 	public:
-
-		/**
-		 * If the subclass supports it, set the output gain
-		 * Currently, the gain is applied in the derived class
-		 * SoundModelPoly, so that each thread can accumulate
-		 * audio data and perform only one multiply.
-		 *
-		 * @param output_gain
-		 * The multiplier to which all output samples are
-		 * subjected.
-		 */
-		virtual void setOutputGain(double output_gain) { };
-
-		/**
-		 * Get the current output gain
-		 */
-		virtual double getOutputGain(void) = 0;
 
 		/**
 		 * Set that a note should begin playing, may turn off currently playing notes if maximum polyphony is exceeded
@@ -60,5 +42,8 @@ class SoundModel {
 
 
 };
+
+} // namespace audio
+} // namespace SYNTHPI
 
 #endif /* SOUNDMODEL_H */

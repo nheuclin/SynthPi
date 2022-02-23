@@ -5,25 +5,28 @@
 #include <string>
 #include <iostream>
 
-#define RELEASE_INIT (1024*1600)
+using namespace SYNTHPI;
+using namespace audio;
 
-SoundModelMono::SoundModelMono(const int samplerate)
- : waveosc(samplerate) {
+#define RELEASE_INIT (1024*1600) //? maybe just put that to 0.
+
+SoundModelMono::SoundModelMono(const int samplerate){
+  	waveosc=new WaveOSC(samplerate) {} //is that right ? 
 
 	this->noteOn = false;
 	this->currentNote = -1;
-	this->release = 0;
+	this->release = 0; //replace by waveosc.getRelease();
 
 }
 
 std::vector<sample_t> SoundModelMono::getSamples(int nSamples) {
-
+	std::vector<sample_t> buffer;
 	lock.acquire();
 
 	/* Allows us to render sound when in release or on state */
 	if(noteOn || release > 0) {
-		waveosc.getSamples(nSamples);
-		release -= bufferSize;
+		buffer=waveosc.getSamples(nSamples);
+		release -= nSamples;
 		if(release < 0) release = 0;
 	}  
 	else {
@@ -32,6 +35,7 @@ std::vector<sample_t> SoundModelMono::getSamples(int nSamples) {
 	}
 
 	lock.release();
+	return buffer
 }
 
 bool SoundModelMono::isPlaying() {
@@ -55,14 +59,15 @@ void SoundModelMono::setNoteOn(int midinote) {
 
 		try{
 			waveosc.setSemitone(midinote);
-			waveosc.trigAttack();
+			waveosc.trigAttack(); //trigAttack should rettriger the envelope if it's already playing
 			noteOn = true;
 			currentNote = midinote;
 
-		} catch (const char* e) {
-			std::cerr << "Midi note on (note " << midinote
-			          << ") out of range!" << std::endl;
-		}
+		} 
+		//catch (const char* e) {
+		//	std::cerr << "Midi note on (note " << midinote
+		//	          << ") out of range!" << std::endl;
+		//}
 	}
 
 	lock.release();
@@ -76,8 +81,8 @@ void SoundModelMono::setNoteOff(int midinote) {
 	/* Only turn of if we're actually playing that note */
 	if(currentNote == midinote) { 
 		noteOn = false;
-		release = RELEASE_INIT;
-		waveosc.trigRelease();
+		release = waveosc.getRelease(); //return release time as a number of samples it will take for the ADSR to get back to 0 based on sampling rate
+		waveosc.trigRelease(); //trigger ADSR release stage.
 	}
 
 	lock.release();

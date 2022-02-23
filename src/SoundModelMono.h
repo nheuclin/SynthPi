@@ -8,9 +8,12 @@
 #ifndef SOUND_MODEL_MONO_H
 #define SOUND_MODEL_MONO_H
 
+namespace SYNTHPI {
+namespace audio {
+
 /**
- * Responsible for creating the violin sound and providing the samples when requested
- *
+ * Responsible for creating the a monophonic wavetable voice with its own ADSR 
+ * and providing the samples when requested
  * This class is designed to be completely thread safe, and hence all method calls will
  * be serialised.
  */
@@ -19,7 +22,7 @@ class SoundModelMono : public SoundModel {
 	WaveOSC waveosc; /* instance of a wave oscillator */
 	bool noteOn;		/* True if a note is currently playing (not counting release) */
 	int  currentNote;	/* Current note being played */
-	int release;		/* Countdown for how long isPlaying should return true after note released */
+	int release;		/* Countdown for how long isPlaying should return true after note released (number of samples it'll take the adsr to get back to 0 based on sampling rate) */
 	
 	Lock lock; /* Main lock for all methods */
 
@@ -45,7 +48,7 @@ class SoundModelMono : public SoundModel {
 		 * @param nSamples number of samples to retrieve
 		 * @return buffer of samples
 		 */
-		std::vector<sample_t> getSamples(int nSamples);
+		virtual std::vector<sample_t> getSamples(int nSamples); //override? 
 
 
 		/**
@@ -53,7 +56,7 @@ class SoundModelMono : public SoundModel {
  		 *
  		 * @param semitone Semitone value of note (0-127)
  		 */
-		virtual void setNoteOn(int semitone);
+		virtual void setNoteOn(int semitone); //override? 
 
 		/**
  		 * Stop playing a note.
@@ -63,8 +66,11 @@ class SoundModelMono : public SoundModel {
  		 *
  		 * @param semitone Semitone value of note (0-127)
  		 */
-		virtual void setNoteOff(int semitone);
+		virtual void setNoteOff(int semitone); //override? 
 
 };
+
+} // namespace audio
+} // namespace SYNTHPI
 
 #endif /* SOUND_MODEL_MONO_H */
