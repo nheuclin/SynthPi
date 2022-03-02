@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.12)
 
 # Project name and version
-project(SYNTPI VERSION "1.0")
+project(SynthPi VERSION "0.1")
 
 # Project name and version macros
 add_definitions(-DPROJECT_NAME="${CMAKE_PROJECT_NAME}")
@@ -22,7 +22,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_executable(SynthPi ${PROJECT_SOURCE_DIR}/src/main.cxx)
 
 # Set the output directory for executables
-set_target_properties(SYNTHPI PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
+set_target_properties(SynthPi PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
 
 
@@ -35,8 +35,8 @@ file(GLOB SRCS src/*.cpp)
 add_library(source ${SRCS})
 set_target_properties(source PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
-# Link source library to DrumPi
-target_link_libraries(SYNTHPI source)
+# Link source library to SynthPi
+target_link_libraries(SynthPi source)
 
 
 
@@ -50,20 +50,15 @@ set_target_properties(library PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOUR
 # For pre-compiled libraries (e.g. wiringPi) only linking is needed
 # Add
 add_subdirectory(
-    ${PROJECT_SOURCE_DIR}/lib/cppTimer
     ${PROJECT_SOURCE_DIR}/lib/AudioFile
 )
 
 # Include
 include_directories(
-    ${PROJECT_SOURCE_DIR}/lib/cppTimer
-    ${PROJECT_SOURCE_DIR}/lib/cppThread
     ${PROJECT_SOURCE_DIR}/lib/AudioFile
 )
 
 find_package (Threads)
-find_package(iir)
-target_link_libraries(Synthpi iir::iir)
 
 # Link
 target_link_libraries(library
@@ -71,8 +66,8 @@ target_link_libraries(library
     ${CMAKE_THREAD_LIBS_INIT}
 )
 
-# Link sum library to DrumPi
-target_link_libraries(SYNTHPI library)
+# Link sum library to SynthPi
+target_link_libraries(SynthPi library)
 
 
 

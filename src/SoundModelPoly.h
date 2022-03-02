@@ -1,4 +1,5 @@
 #include "SoundModel.h"
+#include "defs.hpp"
 #include <string>
 #include <vector>
 #include <list>
@@ -15,14 +16,29 @@ namespace audio {
 class SoundModelPoly : public SoundModel {
 
 	protected:
+		/*! a vector of soundmodelmono, ie a vector of the voices in synthpi */
 		std::vector<SoundModel*> soundModelList;
+
+		/*! a vector of int which keeps track of the order the voices are being turned on*/
 		std::vector<int> lastSoundModel;
+
+		/*! same as std::vector<int> lastSoundModel but keeps track of the midinotes  */
 		std::vector<int> midiNoteList;
+
+		/*!  */
 		int	soundModelNo;
+
+		/*!  */
 		int VoiceNo;
+
+		/*!  */
 		int position;
+
+		/*!  */
 		float master_vol; //should it be public since it is changed by the controller ? 
-		std::vector<sample_t> buffer;
+
+		/*!  a buffer to return the sum of voices to playback engine*/
+		std::vector<sample_t> polybuffer;
 
 	public:
 		/**
@@ -33,7 +49,7 @@ class SoundModelPoly : public SoundModel {
 		 * (optional) Multiply model outputs by this to yield the
 		 * final result
 		 */
-		SoundModelPoly(int poly, const int samplerate, double output_gain=0.2);
+		SoundModelPoly(const int poly, const int samplerate, double output_gain=0.2);
 
 		/**
 		 * Start a note playing. 
@@ -44,7 +60,7 @@ class SoundModelPoly : public SoundModel {
 		 *
 		 * @param midinote Midi note number of note to turn on
 		 */
-		virtual void setNoteOn(int midinote);
+		virtual void setNoteOn(int midinote) override;
 
 		/**
 		 * Stop a note playing
@@ -55,20 +71,14 @@ class SoundModelPoly : public SoundModel {
 		 *
 		 * @param midinote Midi note number of note to turn off
 		 */
-		virtual void setNoteOff(int midinote);
+		virtual void setNoteOff(int midinote) override;
 
-		/**
-		 * Set the pedal speed of all contained sound models
-		 *
-		 * @param speed Pedal speed in m/s
-		 */
-		virtual void setPedalSpeed(double speed);
 
 		/**
 		 * @return True if a note is currently being played by and of
 		 * the contained models.
 		 */
-		virtual bool isPlaying();
+		virtual bool isPlaying() override;
 
 		/**
 		 * Render a frame of samples of all contained models into a
@@ -76,7 +86,7 @@ class SoundModelPoly : public SoundModel {
          *\param nSamples number of samples to return.
          *\return a buffer of samples. 
 		 */
-		virtual void std::vector<sample_t> getSamples(int nSamples);
+		virtual void std::vector<sample_t> getSamples(int nSamples) override;
 
 		/** Thrown when empty SoundModel vector passed into constructor */
 		class NoSoundModelException {};

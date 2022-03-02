@@ -8,6 +8,8 @@
 #include <alsa/asoundlib.h>
 #include "defs.hpp"
 
+using namespace SYNTHPI;
+
 Keyboard::Keyboard(Controller *controller, int keyId, int keyPort, int verbosity) :
 announce(verbosity > 0)
 {

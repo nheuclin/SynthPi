@@ -13,6 +13,7 @@
 * and polls it for incoming MIDI events. It passes the appropriate commands
 * to an instance of Controller based on what it receives.
 */
+namespace SYNTHPI {
 
 class Keyboard : public Thread {
 
@@ -82,7 +83,7 @@ class Keyboard : public Thread {
 		* @param verbosity Print note on/off announcement if > 0
 		*/
 		Keyboard(Controller* controller, int keyId, int keyPort,
-				int verbosity = 0);
+				int verbosity = 1);
 		
 		/**
 		* Poll the MIDI keyboard for key events.
@@ -90,5 +91,5 @@ class Keyboard : public Thread {
 		virtual void run();
 
 };
-
+}
 #endif /* KEYBOARD_H */

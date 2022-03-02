@@ -1,7 +1,7 @@
 // File: audio.cpp
 #include <audio.hpp>
 
-using namespace drumpi;
+using namespace SYNTHPI;
 using namespace audio;
 
 JackClient::JackClient(std::string clientName, int nOutPorts, int nInPorts) {

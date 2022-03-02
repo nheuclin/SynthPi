@@ -8,10 +8,10 @@
 using namespace SYNTHPI;
 using namespace audio;
 
-SoundModelPoly::SoundModelPoly(int poly, const int samplerate, double output_gain) {
+SoundModelPoly::SoundModelPoly(const int poly, const int samplerate, double output_gain) {
 	for (int i = 0; i < poly; i++) {
 		soundModelList.push_back(new SoundModelMono(samplerate));
-		soundModelList[i].loadBank(1, audio::SOURCE_PREGENERATED); //init synth to bank 1 
+		//soundModelList[i].loadBank(1, audio::SOURCE_PREGENERATED); //init synth to bank 1, done in soundmodelmono
 	}
 	VoiceNo=poly;
 }
@@ -64,9 +64,9 @@ bool SoundModelPoly::isPlaying() {
 std::vector<sample_t> getSamples(int nSamples){
 
     std::vector<sample_t> temp(nSamples);
-    // Clear object buffer and set the size
-    buffer.clear();
-    buffer.resize(nSamples);
+    // Clear object polybuffer and set the size
+    polybuffer.clear();
+    polybuffer.resize(nSamples);
 
 	for(std::vector<SoundModel*>::iterator  sndModIterator = soundModelList.begin();
 	   										sndModIterator != soundModelList.end();
@@ -74,11 +74,11 @@ std::vector<sample_t> getSamples(int nSamples){
 
 		temp=(*sndModIterator)->getSamples(nSamples);
 		for (i = 0; i < nSamples; i++) {
-			buffer[i] += temp[i]*master_vol;
+			polybuffer[i] += temp[i]*master_vol;
 		}
 	}
 
-	return buffer;
+	return polybuffer;
 	
 	// Dezipper the audio output by changing the output gain
 	// progressively along the outbut buffer length

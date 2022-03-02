@@ -12,7 +12,7 @@
 #include <iostream>
 #include <functional>
 
-using namespace drumpi;
+using namespace SYNTHPI;
 
 /*! Wrapper for the signal handling lambda expression. */
 std::function<void(int)> shutdownHandler;
@@ -34,7 +34,7 @@ int main(int argc, char* argv[]){
     signal(SIGKILL, signalHandler);
     signal(SIGTSTP, signalHandler);
     shutdownHandler = [&](int signal) {
-        std::cout << "DrumPi: caught signal " << signal << std::endl;
+        std::cout << "SynthPi: caught signal " << signal << std::endl;
         appPtr->running = false;
     };
 

@@ -1,6 +1,6 @@
 // File: audio.hpp
-#ifndef DRUMPI_AUDIO_H
-#define DRUMPI_AUDIO_H
+#ifndef SYNTHPI_AUDIO_H
+#define SYNTHPI_AUDIO_H
 
 #include <vector>
 #include <string>
@@ -10,7 +10,7 @@
 
 #include "defs.hpp"
 
-namespace drumpi {
+namespace SYNTHPI {
 namespace audio {
 
 /*! Abstract sample retieval callback class. */
@@ -108,6 +108,6 @@ class JackClient {
 };
 
 } // namespace audio
-} // namespace drumpi
+} // namespace SYNTHPI
 
-#endif // define DRUMPI_AUDIO_H
+#endif // define SYNTHPI_AUDIO_H

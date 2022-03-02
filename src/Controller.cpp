@@ -5,13 +5,12 @@
 #include "Thread.h"
 #include <string>
 //#include <iostream>
+using namespace SYNTHPI;
 
-Controller::Controller(SoundModel *playout,
-                       double autofade_point) :
+Controller::Controller(SoundModel *playout) : 
 	isPlaying(true),
 	noteQueue(),
 	modulation(0), 
-	autofade(autofade_point),
 	modulationEventListener(NULL)
 {
 

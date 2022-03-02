@@ -29,9 +29,10 @@ typedef enum _WaveIDs {
 /*! The number of waves available in the SYNTHPI. */
 #define NUM_WAVES (int)_WaveIDs::_NUM_VOICES
 
+int verbosity = 1;
 
 /*!number of available voices*/
-int poly=8; //number of voices
+const int poly=8; //number of voices
 
 /*! operating samplerate */
 const int samplerate=48000;
@@ -39,6 +40,10 @@ const int samplerate=48000;
 /*! ID and port to connect midi keyboard to*/
 int keyboard_ID=128;
 int keyboard_port=0;
+
+double output_gain =0.2;
+
+
 
 /*! ID numbers for each of the SYNTHPI's control changes. */
 enum class ControlChanges {

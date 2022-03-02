@@ -13,6 +13,8 @@
  *
  */
 
+namespace SYNTHPI {
+
 class Controller: public Thread{
 
  protected:
@@ -58,8 +60,7 @@ class Controller: public Thread{
   //The last modulation value sent to the MIDI interface
   double modulation;
 
-  //Pedal value below which the sound model is told to fade out
-  double autofade;
+
 
   //Default gain of the SoundModel (adjusted by autofading)
   double default_output_gain;
@@ -70,11 +71,9 @@ class Controller: public Thread{
    *Creates a new controller object.
    *
    *@param playout Soundmodel to which controller passes signals.
-   *@param autofade_point If > 0, the gain the SoundModel's output gain
-   *                 is adjusted to fade to silence as the pedal reaches 0.
+   *
    */
-  Controller(SoundModel *playout,
-             double autofade_point = 0);
+  Controller(SoundModel *playout); 
 
   /**
    *Called when a controller object is destroyed.
@@ -140,5 +139,5 @@ protected:
   
 
 };
-
+}
 #endif /* CONTROLLER_H */
