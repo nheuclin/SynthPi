@@ -11,6 +11,7 @@ using namespace audio;
 SoundModelPoly::SoundModelPoly(int poly, const int samplerate, double output_gain) {
 	for (int i = 0; i < poly; i++) {
 		soundModelList.push_back(new SoundModelMono(samplerate));
+		soundModelList[i].loadBank(1, audio::SOURCE_PREGENERATED); //init synth to bank 1 
 	}
 	VoiceNo=poly;
 }

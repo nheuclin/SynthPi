@@ -19,7 +19,7 @@ class SampleSource {
         /*! Returns a buffer of samples.
         \param nSamples number of samples to be returned.
         \return a sample buffer of length nSamples. */
-        virtual std::vector<sample_t> getSamples(int nSamples) = 0;
+        virtual std::vector<sample_t> getSamples(int nSamples, float index_increment) = 0;
 
         /*! Resets the source to initial conditions. */
         virtual void reset() = 0;
@@ -27,6 +27,10 @@ class SampleSource {
         /*! Updates the status of the source. */
         virtual void updateStatus() = 0;
 
+        /*! returns number of samples in loaded clip */
+
+        virtual int getNumSamples() =0;
+        
         /*! Returns the status of the source.
         \return status code of source. */
         sampleSourceStatus_t getStatus();
@@ -37,7 +41,7 @@ class SampleSource {
 
     protected:
         /*! Status of the source. */
-        sampleSourceStatus_t status;
+        sampleSourceStatus_t Src_status;
         /*! Type of source. */
         sampleSourceType_t type;
 };
@@ -65,7 +69,7 @@ class AudioClip : public SampleSourceFile {
         /*! Returns a buffer of samples.
         \param nSamples number of samples to be returned.
         \return a sample buffer of length nSamples. */
-        std::vector<sample_t> getSamples(int nSamples) override;
+        std::vector<sample_t> getSamples(int nSamples, float index_increment) override;
 
         /*! Halts playback and returns playhead to start of clip. */
         void reset() override;
@@ -78,6 +82,11 @@ class AudioClip : public SampleSourceFile {
         errors. */
         void hardReset();
 
+        /*! returns number of samples in clip 
+        \return NumSamples */
+        int getNumSamples() override;
+
+
     private:
         /*! Loads the specified file.
         \param filepath file path of the file to load. */
@@ -88,8 +97,18 @@ class AudioClip : public SampleSourceFile {
 
         /*! Number of samples in the audio clip. */
         int numSamples;
-        /*! The number of samples of playback elapsed. */
-        int playhead;
+
+        /*! The number of "virtual" samples of playback elapsed. */
+        float playhead;
+
+        /*! The integrer part of the number of samples of playback elapsed. */
+        int int_playhead;
+
+        /*! 1-decimal part of playhead. */
+        float interpolation_val1;
+
+        /*! decimal part of playhead. */
+        float interpolation_val2;
 
 };
 

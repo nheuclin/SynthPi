@@ -2,6 +2,7 @@
 #include "waveosc.h"
 //#include "OutputAdaptor.h"
 #include "SoundModel.h"
+#include "defs.hpp"
 #include "Lock.h"
 #include <string>
 
@@ -40,7 +41,7 @@ class SoundModelMono : public SoundModel {
 		/**
 		 * @return true if note is currently on
 		 */
-		bool isPlaying();
+		bool isPlaying() override;
 
 		/**
 		 * Store samples in provided buffer.
@@ -48,7 +49,7 @@ class SoundModelMono : public SoundModel {
 		 * @param nSamples number of samples to retrieve
 		 * @return buffer of samples
 		 */
-		virtual std::vector<sample_t> getSamples(int nSamples); //override? 
+		virtual std::vector<sample_t> getSamples(int nSamples) override; //override? 
 
 
 		/**
@@ -56,8 +57,7 @@ class SoundModelMono : public SoundModel {
  		 *
  		 * @param semitone Semitone value of note (0-127)
  		 */
-		virtual void setNoteOn(int semitone); //override? 
-
+		virtual void setNoteOn(int semitone) override; 
 		/**
  		 * Stop playing a note.
  		 *
@@ -66,7 +66,7 @@ class SoundModelMono : public SoundModel {
  		 *
  		 * @param semitone Semitone value of note (0-127)
  		 */
-		virtual void setNoteOff(int semitone); //override? 
+		virtual void setNoteOff(int semitone) override; //override? 
 
 };
 

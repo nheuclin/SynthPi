@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 #include <array>
+//#include <Iir.h>
 
 #include "defs.hpp"
 #include "sampleSource.hpp"
@@ -20,8 +21,6 @@ return the number of samples requested at the right frequency !*/
 class WaveOSC{
 
 
-    /*! float value to know which waves to average !*/
-    float wavemix_val;
 
 
     public:
@@ -29,19 +28,23 @@ class WaveOSC{
         \param samplerate  Operating sample rate */
         WaveOSC(const int samplerate);
 
-        /*! sets osc frequency 
-        \param midinote Semitone value to be played (0-127) */
-        void setSemitone(int midinote);
-
-        /*! get current mix value
-        \param MIX_CC current value of mix CC control */
-        void getMixVal(int MIX_CC);
-
+        void donothing();
 
         /*! Retrieves wave samples.
         \param nSamples number of samples to return.
         \return a buffer of samples. */
         std::vector<sample_t> getSamples(int nSamples) ; //override ? don't think it's needed
+
+        /*! sets osc frequency 
+        \param midinote Semitone value to be played (0-127) */
+        void setSemitone(int midinote);
+
+        /*! get current mix value
+        \param MIX_CC current value of mix CC control
+        \return MixVal, a float which tells us which waves to average and by which amount */
+
+        float getMixVal(int MIX_CC);
+
 
         /*! Loads a bank of waves of a homogenous \ref sampleSourceType_t.
         Equivalent to calling \ref setSource for each wave with the given arguments.
@@ -63,6 +66,8 @@ class WaveOSC{
         \return source type. */
         sampleSourceType_t getSourceType(WaveID_t wave);
 
+
+
         /*! function to trigger ADSR attack stage*/
         virtual void trigAttack();
 
@@ -81,22 +86,40 @@ class WaveOSC{
         AudioLibrary library;
 
         /*! Buffer of samples to allow transfer to SoundModelMono. */
-        std::vector<sample_t> buffer;
+        std::vector<sample_t> mixBuffer;
 
-        /*! Number of samples to request from sample source to return buffer at the right frequency !*/
-        int mSamples; 
+        /*! The number of Samples in the first Wave buffer */
+        int numberOfSamples1;
+
+        /*! The number of Samples in the second Wave buffer */
+        int numberOfSamples2;
+
+        /*! value to increment wave buffer by to return the wave at the desired frequency !*/
+        float index_increment;
 
         /*! frequency to play at from midinote !*/
         float frequency; 
 
+        /*! float value to know which waves to average !*/
+        float wavemix_val;
+
+        int Wave_index;
+
+        float wave1_avg;
+        
+        float wave2_avg;
+
+
+        /*! \ref SampleSource object pointers. */
+        std::array<std::unique_ptr<SampleSource>, _NUM_WAVES> sources;
 
         //****DONTTHINK THE FOLLOWING IS NEEDED****
 
-        /*! \ref SampleSource object pointers. */
-        //std::array<std::unique_ptr<SampleSource>, NUM_WAVES> sources;
+
         /*! Switches to store whether each source is being played. */
         //std::array<bool, NUM_WAVES> isActive;
-};
+
+} //WaveOSC class
 
 } // namespace audio
 } // namespace SYNTHPI

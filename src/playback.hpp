@@ -53,7 +53,7 @@ class PlaybackEngine : public AudioCallback {
         std::vector<sample_t> buffer;
 
         /*! \ref SampleSource object pointers. */
-        std::array<std::unique_ptr<SampleSource>, NUM_DRUMS> sources;  //replace sources to pointer to soundmodelpoly ? is it needed at all ? 
+        //std::array<std::unique_ptr<SampleSource>, NUM_DRUMS> sources;  //replace sources to pointer to soundmodelpoly ? is it needed at all ? 
 
         /*! Lookup table for exponential volume control.
         Indexed as a percentage. */

@@ -1,6 +1,6 @@
 #include "waveosc.hpp"
 #include "SoundModelMono.h"
-#include "OutputAdaptor.h"
+//#include "OutputAdaptor.h"
 #include "Lock.h"
 #include <string>
 #include <iostream>
@@ -12,7 +12,8 @@ using namespace audio;
 
 SoundModelMono::SoundModelMono(const int samplerate){
   	waveosc=new WaveOSC(samplerate) {} //is that right ? 
-
+	waveosc.loadbank(1,SOURCE_PREGENERATED); //init wavetable to 1st bank
+	
 	this->noteOn = false;
 	this->currentNote = -1;
 	this->release = 0; //replace by waveosc.getRelease();
@@ -58,7 +59,7 @@ void SoundModelMono::setNoteOn(int midinote) {
 	if(noteOn == false || currentNote != midinote) {
 
 		try{
-			waveosc.setSemitone(midinote);
+			waveosc.setSemitone(midinote); //get the frequency to play at and point to the according set of wavetables 
 			waveosc.trigAttack(); //trigAttack should rettriger the envelope if it's already playing
 			noteOn = true;
 			currentNote = midinote;

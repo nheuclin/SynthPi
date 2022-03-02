@@ -6,12 +6,12 @@ using namespace SYNTHPI;
 using namespace audio;
 
 SampleSource::SampleSource() {
-    status = SOURCE_ERROR;
+    Src_status = SOURCE_ERROR;
     type = SOURCE_GENERALISED;
 }
 
 sampleSourceStatus_t SampleSource::getStatus() {
-    return status;
+    return Src_status;
 }
 
 sampleSourceType_t SampleSource::getType() {
@@ -30,41 +30,45 @@ AudioClip::AudioClip(std::string filepath) {
     reset();
 }
 
-std::vector<sample_t> AudioClip::getSamples(int nSamples) {
+std::vector<sample_t> AudioClip::getSamples(int nSamples, float index_increment) {
     std::vector<sample_t> b(nSamples);
-
-    status = SOURCE_ACTIVE;
+    Src_status == SOURCE_ACTIVE)
 
     for (int i = 0; i < nSamples; i++) {
-        if (playhead >= numSamples) { // if playhead overran the wav file samples then loop back to beginning
-        playhead = 0;
-        }
+        int_playhead=static_cast<int> (playhead);
+        interpolation_val2= playhead - int_playhead.f;
+        interpolation_val1= 1.f - interpolation_val2;
+
         // Copy samples from clip
-        b[i] = clip[playhead];
-        playhead++;
+        b[i] = (interpolation_val1*clip[int_playhead]+ interpolation_val2*clip[int_playhead+1]); //1st order interpolation
+        playhead= playhead+index_increment;
+            
+        if (playhead >= numSamples) { // if playhead overran the wav file samples then loop back to beginning 
+            playhead = index_increment- playhead + numSamples.f; //accounting that we might not want to start back at 0 exactly
+        }
     }
+
     return b;
+
 }
 
 void AudioClip::reset() {
-    playhead = 0;
+    playhead = 0.f;
     updateStatus();
 }
 
 void AudioClip::updateStatus() {
     if (clip.empty()) {
-        status = SOURCE_ERROR;
+        Src_status = SOURCE_ERROR;
         return;
     }
 
     if (playhead == 0) {
-        status = SOURCE_READY;
+        Src_status = SOURCE_READY;
     } else if (playhead >= 0 && playhead < nSamples) {
-        status = SOURCE_ACTIVE;
-    } else if (playhead >= numSamples) {
-        status = SOURCE_FINISHED;
+        Src_status = SOURCE_ACTIVE;
     } else {
-        status = SOURCE_ERROR;
+        Src_status = SOURCE_ERROR;
     }
 }
 
@@ -79,17 +83,22 @@ void AudioClip::loadFile(std::string filepath) {
     
     this->filepath = filepath;
 
-    status = SOURCE_LOADING;
+    Src_status = SOURCE_LOADING;
 
     file.shouldLogErrorsToConsole(false);
     loaded = file.load(this->filepath);
 
     if (!loaded) {
-        status = SOURCE_ERROR;
+        Src_status = SOURCE_ERROR;
         return;
     }
 
     clip = file.samples[0];
     numSamples = clip.size();
-    status = SOURCE_READY;
+    Src_status = SOURCE_READY;
+}
+
+int AudioClip::getNumSamples(){
+    int numberSamples = clip.size();
+    return numberSamples;
 }

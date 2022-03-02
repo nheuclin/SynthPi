@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.12)
 
 # Project name and version
-project(DrumPi VERSION "1.0")
+project(SYNTPI VERSION "1.0")
 
 # Project name and version macros
 add_definitions(-DPROJECT_NAME="${CMAKE_PROJECT_NAME}")
@@ -19,10 +19,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 ### OUTPUT TARGET ###
 
-add_executable(DrumPi ${PROJECT_SOURCE_DIR}/src/main.cxx)
+add_executable(SynthPi ${PROJECT_SOURCE_DIR}/src/main.cxx)
 
 # Set the output directory for executables
-set_target_properties(DrumPi PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
+set_target_properties(SYNTHPI PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
 
 
@@ -36,7 +36,7 @@ add_library(source ${SRCS})
 set_target_properties(source PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
 # Link source library to DrumPi
-target_link_libraries(DrumPi source)
+target_link_libraries(SYNTHPI source)
 
 
 
@@ -62,17 +62,17 @@ include_directories(
 )
 
 find_package (Threads)
+find_package(iir)
+target_link_libraries(Synthpi iir::iir)
 
 # Link
 target_link_libraries(library
-    cpptimer
-    wiringPi
     jack
     ${CMAKE_THREAD_LIBS_INIT}
 )
 
 # Link sum library to DrumPi
-target_link_libraries(DrumPi library)
+target_link_libraries(SYNTHPI library)
 
 
 
