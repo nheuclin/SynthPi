@@ -50,7 +50,7 @@ void Keyboard::createSequencer() {
 		fprintf(stderr, "Error opening ALSA sequencer.\n");
 		exit(1);
 	}
-	snd_seq_set_client_name(sequencer, "SMRGyGurdy");
+	snd_seq_set_client_name(sequencer, "SynthPi");
 	if ((this->myPort = snd_seq_create_simple_port(sequencer, "Default Port",
 			SND_SEQ_PORT_CAP_WRITE|SND_SEQ_PORT_CAP_SUBS_WRITE,
 			SND_SEQ_PORT_TYPE_APPLICATION)) < 0) {
