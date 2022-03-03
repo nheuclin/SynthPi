@@ -1,6 +1,6 @@
 #include "sampleSource.hpp"
 
-#include <AudioFile.h>
+#include <AudioFile.hpp>
 
 using namespace SYNTHPI;
 using namespace audio;
