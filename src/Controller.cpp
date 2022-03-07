@@ -7,6 +7,7 @@
 #include <iostream>
 
 using namespace SYNTHPI;
+using namespace audio;
 
 Controller::Controller(SoundModel *playout) :
 	isPlaying(true),
