@@ -28,6 +28,9 @@ class WaveOSC{
         \param samplerate  Operating sample rate */
         WaveOSC(const int samplerate);
 
+        /*! Destructor. */
+        ~WaveOSC();
+
         void donothing();
 
         /*! Retrieves wave samples.

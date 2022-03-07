@@ -11,8 +11,14 @@ WaveOSC::WaveOSC(const int samplerate){
     //load 1st bank
 }
 
+
+
 WaveOSC::donothing(){
     //do nothing because of weird visual studio code bug not recognising the first declared function
+}
+
+WaveOSC::~WaveOSC(){
+
 }
 
 std::vector<sample_t> WaveOsc::getSamples(int nSamples) {
