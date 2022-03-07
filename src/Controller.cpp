@@ -1,14 +1,14 @@
 #include <queue>
 #include "Controller.h"
-#include "SoundModel.h"
+#include "SoundModelPoly.h"
 #include "Lock.h"
 #include "Thread.h"
 #include <string>
 #include <iostream>
 
 using namespace SYNTHPI;
-
-Controller::Controller(SoundModel *playout) :
+using namespace audio;
+Controller::Controller(SoundModelPoly *playout) :
 	isPlaying(true),
 	noteQueue(),
 	modulation(0), 

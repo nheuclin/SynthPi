@@ -3,7 +3,7 @@
 
 #include "Thread.h"
 #include "Lock.h"
-#include "SoundModel.h"
+#include "SoundModelPoly.h"
 #include "ModulationEventListener.h"
 #include <queue>
 #include <string>
@@ -14,7 +14,7 @@
  */
 
 namespace SYNTHPI {
-
+namespace audio {
 class Controller: public Thread{
 
  protected:
@@ -42,7 +42,7 @@ class Controller: public Thread{
   Lock outputLock;
 
   //SoundModel itself.
-  SoundModel *playout;
+  SoundModelPoly *playout;
 
   //Variable for storing the current status of playout.
   bool isPlaying;
@@ -139,5 +139,6 @@ protected:
   
 
 };
+}
 }
 #endif /* CONTROLLER_H */
