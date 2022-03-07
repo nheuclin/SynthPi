@@ -1,11 +1,10 @@
 /**
- * @mainpage DrumPi
- * @brief A drum machine made for the Raspberry Pi.
- * @version 1.0
- * @authors Stuart Ball     <2260112B@student.gla.ac.uk>
- * @authors Murdo Graham    <2261517G@student.gla.ac.uk>
- * @authors Finn Quicke     <2256694Q@student.gla.ac.uk>
- * @date April 2021
+ * @mainpage SynthPi
+ * @brief A Wavetable Synthesizer made for the Raspberry Pi.
+ * @version 0.1
+ * @authors Noe Heuclin     <2332897H@student.gla.ac.uk>
+ * @authors Aaron Collins
+ * @date March 2022
  */
 #include "application.hpp"
 
