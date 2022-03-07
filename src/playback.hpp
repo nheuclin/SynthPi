@@ -8,8 +8,7 @@
 #include "SoundModel.h"
 #include "defs.hpp"
 #include "audio.hpp"
-#include "sampleSource.hpp"
-#include "audioLibrary.hpp"
+
 
 namespace SYNTHPI {
 namespace audio {
@@ -31,41 +30,13 @@ class PlaybackEngine : public AudioCallback {
         \return a buffer of samples. */
         std::vector<sample_t> getSamples(int nSamples) override;
 
-
-
-        /*! Increments the master output volume. */
-        void volumeUp();
-
-
-        /*! Decrements the master output volume. */
-        void volumeDown();
-
-
-        /*! Returns the current master volume as a percentage.
-        \return current master volume. */
-        int getVolume();
     
     private:
-        /*! Library manager for the audio sources. */
-        AudioLibrary library;
+
 
         /*! Buffer of samples to allow rapid transfer to Jack. */
         std::vector<sample_t> buffer;
 
-        /*! \ref SampleSource object pointers. */
-        //std::array<std::unique_ptr<SampleSource>, NUM_DRUMS> sources;  //replace sources to pointer to soundmodelpoly ? is it needed at all ? 
-
-        /*! Lookup table for exponential volume control.
-        Indexed as a percentage. */
-        std::array<float, 101> volumeTable;
-
-        /*! Default master volume. */
-        const int masterVolDef = 75;
-        /*! Default drum volume. */
-        const int volumeDef = 75;
-
-        /*! Step size for volume increments and decrements. */
-        const int volumeStep = 5;
 };
 
 } // namespace audio

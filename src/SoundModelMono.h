@@ -1,5 +1,5 @@
 #include "Thread.h"
-//#include "waveosc.hpp"
+#include "waveosc.hpp"
 //#include "OutputAdaptor.h"
 #include "SoundModel.h"
 #include "defs.hpp"
@@ -20,10 +20,12 @@ namespace audio {
  */
 class SoundModelMono : public SoundModel {
 
-	SoundModel* waveosc; /* instance of a wave oscillator */
-	bool noteOn;		/* True if a note is currently playing (not counting release) */
-	int  currentNote;	/* Current note being played */
-	int release;		/* Countdown for how long isPlaying should return true after note released (number of samples it'll take the adsr to get back to 0 based on sampling rate) */
+	protected:
+
+		SoundModel waveosc; /* instance of a wave oscillator */
+		bool noteOn;		/* True if a note is currently playing (not counting release) */
+		int  currentNote;	/* Current note being played */
+		int release;		/* Countdown for how long isPlaying should return true after note released (number of samples it'll take the adsr to get back to 0 based on sampling rate) */
 	
 	Lock lock; /* Main lock for all methods */
 
