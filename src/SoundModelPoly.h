@@ -80,13 +80,14 @@ class SoundModelPoly : public SoundModel {
 		 */
 		virtual bool isPlaying() override;
 
-		/**
+		/*!
 		 * Render a frame of samples of all contained models into a
 		 * buffer.
          *\param nSamples number of samples to return.
          *\return a buffer of samples. 
 		 */
-		virtual void std::vector<sample_t> getSamples(int nSamples) override;
+
+		virtual std::vector<sample_t>getSamples(int nSamples) override;
 
 		/** Thrown when empty SoundModel vector passed into constructor */
 		class NoSoundModelException {};

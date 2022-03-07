@@ -16,7 +16,7 @@ Controller::Controller(SoundModelPoly *playout) :
 {
 
 	this->playout = playout;
-	default_output_gain = playout->getOutputGain();
+	//default_output_gain = playout->getOutputGain();
 }
 
 Controller::~Controller(){

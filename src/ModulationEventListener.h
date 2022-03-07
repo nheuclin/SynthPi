@@ -6,6 +6,7 @@
 #ifndef MODULATIONEVENTLISTNER_H
 #define MODULATIONEVENTLISTNER_H
 
+namespace SYNTHPI;
 class Controller;
 
 class ModulationEventListener {
@@ -43,5 +44,5 @@ public:
    */
   virtual void modulationEventCallback(int value);
 };
-
+}
 #endif // MODULATIONEVENTLISTNER_H

@@ -3,6 +3,8 @@
 #include "Controller.h"
 #include "ModulationEventListener.h"
 
+using namespace SYNTHPI;
+
 // Register the current listener as handling modulation events.
 ModulationEventListener::ModulationEventListener(Controller *c)
   : theController(c) {
