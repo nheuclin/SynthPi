@@ -1,6 +1,6 @@
 #include <queue>
 #include "Controller.h"
-#include "SoundModelPoly.h"
+#include "SoundModel.h"
 #include "Lock.h"
 #include "Thread.h"
 #include <string>
@@ -8,7 +8,7 @@
 
 using namespace SYNTHPI;
 
-SYNTHPI::Controller::Controller(SoundModelPoly *playout) :
+Controller::Controller(SoundModel *playout) :
 	isPlaying(true),
 	noteQueue(),
 	modulation(0), 
