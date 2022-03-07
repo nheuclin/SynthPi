@@ -15,7 +15,7 @@ namespace audio {
  */
 class SoundModelPoly : public SoundModel {
 
-	protected:
+	private:
 		/*! a vector of soundmodelmono, ie a vector of the voices in synthpi */
 		std::vector<SoundModel*> soundModelList;
 
@@ -89,7 +89,7 @@ class SoundModelPoly : public SoundModel {
          *\return a buffer of samples. 
 		 */
 
-		virtual std::vector<sample_t>getSamples(int nSamples) override;
+		virtual std::vector<sample_t> getSamples(int nSamples) override;
 
 		/** Thrown when empty SoundModel vector passed into constructor */
 		class NoSoundModelException {};

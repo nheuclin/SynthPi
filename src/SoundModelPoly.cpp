@@ -1,5 +1,5 @@
-#include "SoundModelPoly.h"
 #include "SoundModelMono.h"
+#include "SoundModelPoly.h"
 #include <cstring>
 #include <vector>
 #include <algorithm>
@@ -70,18 +70,16 @@ std::vector<sample_t> getSamples(int nSamples){
     polybuffer.clear();
     polybuffer.resize(nSamples);
 
-	for(std::vector<SoundModel*>::iterator  sndModIterator = soundModelList.begin();
-	   										sndModIterator != soundModelList.end();
-	    									sndModIterator++) {
+	for(unsigned int j = 0; j<soundModelList.size(); j++) {
+		temp=soundModelList[j]->getSamples(nSamples);
 
-		temp=(*sndModIterator)->getSamples(nSamples);
-		for (i = 0; i < nSamples; i++) {
+		for (unsigned int i = 0; i < nSamples; i++) {
 			polybuffer[i] += temp[i]*master_vol;
 		}
 	}
-
 	return polybuffer;
-	
+}
+
 	// Dezipper the audio output by changing the output gain
 	// progressively along the outbut buffer length
 	//double gain_step { (double)(target_gain-gain)/bufferSize };
@@ -90,4 +88,3 @@ std::vector<sample_t> getSamples(int nSamples){
 	//	gain += gain_step;
 	//}
 	//gain = target_gain;
-}
