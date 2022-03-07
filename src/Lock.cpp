@@ -10,6 +10,8 @@
 #include <iostream>
 #include <stdio.h>
 
+using namespace SYNTHPI;
+
 Lock::Lock(){
 	//printf("lock created\n");
   lock = PTHREAD_MUTEX_INITIALIZER;

@@ -7,6 +7,7 @@
 #include <set>
 #include <alsa/asoundlib.h>
 
+
 /**
 * Provides interface for the ALSA Sequencer API.
 * The sequencer client subscribes to a USB keyboard client with a specified id

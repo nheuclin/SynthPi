@@ -6,7 +6,8 @@
 #ifndef MODULATIONEVENTLISTNER_H
 #define MODULATIONEVENTLISTNER_H
 
-namespace SYNTHPI;
+namespace SYNTHPI{
+
 class Controller;
 
 class ModulationEventListener {
