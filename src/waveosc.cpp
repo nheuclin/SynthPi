@@ -6,7 +6,7 @@
 namespace SYNTHPI;
 namespace audio;
 
-WaveOSC::WaveOSC(const int samplerate){ 
+WaveOSC::WaveOSC(){ 
     frequency =0.;
     wavemix_val = 0.;
     //load 1st bank

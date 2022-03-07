@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 #include <array>
-#include "SoundModel.h"
+#include "SoundModelMono.h"
 #include "defs.hpp"
 #include "sampleSource.hpp"
 #include "audioLibrary.hpp"
@@ -20,9 +20,8 @@ return the number of samples requested at the right frequency !*/
 class WaveOSC {
 
     public:
-        /*! Constructor. 
-        \param samplerate  Operating sample rate */
-        WaveOSC(const int samplerate);
+        /*! Constructor. */
+        WaveOSC();
 
         /*! Destructor. */
         ~WaveOSC();
