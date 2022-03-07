@@ -1,6 +1,6 @@
 // File: waveosc.hpp
-#ifndef SYNTHPI_WAVEOSC_H
-#define SYNTHPI_WAVEOSC_H
+#ifndef WAVEOSC_H
+#define WAVEOSC_H
 
 #include <vector>
 #include <memory>
@@ -139,4 +139,4 @@ class WaveOSC : public SoundModel{
 } // namespace audio
 } // namespace SYNTHPI
 
-#endif // define SYNTHPI_WAVEOSC_H
+#endif // define WAVEOSC_H

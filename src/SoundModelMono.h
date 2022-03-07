@@ -1,5 +1,5 @@
 #include "Thread.h"
-#include "waveosc.hpp"
+//#include "waveosc.hpp"
 //#include "OutputAdaptor.h"
 #include "SoundModel.h"
 #include "defs.hpp"
