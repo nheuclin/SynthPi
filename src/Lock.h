@@ -5,6 +5,7 @@
 #include <pthread.h>
 #include <sys/time.h>
 
+namespace SYNTHPI{
 
 /**
 * Adapter for handling a lock.
@@ -102,6 +103,7 @@ class TimedWaitFailException{};
  */
 class BroadcastFailException{};
 
+} 
 #endif // LOCK_H
 
 
