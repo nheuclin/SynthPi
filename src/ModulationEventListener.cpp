@@ -4,7 +4,7 @@
 #include "ModulationEventListener.h"
 
 using namespace SYNTHPI;
-
+using namespace audio;
 // Register the current listener as handling modulation events.
 ModulationEventListener::ModulationEventListener(Controller *c)
   : theController(c) {

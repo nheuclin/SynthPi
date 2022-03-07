@@ -7,7 +7,7 @@
 #define MODULATIONEVENTLISTNER_H
 
 namespace SYNTHPI{
-
+namespace audio {
 class Controller;
 
 class ModulationEventListener {
@@ -45,5 +45,6 @@ public:
    */
   virtual void modulationEventCallback(int value);
 };
+}
 }
 #endif // MODULATIONEVENTLISTNER_H
