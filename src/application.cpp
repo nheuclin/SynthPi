@@ -4,7 +4,7 @@
 #include "application.hpp"
 
 using namespace SYNTHPI;
-
+using namespace audio;
 
 //Application
 

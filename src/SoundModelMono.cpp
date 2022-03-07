@@ -12,7 +12,7 @@ using namespace audio;
 
 SoundModelMono::SoundModelMono(const int samplerate){
   	this-> waveosc = new WaveOSC(samplerate); //is that right ? 
-	waveosc.loadBank(1, SOURCE_PREGENERATED);
+	waveosc-> loadBank(1, SOURCE_PREGENERATED);
 	this->noteOn = false;
 	this->currentNote = -1;
 	this->release = 0; //replace by waveosc.getRelease();

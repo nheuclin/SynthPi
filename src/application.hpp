@@ -58,9 +58,9 @@ public:
 	/*! SoundModelPoly object. */
 	audio::SoundModelPoly mainmodel;
 
-	Controller controller;
+	audio::Controller controller;
 	
-	Keyboard keyboard;
+	audio::Keyboard keyboard;
 
 };
 
