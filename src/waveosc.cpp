@@ -1,6 +1,6 @@
 #include "waveosc.hpp"
 #include <math.h>
-
+#include <vector>
 
 namespace SYNTHPI;
 namespace audio;

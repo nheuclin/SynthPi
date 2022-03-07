@@ -5,8 +5,7 @@
 #include <vector>
 #include <memory>
 #include <array>
-//#include <Iir.h>
-
+#include "SoundModel.h"
 #include "defs.hpp"
 #include "sampleSource.hpp"
 #include "audioLibrary.hpp"
@@ -18,7 +17,7 @@ namespace audio {
 Retrieves Samples from the sample sources and mix/interpolate between them to 
 return the number of samples requested at the right frequency !*/
 
-class WaveOSC{
+class WaveOSC : public SoundModel{
 
 
 
@@ -36,7 +35,7 @@ class WaveOSC{
         /*! Retrieves wave samples.
         \param nSamples number of samples to return.
         \return a buffer of samples. */
-        std::vector<sample_t> getSamples(int nSamples) ; //override ? don't think it's needed
+        virtual std::vector<sample_t> getSamples(int nSamples) override; //override ? don't think it's needed
 
         /*! sets osc frequency 
         \param midinote Semitone value to be played (0-127) */
@@ -69,6 +68,16 @@ class WaveOSC{
         \return source type. */
         sampleSourceType_t getSourceType(WaveID_t wave);
 
+		virtual void setNoteOn(int semitone) override;
+
+		/**
+		 * Set that a note should stop playing
+		 *
+		 * This will only have an effect if the current note is playing.
+		 *
+		 * @param semitone The semitone value of the deactivated key (0-127)
+		 */
+		virtual void setNoteOff(int semitone) override;
 
 
         /*! function to trigger ADSR attack stage*/
