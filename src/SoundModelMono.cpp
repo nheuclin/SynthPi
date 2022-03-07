@@ -10,9 +10,9 @@ using namespace audio;
 
 #define RELEASE_INIT (1024*1600) //? maybe just put that to 0.
 
-SoundModelMono::SoundModelMono(const int samplerate, WaveOSC *waveosc){
-  	this-> waveosc=new WaveOSC(samplerate); //is that right ? 
-	this-> waveosc.loadbank(1,SOURCE_PREGENERATED); //init wavetable to 1st bank
+SoundModelMono::SoundModelMono(const int samplerate, WaveOSC waveosc){
+  	waveosc=new WaveOSC(samplerate); //is that right ? 
+	waveosc.loadbank(1,SOURCE_PREGENERATED); //init wavetable to 1st bank
 	
 	this->noteOn = false;
 	this->currentNote = -1;
@@ -26,7 +26,7 @@ std::vector<sample_t> SoundModelMono::getSamples(int nSamples) {
 
 	/* Allows us to render sound when in release or on state */
 	if(noteOn || release > 0) {
-		buffer= this-> waveosc.getSamples(nSamples);
+		buffer= waveosc.getSamples(nSamples);
 		release -= nSamples;
 		if(release < 0) release = 0;
 	}  
