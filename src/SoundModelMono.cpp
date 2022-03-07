@@ -10,7 +10,7 @@ using namespace audio;
 
 #define RELEASE_INIT (1024*1600) //? maybe just put that to 0.
 
-SoundModelMono::SoundModelMono(const int samplerate, WaveOSC waveosc){
+SoundModelMono::SoundModelMono(const int samplerate){
   	waveosc=new WaveOSC(samplerate); //is that right ? 
 	waveosc.loadbank(1,SOURCE_PREGENERATED); //init wavetable to 1st bank
 	
@@ -36,7 +36,7 @@ std::vector<sample_t> SoundModelMono::getSamples(int nSamples) {
 	}
 
 	lock.release();
-	return buffer
+	return buffer;
 }
 
 bool SoundModelMono::isPlaying() {
@@ -65,10 +65,10 @@ void SoundModelMono::setNoteOn(int midinote) {
 			currentNote = midinote;
 
 		} 
-		//catch (const char* e) {
+		catch (const char* e) {
 		//	std::cerr << "Midi note on (note " << midinote
 		//	          << ") out of range!" << std::endl;
-		//}
+		}
 	}
 
 	lock.release();
