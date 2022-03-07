@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <cstdio>
 
+using namespace SYNTHPI;
+
 Thread::Thread() {
 	
 	running = false;	

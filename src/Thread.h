@@ -4,6 +4,7 @@
 #ifndef THREAD_H
 #define THREAD_H
 
+namespace SYNTHPI{
 /**
  * A thread allows multiple threads of execution within the application
  *
@@ -103,5 +104,5 @@ class Thread {
 		class ThreadCreateFailedException {};
 
 };
-
+}
 #endif /* THREAD_H */

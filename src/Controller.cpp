@@ -7,8 +7,8 @@
 #include <iostream>
 
 using namespace SYNTHPI;
-using namespace audio;
-Controller::Controller(SoundModelPoly *playout) :
+
+SYNTHPI::Controller::Controller(SoundModelPoly *playout) :
 	isPlaying(true),
 	noteQueue(),
 	modulation(0), 
