@@ -49,7 +49,7 @@ class SoundModelPoly : public SoundModel {
 		 * (optional) Multiply model outputs by this to yield the
 		 * final result
 		 */
-		SoundModelPoly(const int poly, const int samplerate, double output_gain=0.2);
+		SoundModelPoly(const int poly, const int samplerate, double output_gain);
 
 		/**
 		 * Start a note playing. 
