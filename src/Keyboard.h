@@ -15,7 +15,7 @@
 * to an instance of Controller based on what it receives.
 */
 namespace SYNTHPI {
-
+namespace audio {
 class Keyboard : public Thread {
 
 	Controller* controller;
@@ -92,5 +92,6 @@ class Keyboard : public Thread {
 		virtual void run();
 
 };
+}
 }
 #endif /* KEYBOARD_H */

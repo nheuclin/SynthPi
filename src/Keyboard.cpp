@@ -9,7 +9,7 @@
 #include "defs.hpp"
 
 using namespace SYNTHPI;
-
+using namespace audio;
 Keyboard::Keyboard(Controller *controller, int keyId, int keyPort, int verbosity) :
 announce(verbosity > 0)
 {
