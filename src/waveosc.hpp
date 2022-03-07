@@ -119,7 +119,7 @@ class WaveOSC{
         /*! Switches to store whether each source is being played. */
         //std::array<bool, NUM_WAVES> isActive;
 
-} //WaveOSC class
+}; //WaveOSC class
 
 } // namespace audio
 } // namespace SYNTHPI
