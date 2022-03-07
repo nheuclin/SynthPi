@@ -52,11 +52,11 @@ public:
 	/*! AudioEngine object. */
 	std::unique_ptr<audio::JackClient> audioEngine = nullptr;
 
-	/*! PlaybackEngine object. */
-	audio::PlaybackEngine playbackEngine;
-
 	/*! SoundModelPoly object. */
 	audio::SoundModelPoly mainmodel;
+
+	/*! PlaybackEngine object. */
+	audio::PlaybackEngine playbackEngine;
 
 	audio::Controller controller;
 	
