@@ -53,14 +53,14 @@ public:
 	std::unique_ptr<audio::JackClient> audioEngine = nullptr;
 
 	/*! SoundModelPoly object. */
-	audio::SoundModelPoly mainmodel;
+	audio::SoundModelPoly *mainmodel;
 
 	/*! PlaybackEngine object. */
-	audio::PlaybackEngine playbackengine;
+	audio::PlaybackEngine *playbackengine;
 
-	audio::Controller controller;
+	audio::Controller *controller;
 	
-	audio::Keyboard keyboard;
+	audio::Keyboard *keyboard;
 
 };
 

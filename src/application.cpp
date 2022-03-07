@@ -8,10 +8,10 @@ using namespace SYNTHPI;
 //Application
 
 Application::Application() {
-	mainmodel = new SoundModelPoly(poly, samplerate, output_gain);
-	playbackengine = new PlaybackEngine(*mainmodel);
-	controller= new Controller(*mainmodel);
-	keyboard= new Keyboard(&controller, keyboard_ID, keyboard_port, verbosity);
+	mainmodel = new audio::SoundModelPoly(poly, samplerate, output_gain);
+	playbackengine = new audio::PlaybackEngine(*mainmodel);
+	controller= new audio::Controller(*mainmodel);
+	keyboard= new audio::Keyboard(&controller, keyboard_ID, keyboard_port, verbosity);
 	running = true;
 }
 
