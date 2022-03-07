@@ -52,9 +52,9 @@ public:
 	/*! AudioEngine object. */
 	std::unique_ptr<audio::JackClient> audioEngine = nullptr;
 
-	audio::SoundModelPoly *mainmodel = new audio::SoundModelPoly(poly, samplerate, output_gain);
-	audio::PlaybackEngine playbackengine = new audio::PlaybackEngine(mainmodel);
-	audio::Controller controller= new audio::Controller(mainmodel);
+	audio::SoundModelPoly mainmodel = new audio::SoundModelPoly(poly, samplerate, output_gain);
+	audio::PlaybackEngine playbackengine = new audio::PlaybackEngine(*mainmodel);
+	audio::Controller controller= new audio::Controller(*mainmodel);
 	audio::Keyboard keyboard= new audio::Keyboard(&controller, keyboard_ID, keyboard_port, verbosity);
 
 
