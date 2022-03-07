@@ -25,7 +25,7 @@ std::vector<sample_t> SoundModelMono::getSamples(int nSamples) {
 
 	/* Allows us to render sound when in release or on state */
 	if(noteOn || release > 0) {
-		buffer= waveosc -> getSamples(nSamples);
+		buffer= waveosc.getSamples(nSamples);
 		release -= nSamples;
 		if(release < 0) release = 0;
 	}  
@@ -58,8 +58,8 @@ void SoundModelMono::setNoteOn(int midinote) {
 	if(noteOn == false || currentNote != midinote) {
 
 		try{
-			waveosc -> setSemitone(midinote); //get the frequency to play at and point to the according set of wavetables 
-			waveosc-> trigAttack(); //trigAttack should rettriger the envelope if it's already playing
+			waveosc.setSemitone(midinote); //get the frequency to play at and point to the according set of wavetables 
+			waveosc.trigAttack(); //trigAttack should rettriger the envelope if it's already playing
 			noteOn = true;
 			currentNote = midinote;
 
@@ -81,8 +81,8 @@ void SoundModelMono::setNoteOff(int midinote) {
 	/* Only turn of if we're actually playing that note */
 	if(currentNote == midinote) { 
 		noteOn = false;
-		release = waveosc -> getRelease(); //return release time as a number of samples it will take for the ADSR to get back to 0 based on sampling rate
-		waveosc -> trigRelease(); //trigger ADSR release stage.
+		release = waveosc.getRelease(); //return release time as a number of samples it will take for the ADSR to get back to 0 based on sampling rate
+		waveosc.trigRelease(); //trigger ADSR release stage.
 	}
 
 	lock.release();
