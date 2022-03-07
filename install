@@ -6,4 +6,4 @@ cmake .
 
 # Run make
 echo "Running make..."
-make -j
+make 
