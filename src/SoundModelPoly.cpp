@@ -46,18 +46,18 @@ void SoundModelPoly::setNoteOff(int midinote) {
 			//position = std::find(lastSoundModel.begin(), lastSoundModel.end(), i); //does that work to get the position 
 			std::vector<int>::iterator it = std::find(lastSoundModel.begin(), lastSoundModel.end(), i);
 			position = std::distance(lastSoundModel.begin(), it);
-			lastSoundModel.erase(position);
+			lastSoundModel.erase(lastSoundModel.begin()+position);
 		}
 
 }
 
 bool SoundModelPoly::isPlaying() {
 
-	for(std::vector<SoundModel*>::iterator sndModIterator =
-	        soundModelList.begin();
-	    sndModIterator != soundModelList.end();
-	    sndModIterator++) {
-		if((*sndModIterator)->isPlaying()) return true;
+	for(unsigned int i = 0; i < soundModelList.size(); i++) {
+		if(soundModelList[i]->isPlaying()) {
+			return true;
+		}
+			
 	}
 
 	return false;
