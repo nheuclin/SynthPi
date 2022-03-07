@@ -25,7 +25,7 @@ void Application::setup() {
 
 void Application::run() {
 	// Start the audio stream
-	audioEngine->start(&playbackengine);
+	audioEngine->start(playbackengine);
 
 	while(running) {}
 
