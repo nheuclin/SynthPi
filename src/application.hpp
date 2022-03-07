@@ -50,10 +50,10 @@ public:
 	void run();
 
 
-	mainmodel = new audio::SoundModelPoly(poly, samplerate, output_gain);
-	playbackengine = new audio::PlaybackEngine(mainmodel);
-	controller= new audio::Controller(mainmodel);
-	keyboard= new audio::Keyboard(controller, keyboard_ID, keyboard_port, verbosity);
+	audio::SoundModelPoly mainmodel = new audio::SoundModelPoly(poly, samplerate, output_gain);
+	audio::PlaybackEngine playbackengine = new audio::PlaybackEngine(mainmodel);
+	audio::Controller controller= new audio::Controller(mainmodel);
+	audio::Keyboard keyboard= new audio::Keyboard(controller, keyboard_ID, keyboard_port, verbosity);
 
 
 	/*! AudioEngine object. */
