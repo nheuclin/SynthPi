@@ -35,12 +35,10 @@ class SoundModelPoly : public SoundModel {
 		int position;
 
 		/*!  */
-		float master_vol =0.2;//should it be public since it is changed by the controller ? 
+		double master_vol=0.2;//should it be public since it is changed by the controller ? 
 
 		/*!  a buffer to return the sum of voices to playback engine*/
 		std::vector<sample_t> polybuffer;
-
-		
 
 	public:
 		/**

@@ -16,6 +16,23 @@ SoundModelPoly::SoundModelPoly(const int poly, const int samplerate, double outp
 	VoiceNo=poly;
 }
 
+std::vector<sample_t> SoundModelPoly::getSamples(int nSamples){
+
+    std::vector<sample_t> temp(nSamples);
+    // Clear object polybuffer and set the size
+    polybuffer.clear();
+    polybuffer.resize(nSamples);
+
+	for(unsigned int j = 0; j<soundModelList.size(); j++) {
+		temp=soundModelList[j]->getSamples(nSamples);
+
+		for (unsigned int i = 0; i < nSamples; i++) {
+			polybuffer[i] += temp[i] * master_vol;
+		}
+	}
+	return polybuffer;
+}
+
 void SoundModelPoly::setNoteOn(int midinote) { //add note priority here
 	int active=0;
 	for(unsigned int i = 0; i < soundModelList.size(); i++)
@@ -63,22 +80,7 @@ bool SoundModelPoly::isPlaying() {
 	return false;
 }
 
-std::vector<sample_t> getSamples(int nSamples){
 
-    std::vector<sample_t> temp(nSamples);
-    // Clear object polybuffer and set the size
-    polybuffer.clear();
-    polybuffer.resize(nSamples);
-
-	for(unsigned int j = 0; j<soundModelList.size(); j++) {
-		temp=soundModelList[j]->getSamples(nSamples);
-
-		for (unsigned int i = 0; i < nSamples; i++) {
-			polybuffer[i] += temp[i]*master_vol;
-		}
-	}
-	return polybuffer;
-}
 
 	// Dezipper the audio output by changing the output gain
 	// progressively along the outbut buffer length
