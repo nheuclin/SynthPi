@@ -10,7 +10,7 @@ using namespace audio;
 
 SoundModelPoly::SoundModelPoly(const int poly, const int samplerate, double output_gain) {
 	for (int i = 0; i < poly; i++) {
-		soundModelList.push_back(new SoundModelMono(samplerate));
+		soundModelList.push_back(new SoundModelMono);
 		//soundModelList[i].loadBank(1, audio::SOURCE_PREGENERATED); //init synth to bank 1, done in soundmodelmono
 	}
 	VoiceNo=poly;
@@ -43,7 +43,9 @@ void SoundModelPoly::setNoteOff(int midinote) {
 	for(unsigned int i = 0; i < soundModelList.size(); i++)
 		if (midiNoteList[i]==midinote){
 			soundModelList[i]->setNoteOff(midinote);
-			position = std::find(lastSoundModel.begin(), lastSoundModel.end(), i); //does that work to get the position 
+			//position = std::find(lastSoundModel.begin(), lastSoundModel.end(), i); //does that work to get the position 
+			std::vector<int>::iterator it = std::find(lastSoundModel.begin(), lastSoundModel.end(), i);
+			position = std::distance(lastSoundModel.begin(), it);
 			lastSoundModel.erase(position);
 		}
 
