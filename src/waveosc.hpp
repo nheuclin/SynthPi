@@ -79,17 +79,20 @@ class WaveOSC : public SoundModel{
 		 */
 		virtual void setNoteOff(int semitone) override;
 
+        /*! returns 1 as long as ADSR still has non zero samples to output*/
+        virtual bool isPlaying() override;
+
 
         /*! function to trigger ADSR attack stage*/
-        virtual void trigAttack();
+        void trigAttack();
 
         /*!function to trigger ADSR release stage*/
-        virtual void trigRelease();
+        void trigRelease();
 
         /*!function to return the number of samples it will take for the ADSR (depedending 
         on the sample rate) to get back to 0 once the release stage is triggered 
         \return ReleaseSampleNo the number of samples it'll take for the ADSR to get back to 0 */
-        virtual int getRelease();
+        int getRelease();
 
     
 
