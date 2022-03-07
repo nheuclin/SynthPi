@@ -19,13 +19,13 @@ void Application::setup() {
 
 	// Jack client
 	audioEngine.reset(new audio::JackClient("SynthPi"));
-	controller.start();
-	keyboard.start();
+	controller->start();
+	keyboard->start();
 }	
 
 void Application::run() {
 	// Start the audio stream
-	audioEngine->start(playbackengine);
+	audioEngine->start(&playbackengine);
 
 	while(running) {}
 
