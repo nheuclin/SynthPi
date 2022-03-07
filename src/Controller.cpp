@@ -4,10 +4,11 @@
 #include "Lock.h"
 #include "Thread.h"
 #include <string>
-//#include <iostream>
+#include <iostream>
+
 using namespace SYNTHPI;
 
-Controller::Controller(SoundModel *playout) : 
+Controller::Controller(SoundModel *playout) :
 	isPlaying(true),
 	noteQueue(),
 	modulation(0), 

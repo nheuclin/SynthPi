@@ -1,6 +1,7 @@
 #ifndef SOUNDMODEL_H 
 #define SOUNDMODEL_H
 
+#include "defs.hpp"
 
 namespace SYNTHPI {
 namespace audio {
