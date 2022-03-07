@@ -16,6 +16,7 @@
 */
 namespace SYNTHPI {
 namespace audio {
+	
 class Keyboard : public Thread {
 
 	Controller* controller;

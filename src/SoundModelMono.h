@@ -20,7 +20,7 @@ namespace audio {
  */
 class SoundModelMono : public SoundModel {
 
-	WaveOSC waveosc; /* instance of a wave oscillator */
+	WaveOSC* waveosc; /* instance of a wave oscillator */
 	bool noteOn;		/* True if a note is currently playing (not counting release) */
 	int  currentNote;	/* Current note being played */
 	int release;		/* Countdown for how long isPlaying should return true after note released (number of samples it'll take the adsr to get back to 0 based on sampling rate) */
@@ -36,7 +36,7 @@ class SoundModelMono : public SoundModel {
 		 * 
 		 * @param samplerate Operating sample rate
 		 */
-		SoundModelMono(const int samplerate); 
+		SoundModelMono(const int samplerate, WaveOSC* waveosc); 
 
 		/**
 		 * @return true if note is currently on
