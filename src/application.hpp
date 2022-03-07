@@ -56,7 +56,7 @@ public:
 	audio::SoundModelPoly mainmodel;
 
 	/*! PlaybackEngine object. */
-	audio::PlaybackEngine playbackEngine;
+	audio::PlaybackEngine playbackengine;
 
 	audio::Controller controller;
 	
