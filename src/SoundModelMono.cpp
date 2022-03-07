@@ -11,7 +11,7 @@ using namespace audio;
 #define RELEASE_INIT (1024*1600) //? maybe just put that to 0.
 
 SoundModelMono::SoundModelMono(const int samplerate){
-  	waveosc=new WaveOSC(samplerate) {} //is that right ? 
+  	waveosc=new WaveOSC(samplerate); //is that right ? 
 	waveosc.loadbank(1,SOURCE_PREGENERATED); //init wavetable to 1st bank
 	
 	this->noteOn = false;
