@@ -64,7 +64,7 @@ include_directories(
 
 find_package (Threads)
 
-find_library(ASOUNDLIB_LIBRARY asoundlib HINTS /usr/include)
+find_library(ASOUNDLIB_LIBRARY asoundlib HINTS /usr/include/alsa)
 #target_link_libraries(library PUBLIC )
 
 # Link
