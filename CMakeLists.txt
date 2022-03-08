@@ -64,10 +64,13 @@ include_directories(
 
 find_package (Threads)
 
+find_library(ASOUNDLIB_LIBRARY asoundlib HINTS /usr/include)
+target_link_libraries(library PUBLIC ${ASOUNDLIB_LIBRARY})
+
 # Link
 target_link_libraries(library
     jack
-    asoundlib
+    //asoundlib
     ${CMAKE_THREAD_LIBS_INIT}
 )
 
