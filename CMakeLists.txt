@@ -45,6 +45,8 @@ target_link_libraries(SynthPi source)
 add_library(library ${PROJECT_SOURCE_DIR}/src/.dummy.cxx)
 set_target_properties(library PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
+
+add_library(asound  ${PROJECT_SOURCE_DIR}/../usr/include/alsa/asoundlib.h)
 ## Add, include and link each library subdirectory
 # For pre-compiled libraries (e.g. Jack) only linking is needed
 # Add
@@ -68,8 +70,8 @@ find_package (Threads)
 
 # Link
 target_link_libraries(library
-    alsa
-    jack 
+    jack     
+    asound
     ${CMAKE_THREAD_LIBS_INIT}
 )
 
