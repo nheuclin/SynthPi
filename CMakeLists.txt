@@ -46,7 +46,7 @@ add_library(library ${PROJECT_SOURCE_DIR}/src/.dummy.cxx)
 set_target_properties(library PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
 
-add_library(asoundlib  ${PROJECT_SOURCE_DIR}/../usr/include/alsa/)
+add_library(asoundlib.h  ${PROJECT_SOURCE_DIR}/../usr/include/alsa/)
 ## Add, include and link each library subdirector
 # For pre-compiled libraries (e.g. Jack) only linking is needed
 # Add
