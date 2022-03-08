@@ -32,11 +32,11 @@ AudioClip::AudioClip(std::string filepath) {
 
 std::vector<sample_t> AudioClip::getSamples(int nSamples, float index_increment) {
     std::vector<sample_t> b(nSamples);
-    Src_status == SOURCE_ACTIVE);
+    Src_status == SOURCE_ACTIVE;
 
     for (unsigned int i = 0; i < nSamples; i++) {
         int_playhead=static_cast<int> (playhead);
-        interpolation_val2= playhead - int_playhead.f;
+        interpolation_val2= playhead - int_playhead;
         interpolation_val1= 1.f - interpolation_val2;
 
         // Copy samples from clip
@@ -44,7 +44,7 @@ std::vector<sample_t> AudioClip::getSamples(int nSamples, float index_increment)
         playhead= playhead+index_increment;
             
         if (playhead >= numSamples) { // if playhead overran the wav file samples then loop back to beginning 
-            playhead = index_increment- playhead + numSamples.f; //accounting that we might not want to start back at 0 exactly
+            playhead = index_increment- playhead + numSamples; //accounting that we might not want to start back at 0 exactly
         }
     }
 
