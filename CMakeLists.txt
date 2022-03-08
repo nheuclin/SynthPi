@@ -51,7 +51,7 @@ set_target_properties(library PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOUR
 
 add_subdirectory(
     ${PROJECT_SOURCE_DIR}/lib/AudioFile
-    
+    ${PROJECT_SOURCE_DIR}/../usr/include/alsa
 )
 
 
@@ -59,17 +59,17 @@ add_subdirectory(
 # Include
 include_directories(
     ${PROJECT_SOURCE_DIR}/lib/AudioFile
-    
+    ${PROJECT_SOURCE_DIR}/../usr/include/alsa
 )
 
 find_package (Threads)
 
-find_library(ASOUNDLIB_LIBRARY asoundlib HINTS /usr/include/alsa)
+#find_library(ASOUNDLIB_LIBRARY asoundlib HINTS /usr/include/alsa)
 
 # Link
 target_link_libraries(library
+    asoundlib
     jack ${CMAKE_THREAD_LIBS_INIT}
-    asoundlib ${ASOUNDLIB_LIBRARY}
 )
 
 # Link sum library to SynthPi
