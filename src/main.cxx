@@ -27,14 +27,14 @@ void signalHandler(int signal) { shutdownHandler(signal); }
 int main(int argc, char* argv[]){
 
     std::cout << std::endl << PROJECT_NAME << " v" << PROJECT_VERSION << std::endl;
-    audio::SoundModelPoly *mainmodel;
+    audio::SoundModelPoly *mainmodel_ptr;
 	/*! SoundModelPoly object. */
-	mainmodel = new audio::SoundModelPoly(poly, samplerate, output_gain);
-
+	audio::SoundModelPoly mainmodel(poly, samplerate, output_gain);
+    mainmodel_ptr= &mainmodel;
 	/*! PlaybackEngine object. */
-	audio::PlaybackEngine playbackengine(mainmodel);
+	audio::PlaybackEngine playbackengine(mainmodel_ptr);
 
-	audio::Controller controller(mainmodel);
+	audio::Controller controller(mainmodel_ptr);
 	
 	audio::Keyboard keyboard(&controller, keyboard_ID, keyboard_port, verbosity);
 
