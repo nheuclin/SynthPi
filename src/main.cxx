@@ -29,13 +29,17 @@ int main(int argc, char* argv[]){
 
     std::cout << std::endl << PROJECT_NAME << " v" << PROJECT_VERSION << std::endl;
     
-    audio::SoundModelPoly *mainmodel;
-    mainmodel = new SoundModelPoly(poly,samplerate,output_gain);
+	/*! SoundModelPoly object. */
+	audio::SoundModelPoly mainmodel(poly, samplerate, output_gain);
 
-	audio::PlaybackEngine playbackengine(mainmodel);
-	audio::Controller controller(mainmodel);
+	/*! PlaybackEngine object. */
+	audio::PlaybackEngine playbackengine(*mainmodel);
+
+	audio::Controller controller(*mainmodel);
+	
 	audio::Keyboard keyboard(&controller, keyboard_ID, keyboard_port, verbosity);
-    Application app(mainmodel, playbackengine, controller, keyboard);
+
+    Application app(mainmodel,playbackengine,controller,keyboard);
 
     Application* appPtr;
     signal(SIGINT, signalHandler);
