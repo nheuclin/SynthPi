@@ -16,7 +16,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 
-
+find_package(asoundlib)
 ### OUTPUT TARGET ###
 
 add_executable(SynthPi ${PROJECT_SOURCE_DIR}/src/main.cxx)
@@ -49,13 +49,18 @@ set_target_properties(library PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOUR
 ## Add, include and link each library subdirectory
 # For pre-compiled libraries (e.g. wiringPi) only linking is needed
 # Add
+
 add_subdirectory(
     ${PROJECT_SOURCE_DIR}/lib/AudioFile
+    
 )
+
+
 
 # Include
 include_directories(
     ${PROJECT_SOURCE_DIR}/lib/AudioFile
+    ${ASOUNDLIB_INCLUDE_DIRS}
 )
 
 find_package (Threads)
@@ -64,6 +69,7 @@ find_package (Threads)
 target_link_libraries(library
     jack
     ${CMAKE_THREAD_LIBS_INIT}
+    asoundlib
 )
 
 # Link sum library to SynthPi
