@@ -7,7 +7,11 @@
  * @date March 2022
  */
 #include "application.hpp"
-
+#include "SoundModelPoly.h"
+#include "Controller.h"
+#include "Keyboard.h"
+#include "playback.hpp"
+#include
 #include <iostream>
 #include <functional>
 
@@ -24,6 +28,14 @@ void signalHandler(int signal) { shutdownHandler(signal); }
 int main(int argc, char* argv[]){
 
     std::cout << std::endl << PROJECT_NAME << " v" << PROJECT_VERSION << std::endl;
+    
+    audio::SoundModelPoly *mainmodel;
+    mainmodel = new SoundModelPoly(poly,samplerate,output_gain);
+
+	audio::PlaybackEngine playbackengine(mainmodel);
+	audio::Controller controller(mainmodel);
+	audio::Keyboard keyboard(&controller, keyboard_ID, keyboard_port, verbosity);
+    Application app(mainmodel, playbackengine, controller, keyboard);
 
     Application* appPtr;
     signal(SIGINT, signalHandler);
@@ -37,7 +49,7 @@ int main(int argc, char* argv[]){
         appPtr->running = false;
     };
 
-    Application app;
+
     appPtr = &app;
 
     app.setup();
