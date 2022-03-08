@@ -34,13 +34,13 @@ std::vector<sample_t> WaveOSC::getSamples(int nSamples) {
     numberOfSamples1=sources[Wave_index] -> getNumSamples();
     numberOfSamples2=sources[Wave_index+1] -> getNumSamples();
 
-    index_increment1= (samplerate/numberOfSamples1.f)*frequency;
-    index_increment2= (samplerate/numberOfSamples2.f)*frequency;
+    index_increment1= (samplerate/numberOfSamples1)*frequency;
+    index_increment2= (samplerate/numberOfSamples2)*frequency;
 
     temp1=sources[Wave_index] -> getSamples(nSamples,index_increment1);
     temp2=sources[Wave_index+1] -> getSamples(nSamples,index_increment2);
 
-    for (unsigned int i=0, i <nSamples, i++){
+    for (unsigned int i=0; i <nSamples; i++){
         mixBuffer[i]=  wave1_avg*temp1[i]+wave2_avg*temp2[i]; //add ADSR multiplication here
     }
 
@@ -54,7 +54,7 @@ void WaveOSC::setSemitone(int midinote) {
 }
 
 float WaveOSC::getMixVal(int MIX_CC){
-    return;
+    return wavemix_val;
 }
 
 sampleSourceStatus_t WaveOSC::loadBank(int bank, sampleSourceType_t type) {

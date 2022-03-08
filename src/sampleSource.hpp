@@ -19,7 +19,7 @@ class SampleSource {
         /*! Returns a buffer of samples.
         \param nSamples number of samples to be returned.
         \return a sample buffer of length nSamples. */
-        virtual std::vector<sample_t> getSamples(int nSamples, float index_increment) = 0;
+        virtual std::vector<sample_t> getSamples(int nSamples, double index_increment) = 0;
 
         /*! Resets the source to initial conditions. */
         virtual void reset() = 0;
