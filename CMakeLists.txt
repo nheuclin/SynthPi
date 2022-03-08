@@ -68,8 +68,9 @@ find_package (Threads)
 
 # Link
 target_link_libraries(library
-    asoundlib
-    jack ${CMAKE_THREAD_LIBS_INIT}
+    alsa
+    jack 
+    ${CMAKE_THREAD_LIBS_INIT}
 )
 
 # Link sum library to SynthPi
