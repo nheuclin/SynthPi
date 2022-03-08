@@ -6,7 +6,7 @@ killall -s SIGINT jackd
 sleep 1
 
 # Check a USB audio device is present
-cat /proc/asound/cards | grep USB > /dev/null
+cat /proc/asound/cards | grep IQaudIO > /dev/null
 # If none are, warn the user and abort the process
 if [ $? -ne 0 ]; then
     echo "Could not find a USB audio device."
@@ -14,7 +14,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Get ID of USB audio interface
-ahw_d=$(cat /proc/asound/cards | grep IQaudIO | cut -c 2)
+ahw_d=$(cat /proc/asound/cards | grep IQaudIO | cut -c 1)
 
 # Start jackd
 echo "Starting a JACK server..."
