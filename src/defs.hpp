@@ -13,6 +13,11 @@ namespace SYNTHPI {
 Used for loading audio files where the absolute path is required. */
 #define SYNTHPI_DIR PROJECT_ROOT_DIR
 
+
+/*! operating samplerate */
+const int samplerate=48000;
+
+
 /*! ID numbers for each of the SYNTHPI's waves. */
 typedef enum _WaveIDs {
     Wave_1 = 0,

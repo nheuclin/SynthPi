@@ -1,7 +1,7 @@
 #include "waveosc.hpp"
 #include <math.h>
 #include <vector>
-//#include "defs.hpp"
+#include "defs.hpp"
 
 using namespace SYNTHPI;
 using namespace audio;
@@ -52,7 +52,7 @@ void WaveOSC::trigAttack(){}
 
 void WaveOSC::trigRelease(){}
 
-void WaveOSC::getRelease(){}
+int WaveOSC::getRelease(){}
 
 
 void WaveOSC::setSemitone(int midinote) { 

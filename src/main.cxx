@@ -24,8 +24,6 @@ int verbosity = 1;
 /*!number of available voices*/
 const int poly=8; //number of voices
 
-/*! operating samplerate */
-const int samplerate=48000;
 
 /*! ID and port to connect midi keyboard to*/
 int keyboard_ID=128;
