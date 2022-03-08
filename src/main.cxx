@@ -27,9 +27,9 @@ void signalHandler(int signal) { shutdownHandler(signal); }
 int main(int argc, char* argv[]){
 
     std::cout << std::endl << PROJECT_NAME << " v" << PROJECT_VERSION << std::endl;
-    
+    audio::SoundModelPoly *mainmodel;
 	/*! SoundModelPoly object. */
-	audio::SoundModelPoly mainmodel(poly, samplerate, output_gain);
+	mainmodel = new audio::SoundModelPoly(poly, samplerate, output_gain);
 
 	/*! PlaybackEngine object. */
 	audio::PlaybackEngine playbackengine(mainmodel);
