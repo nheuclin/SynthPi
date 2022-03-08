@@ -69,7 +69,7 @@ class AudioClip : public SampleSourceFile {
         /*! Returns a buffer of samples.
         \param nSamples number of samples to be returned.
         \return a sample buffer of length nSamples. */
-        std::vector<sample_t> getSamples(int nSamples, float index_increment) override;
+        std::vector<sample_t> getSamples(int nSamples, double index_increment);
 
         /*! Halts playback and returns playhead to start of clip. */
         void reset() override;
