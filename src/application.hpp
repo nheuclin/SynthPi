@@ -58,15 +58,15 @@ public:
 
 
 
-	/*! SoundModelPoly object. */
+	/*! SoundModelPoly object. 
 	audio::SoundModelPoly *mainmodel;
-
-	/*! PlaybackEngine object. */
 	audio::PlaybackEngine playbackengine;
 
 	audio::Controller *controller;
 	
 	audio::Keyboard *keyboard;
+	 PlaybackEngine object. */
+
 
 };
 

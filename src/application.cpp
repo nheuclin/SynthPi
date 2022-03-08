@@ -8,7 +8,7 @@ using namespace SYNTHPI;
 //Application
 
 Application::Application(audio::SoundModelPoly mainmodel, audio::PlaybackEngine playbackengine, 
-						audio::Controller controller, audio::Keyboard keyboard ) {
+						audio::Controller controller, audio::Keyboard keyboard) {
 
 
 	running = true;
