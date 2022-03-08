@@ -11,10 +11,9 @@
 #include "Controller.h"
 #include "Keyboard.h"
 #include "playback.hpp"
-#include
 #include <iostream>
 #include <functional>
-
+#include <signal.h>
 using namespace SYNTHPI;
 
 /*! Wrapper for the signal handling lambda expression. */
@@ -33,9 +32,9 @@ int main(int argc, char* argv[]){
 	audio::SoundModelPoly mainmodel(poly, samplerate, output_gain);
 
 	/*! PlaybackEngine object. */
-	audio::PlaybackEngine playbackengine(*mainmodel);
+	audio::PlaybackEngine playbackengine(mainmodel);
 
-	audio::Controller controller(*mainmodel);
+	audio::Controller controller(mainmodel);
 	
 	audio::Keyboard keyboard(&controller, keyboard_ID, keyboard_port, verbosity);
 
