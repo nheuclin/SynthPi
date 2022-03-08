@@ -65,7 +65,7 @@ void AudioClip::updateStatus() {
 
     if (playhead == 0) {
         Src_status = SOURCE_READY;
-    } else if (playhead >= 0 && playhead < nSamples) {
+    } else if (playhead >= 0 && playhead < numSamples) {
         Src_status = SOURCE_ACTIVE;
     } else {
         Src_status = SOURCE_ERROR;
