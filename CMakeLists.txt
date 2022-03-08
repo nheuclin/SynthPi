@@ -45,15 +45,20 @@ target_link_libraries(SynthPi source)
 add_library(library ${PROJECT_SOURCE_DIR}/src/.dummy.cxx)
 set_target_properties(library PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
+find_package(ALSA REQUIRED)                                    
+if (ALSA_FOUND)                                                
+    include_directories(${ALSA_INCLUDE_DIRS})                  
+    target_link_libraries (library ${ALSA_LIBRARIES})      
+endif(ALSA_FOUND)  
 
-add_library(asoundlib.h  ${PROJECT_SOURCE_DIR}/../usr/include/alsa/)
+#add_library(asoundlib.h  ${PROJECT_SOURCE_DIR}/../usr/include/alsa/)
 ## Add, include and link each library subdirector
 # For pre-compiled libraries (e.g. Jack) only linking is needed
 # Add
 
 add_subdirectory(
     ${PROJECT_SOURCE_DIR}/lib/AudioFile
-    ${PROJECT_SOURCE_DIR}/../usr/include/alsa
+    #${PROJECT_SOURCE_DIR}/../usr/include/alsa
 )
 
 
@@ -61,7 +66,7 @@ add_subdirectory(
 # Include
 include_directories(
     ${PROJECT_SOURCE_DIR}/lib/AudioFile
-    ${PROJECT_SOURCE_DIR}/../usr/include/alsa
+    #${PROJECT_SOURCE_DIR}/../usr/include/alsa
 )
 
 find_package (Threads)
@@ -71,7 +76,7 @@ find_package (Threads)
 # Link
 target_link_libraries(library
     jack     
-    asoundlib
+    #asoundlib
     ${CMAKE_THREAD_LIBS_INIT}
 )
 
