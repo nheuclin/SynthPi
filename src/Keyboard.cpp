@@ -6,7 +6,7 @@
 #include "Controller.h"
 #include <set>
 #include <alsa/asoundlib.h>
-#include "defs.hpp"
+//#include "defs.hpp"
 
 using namespace SYNTHPI;
 using namespace audio;

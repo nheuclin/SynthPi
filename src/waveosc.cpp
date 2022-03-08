@@ -48,6 +48,13 @@ std::vector<sample_t> WaveOSC::getSamples(int nSamples) {
 
 }
 
+void WaveOSC::trigAttack(){}
+
+void WaveOSC::trigRelease(){}
+
+void WaveOSC::getRelease(){}
+
+
 void WaveOSC::setSemitone(int midinote) { 
     frequency = powf(2.f, (((midinote - 69.f) / 12.f ) * 440.f) );
     //set lowpass filter coeff based on frequency

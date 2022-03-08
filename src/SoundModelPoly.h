@@ -45,11 +45,11 @@ class SoundModelPoly : public SoundModel {
 		 * Create a SoundModelPoly with a given number of SoundModelMonos
 		 * @param poly The numer of monophonic sound models to create
 		 * @param samplerate Operating sample rate
-		 * @param output_gain
+		 * @param gain
 		 * (optional) Multiply model outputs by this to yield the
 		 * final result
 		 */
-		SoundModelPoly(const int poly, const int samplerate, double output_gain);
+		SoundModelPoly(const int poly, const int samplerate, double gain);
 
 		/**
 		 * Start a note playing. 

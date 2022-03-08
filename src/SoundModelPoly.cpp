@@ -8,7 +8,7 @@
 using namespace SYNTHPI;
 using namespace audio;
 
-SoundModelPoly::SoundModelPoly(const int poly, const int samplerate, double output_gain) {
+SoundModelPoly::SoundModelPoly(const int poly, const int samplerate, double gain) {
 	for (int i = 0; i < poly; i++) {
 		soundModelList.push_back(new SoundModelMono);
 		//soundModelList[i].loadBank(1, audio::SOURCE_PREGENERATED); //init synth to bank 1, done in soundmodelmono

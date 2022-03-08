@@ -19,6 +19,21 @@ using namespace SYNTHPI;
 /*! Wrapper for the signal handling lambda expression. */
 std::function<void(int)> shutdownHandler;
 
+int verbosity = 1;
+
+/*!number of available voices*/
+const int poly=8; //number of voices
+
+/*! operating samplerate */
+const int samplerate=48000;
+
+/*! ID and port to connect midi keyboard to*/
+int keyboard_ID=128;
+int keyboard_port=0;
+
+double output_gain =0.2;
+
+
 /*! Global function that can be given as a signal handler.
 Calls \ref shutdownHandler. */
 void signalHandler(int signal) { shutdownHandler(signal); }

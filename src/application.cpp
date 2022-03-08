@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "application.hpp"
-#include "defs.hpp"
+//#include "defs.hpp"
 using namespace SYNTHPI;
 
 //Application
