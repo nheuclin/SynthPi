@@ -21,7 +21,8 @@ std::vector<sample_t> WaveOSC::getSamples(int nSamples) {
     
     std::vector<sample_t> temp1(nSamples);
     std::vector<sample_t> temp2(nSamples);
-
+    double index_increment1;
+    double index_increment2;
     mixBuffer.clear();
     mixBuffer.resize(nSamples);
 
@@ -39,7 +40,7 @@ std::vector<sample_t> WaveOSC::getSamples(int nSamples) {
     temp1=sources[Wave_index] -> getSamples(nSamples,index_increment1);
     temp2=sources[Wave_index+1] -> getSamples(nSamples,index_increment2);
 
-    for (i=0, i <nSamples, i++){
+    for (unsigned int i=0, i <nSamples, i++){
         mixBuffer[i]=  wave1_avg*temp1[i]+wave2_avg*temp2[i]; //add ADSR multiplication here
     }
 

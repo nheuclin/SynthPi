@@ -30,7 +30,7 @@ AudioClip::AudioClip(std::string filepath) {
     reset();
 }
 
-std::vector<sample_t> AudioClip::getSamples(int nSamples, float index_increment) {
+std::vector<sample_t> AudioClip::getSamples(int nSamples, double index_increment) {
     std::vector<sample_t> b(nSamples);
     Src_status == SOURCE_ACTIVE;
 
