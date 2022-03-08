@@ -32,9 +32,9 @@ AudioClip::AudioClip(std::string filepath) {
 
 std::vector<sample_t> AudioClip::getSamples(int nSamples, float index_increment) {
     std::vector<sample_t> b(nSamples);
-    Src_status == SOURCE_ACTIVE)
+    Src_status == SOURCE_ACTIVE);
 
-    for (int i = 0; i < nSamples; i++) {
+    for (unsigned int i = 0; i < nSamples; i++) {
         int_playhead=static_cast<int> (playhead);
         interpolation_val2= playhead - int_playhead.f;
         interpolation_val1= 1.f - interpolation_val2;
