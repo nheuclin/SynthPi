@@ -3,8 +3,8 @@
 #include <vector>
 //#include "defs.hpp"
 
-namespace SYNTHPI;
-namespace audio;
+using namespace SYNTHPI;
+using namespace audio;
 
 WaveOSC::WaveOSC(){ 
     frequency =0.;
@@ -13,16 +13,11 @@ WaveOSC::WaveOSC(){
 }
 
 
-
-WaveOSC::donothing(){
-    //do nothing because of weird visual studio code bug not recognising the first declared function
-}
-
 WaveOSC::~WaveOSC(){
 
 }
 
-std::vector<sample_t> WaveOsc::getSamples(int nSamples) {
+std::vector<sample_t> WaveOSC::getSamples(int nSamples) {
     
     std::vector<sample_t> temp1(nSamples);
     std::vector<sample_t> temp2(nSamples);

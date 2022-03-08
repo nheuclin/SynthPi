@@ -26,8 +26,6 @@ class WaveOSC {
         /*! Destructor. */
         ~WaveOSC();
 
-        void donothing();
-
         /*! Retrieves wave samples.
         \param nSamples number of samples to return.
         \return a buffer of samples. */
