@@ -10,7 +10,10 @@ using namespace SYNTHPI;
 Application::Application(audio::SoundModelPoly mainmodel, audio::PlaybackEngine playbackengine, 
 						audio::Controller controller, audio::Keyboard keyboard) {
 
-
+	this-> model = mainmodel;
+	this-> playback = playbackengine;
+	this-> control = controller;
+	this-> key = keyboard;
 	running = true;
 }
 
@@ -18,13 +21,13 @@ void Application::setup() {
 
 	// Jack client
 	audioEngine.reset(new audio::JackClient("SynthPi"));
-	controller->start();
-	keyboard->start();
+	control->start();
+	key->start();
 }	
 
 void Application::run() {
 	// Start the audio stream
-	audioEngine->start(playbackengine);
+	audioEngine->start(playback);
 
 	while(running) {}
 
