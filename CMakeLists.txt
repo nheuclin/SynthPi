@@ -65,12 +65,11 @@ include_directories(
 find_package (Threads)
 
 find_library(ASOUNDLIB_LIBRARY asoundlib HINTS /usr/include/alsa)
-#target_link_libraries(library PUBLIC )
 
 # Link
 target_link_libraries(library
     jack ${CMAKE_THREAD_LIBS_INIT}
-    ${ASOUNDLIB_LIBRARY}
+    asoundlib ${ASOUNDLIB_LIBRARY}
 )
 
 # Link sum library to SynthPi
