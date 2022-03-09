@@ -30,8 +30,8 @@ class Application : public ApplicationCallback {
 public:
 	
 	/*! Constructor */
-	Application(audio::SoundModelPoly mainmodel, audio::PlaybackEngine playbackengine, 
-				audio::Controller controller, audio::Keyboard keyboard);
+	Application(audio::SoundModelPoly &mainmodel, audio::PlaybackEngine &playbackengine, 
+				audio::Controller &controller, audio::Keyboard &keyboard);
 
 	/*! \brief Sets up the application. 
 	 * 
@@ -59,14 +59,14 @@ public:
 
 
 	/*! SoundModelPoly object. */
-	audio::SoundModelPoly mainmodel;
+	audio::SoundModelPoly &mainmodel;
 
 	/*! PlaybackEngine object. */
-	audio::PlaybackEngine playbackengine;
+	audio::PlaybackEngine &playbackengine;
 
-	audio::Controller controller;
+	audio::Controller &controller;
 	
-	audio::Keyboard keyboard;
+	audio::Keyboard &keyboard;
 
 };
 

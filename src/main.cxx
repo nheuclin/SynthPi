@@ -19,7 +19,7 @@ using namespace SYNTHPI;
 /*! Wrapper for the signal handling lambda expression. */
 std::function<void(int)> shutdownHandler;
 
-int verbosity = 1;
+int verbosity = 0;
 
 /*!number of available voices*/
 const int poly=8; //number of voices
@@ -40,9 +40,11 @@ void signalHandler(int signal) { shutdownHandler(signal); }
 int main(int argc, char* argv[]){
 
     std::cout << std::endl << PROJECT_NAME << " v" << PROJECT_VERSION << std::endl;
+    
     audio::SoundModelPoly *mainmodel_ptr;
 	/*! SoundModelPoly object. */
 	audio::SoundModelPoly mainmodel(poly, samplerate, output_gain);
+    
     mainmodel_ptr= &mainmodel;
 	/*! PlaybackEngine object. */
 	audio::PlaybackEngine playbackengine(mainmodel_ptr);
@@ -51,10 +53,10 @@ int main(int argc, char* argv[]){
 	
 	audio::Keyboard keyboard(&controller, keyboard_ID, keyboard_port, verbosity);
 
-    Application app(mainmodel,playbackengine,controller,keyboard);
+    Application app(&mainmodel,&playbackengine,&controller,&keyboard);
 
     Application* appPtr;
-    signal(SIGINT, signalHandler);
+    //signal(SIGINT, signalHandler);
     signal(SIGQUIT, signalHandler);
     signal(SIGTERM, signalHandler);
     signal(SIGHUP, signalHandler);
