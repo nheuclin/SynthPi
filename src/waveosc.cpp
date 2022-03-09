@@ -2,7 +2,7 @@
 #include <math.h>
 #include <vector>
 #include "defs.hpp"
-
+#include <iostream>
 using namespace SYNTHPI;
 using namespace audio;
 
@@ -67,7 +67,7 @@ float WaveOSC::getMixVal(int MIX_CC){
 sampleSourceStatus_t WaveOSC::loadBank(int bank, sampleSourceType_t type) {
     sampleSourceStatus_t Src_status, retStat;
     retStat = SOURCE_READY;
-
+    int status_code =0;
     for(int i = 0; i < _NUM_WAVES; i++) {
         Src_status = setSource((WaveID_t)i, bank, type);
         if (Src_status != SOURCE_READY) retStat = Src_status;

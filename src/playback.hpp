@@ -23,7 +23,7 @@ class PlaybackEngine : public AudioCallback {
         /*! Constructor.
         *\param playout (*) address of the soundmodelpoly to pass samples to jack
         */
-        PlaybackEngine(SoundModel &playout);
+        PlaybackEngine(SoundModelPoly &playout);
 
         /*! Retrieves samples.
         \param nSamples number of samples to return.

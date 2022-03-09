@@ -49,9 +49,9 @@ int main(int argc, char* argv[]){
     
     //mainmodel_ptr= &mainmodel;
 	/*! PlaybackEngine object. */
-	audio::PlaybackEngine playbackengine(&mainmodel);
+	audio::PlaybackEngine playbackengine(mainmodel);
 
-	audio::Controller controller(mainmodel);
+	audio::Controller controller(&mainmodel);
 	
 	audio::Keyboard keyboard(&controller, keyboard_ID, keyboard_port, verbosity);
 
