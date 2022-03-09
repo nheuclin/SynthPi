@@ -56,7 +56,7 @@ int main(int argc, char* argv[]){
     Application app(mainmodel,playbackengine,controller,keyboard);
 
     Application* appPtr;
-    /*!signal(SIGINT, signalHandler);
+    signal(SIGINT, signalHandler);
     signal(SIGQUIT, signalHandler);
     signal(SIGTERM, signalHandler);
     signal(SIGHUP, signalHandler);
@@ -67,8 +67,7 @@ int main(int argc, char* argv[]){
         std::cout << "SynthPi: caught signal " << signal << std::endl;
         appPtr->running = false;
     };
-    */
-    appPtr->running = false;
+    
     appPtr = &app;
 
     app.setup();
