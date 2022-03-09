@@ -19,10 +19,10 @@ using namespace SYNTHPI;
 /*! Wrapper for the signal handling lambda expression. */
 std::function<void(int)> shutdownHandler;
 
-int verbosity = 0;
+int verbosity = 1;
 
 /*!number of available voices*/
-const int poly=8; //number of voices
+const int poly=2; //number of voices
 
 
 /*! ID and port to connect midi keyboard to*/
@@ -41,33 +41,34 @@ int main(int argc, char* argv[]){
 
     std::cout << std::endl << PROJECT_NAME << " v" << PROJECT_VERSION << std::endl;
     
-    audio::SoundModelPoly *mainmodel_ptr;
+    //audio::SoundModelPoly *mainmodel_ptr;
 	/*! SoundModelPoly object. */
 	audio::SoundModelPoly mainmodel(poly, samplerate, output_gain);
     
-    mainmodel_ptr= &mainmodel;
+    //mainmodel_ptr= &mainmodel;
 	/*! PlaybackEngine object. */
-	audio::PlaybackEngine playbackengine(mainmodel_ptr);
+	audio::PlaybackEngine playbackengine(&mainmodel);
 
-	audio::Controller controller(mainmodel_ptr);
+	audio::Controller controller(&mainmodel);
 	
 	audio::Keyboard keyboard(&controller, keyboard_ID, keyboard_port, verbosity);
 
     Application app(mainmodel,playbackengine,controller,keyboard);
 
     Application* appPtr;
-    //signal(SIGINT, signalHandler);
+    /*!signal(SIGINT, signalHandler);
     signal(SIGQUIT, signalHandler);
     signal(SIGTERM, signalHandler);
     signal(SIGHUP, signalHandler);
     signal(SIGKILL, signalHandler);
     signal(SIGTSTP, signalHandler);
+    
     shutdownHandler = [&](int signal) {
         std::cout << "SynthPi: caught signal " << signal << std::endl;
         appPtr->running = false;
     };
-
-
+    */
+    appPtr->running = false;
     appPtr = &app;
 
     app.setup();
