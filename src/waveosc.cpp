@@ -34,8 +34,8 @@ std::vector<sample_t> WaveOSC::getSamples(int nSamples) {
     numberOfSamples1=sources[Wave_index] -> getNumSamples();
     numberOfSamples2=sources[Wave_index+1] -> getNumSamples();
 
-    index_increment1= (samplerate/numberOfSamples1)*frequency;
-    index_increment2= (samplerate/numberOfSamples2)*frequency;
+    index_increment1= (numberOfSamples1/samplerate)*frequency;
+    index_increment2= (numberOfSamples2/samplerate)*frequency;
 
     temp1=sources[Wave_index] -> getSamples(nSamples,index_increment1);
     temp2=sources[Wave_index+1] -> getSamples(nSamples,index_increment2);
