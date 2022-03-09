@@ -22,7 +22,7 @@ SoundModelMono::SoundModelMono() {
 std::vector<sample_t> SoundModelMono::getSamples(int nSamples) {
 	std::vector<sample_t> buffer;
 	lock.acquire();
-	std::cout <<"smm playback called" << std::endl;
+	//std::cout <<"smm playback called" << std::endl;
 	/* Allows us to render sound when in release or on state */
 	if(noteOn || release > 0) {
 		buffer= waveosc.getSamples(nSamples);
