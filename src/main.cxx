@@ -53,7 +53,7 @@ int main(int argc, char* argv[]){
 	
 	audio::Keyboard keyboard(&controller, keyboard_ID, keyboard_port, verbosity);
 
-    Application app(&mainmodel,&playbackengine,&controller,&keyboard);
+    Application app(mainmodel,playbackengine,controller,keyboard);
 
     Application* appPtr;
     //signal(SIGINT, signalHandler);
