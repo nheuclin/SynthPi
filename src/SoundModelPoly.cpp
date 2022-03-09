@@ -3,7 +3,7 @@
 #include <cstring>
 #include <vector>
 #include <algorithm>
-//#include <iostream>
+#include <iostream>
 
 using namespace SYNTHPI;
 using namespace audio;
@@ -14,6 +14,7 @@ SoundModelPoly::SoundModelPoly(const int poly, const int samplerate, double gain
 		//soundModelList[i].loadBank(1, audio::SOURCE_PREGENERATED); //init synth to bank 1, done in soundmodelmono
 	}
 	VoiceNo=poly;
+	std::cout << "SMP created" << std::endl;
 }
 
 std::vector<sample_t> SoundModelPoly::getSamples(int nSamples){

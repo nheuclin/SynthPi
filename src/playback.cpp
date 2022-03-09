@@ -6,7 +6,9 @@ using namespace SYNTHPI;
 using namespace audio;
 
     
-PlaybackEngine::PlaybackEngine(SoundModel *playout) {}
+PlaybackEngine::PlaybackEngine(SoundModelPoly &playout):
+    playout(playout)
+{}
 
 std::vector<sample_t> PlaybackEngine::getSamples(int nSamples) {
     // Create temporary buffer for source returns
@@ -17,6 +19,6 @@ std::vector<sample_t> PlaybackEngine::getSamples(int nSamples) {
     buffer.resize(nSamples);
 
     //just call getSamples from the soundmodelpoly instance.
-    
+    buffer = playout.getSamples(nSamples);
     return buffer;
 }

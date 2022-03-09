@@ -71,6 +71,10 @@ sampleSourceStatus_t WaveOSC::loadBank(int bank, sampleSourceType_t type) {
     for(int i = 0; i < _NUM_WAVES; i++) {
         Src_status = setSource((WaveID_t)i, bank, type);
         if (Src_status != SOURCE_READY) retStat = Src_status;
+        if (Src_status == SOURCE_READY){
+            status_code =2;
+        }
+        std::cout << "waveosc source status  " << status_code << std::endl;    
     }
 
     return retStat;

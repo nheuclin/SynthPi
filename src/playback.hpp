@@ -8,7 +8,7 @@
 #include "SoundModel.h"
 #include "defs.hpp"
 #include "audio.hpp"
-
+#include "SoundModelPoly.h"
 
 namespace SYNTHPI {
 namespace audio {
@@ -23,7 +23,7 @@ class PlaybackEngine : public AudioCallback {
         /*! Constructor.
         *\param playout (*) address of the soundmodelpoly to pass samples to jack
         */
-        PlaybackEngine(SoundModel *playout);
+        PlaybackEngine(SoundModel &playout);
 
         /*! Retrieves samples.
         \param nSamples number of samples to return.
@@ -33,7 +33,7 @@ class PlaybackEngine : public AudioCallback {
     
     private:
 
-
+        SoundModelPoly &playout;
         /*! Buffer of samples to allow rapid transfer to Jack. */
         std::vector<sample_t> buffer;
 
