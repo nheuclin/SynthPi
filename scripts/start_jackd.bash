@@ -14,7 +14,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Get ID of USB audio interface
-ahw_d=$(cat /proc/asound/cards | grep IQaudIO | cut -c 1)
+ahw_d=$(cat /proc/asound/cards | grep IQaudIO | cut -c 2)
 
 # Start jackd
 echo "Starting a JACK server..."
@@ -23,4 +23,4 @@ jackd -P70 -t2000 -dalsa -dhw:$ahw_d -p128 -n3 -r48000 -s &
 sleep 2
 echo "JACK server started."
 
-aconnect -i
+#cat /proc/asound/seq/clients

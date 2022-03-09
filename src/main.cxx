@@ -26,7 +26,7 @@ const int poly=8; //number of voices
 
 
 /*! ID and port to connect midi keyboard to*/
-int keyboard_ID=128;
+int keyboard_ID=28;
 int keyboard_port=0;
 
 double output_gain =0.2;
