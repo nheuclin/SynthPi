@@ -55,6 +55,11 @@
         "thread": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "condition_variable": "cpp",
+        "csignal": "cpp",
+        "map": "cpp",
+        "iomanip": "cpp",
+        "mutex": "cpp"
     }
 }

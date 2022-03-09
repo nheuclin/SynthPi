@@ -56,7 +56,7 @@ void SoundModelMono::setNoteOn(int midinote) {
 	lock.acquire();
 
 	if(noteOn == false || currentNote != midinote) {
-
+		std::cout << "note on " << midinote << std::endl;
 		try{
 			waveosc.setSemitone(midinote); //get the frequency to play at and point to the according set of wavetables 
 			waveosc.trigAttack(); //trigAttack should rettriger the envelope if it's already playing
