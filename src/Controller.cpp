@@ -37,10 +37,12 @@ void Controller::run(){
 			//Acquire lock on noteQueue before reading and popping all notes from it.
 		
 			while(!noteQueue.empty()){
-				if(noteQueue.front().noteOff)
+				if(noteQueue.front().noteOff){
 					playout->setNoteOff(noteQueue.front().note);
-				else
+				}
+				else{
 					playout->setNoteOn(noteQueue.front().note);
+				}
 				noteQueue.pop();
 			}
 		

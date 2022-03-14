@@ -90,9 +90,9 @@ void Keyboard::connectKeyboard()
 
 void Keyboard::noteOn(unsigned char note,  unsigned char velocity) {
 	//  Send a note off if already sounding
-	if (deferred_noteoff.find(note) !=  deferred_noteoff.end())
+	if (deferred_noteoff.find(note) !=  deferred_noteoff.end()){
 		controller->keyEvent(true, note);
-	
+	}
 	//  sound the note (velocity is ignored)
 	controller->keyEvent(false, note);
 	

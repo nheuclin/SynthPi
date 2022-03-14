@@ -7,35 +7,37 @@ using namespace SYNTHPI;
 using namespace audio;
 
 WaveOSC::WaveOSC(){ 
-    frequency =0.;
-    wavemix_val = 0.;
+    this-> frequency =0.;
+    this-> wavemix_val = 0.;
+    this-> sampleratef=static_cast<float> (samplerate);
     //load 1st bank
 }
 
 
-WaveOSC::~WaveOSC(){
-
-}
+WaveOSC::~WaveOSC(){}
 
 std::vector<sample_t> WaveOSC::getSamples(int nSamples) {
     
+
     std::vector<sample_t> temp1(nSamples);
     std::vector<sample_t> temp2(nSamples);
-    double index_increment1;
-    double index_increment2;
+
     mixBuffer.clear();
     mixBuffer.resize(nSamples);
 
     //wavemix_val = getMixVal(); CCs not implemented yet
     Wave_index=static_cast<int> (wavemix_val);
     wave1_avg=wavemix_val-Wave_index;
-    wave2_avg=1.f-wave1_avg;
+    wave2_avg=1.0-wave1_avg;
 
     numberOfSamples1=sources[Wave_index] -> getNumSamples();
     numberOfSamples2=sources[Wave_index+1] -> getNumSamples();
 
-    index_increment1= (numberOfSamples1/samplerate)*frequency;
-    index_increment2= (numberOfSamples2/samplerate)*frequency;
+    float nsamplef1=static_cast<float> (numberOfSamples1);
+    float nsamplef2=static_cast<float> (numberOfSamples2);
+    
+    index_increment1=(nsamplef1/sampleratef)*frequency;
+    index_increment2=(nsamplef2/sampleratef)*frequency;
 
     temp1=sources[Wave_index] -> getSamples(nSamples,index_increment1);
     temp2=sources[Wave_index+1] -> getSamples(nSamples,index_increment2);
@@ -56,8 +58,8 @@ int WaveOSC::getRelease(){}
 
 
 void WaveOSC::setSemitone(int midinote) { 
-    frequency = powf(2.f, (((midinote - 69.f) / 12.f ) * 440.f) );
-    //set lowpass filter coeff based on frequency
+    midinotef= static_cast<float> (midinote);
+    frequency = 440.0*powf(2.0,((midinotef-69.0)/12.0)); //converts midinote to frequency
 }
 
 float WaveOSC::getMixVal(int MIX_CC){
@@ -67,14 +69,12 @@ float WaveOSC::getMixVal(int MIX_CC){
 sampleSourceStatus_t WaveOSC::loadBank(int bank, sampleSourceType_t type) {
     sampleSourceStatus_t Src_status, retStat;
     retStat = SOURCE_READY;
-    int status_code =0;
+ 
     for(int i = 0; i < _NUM_WAVES; i++) {
         Src_status = setSource((WaveID_t)i, bank, type);
         if (Src_status != SOURCE_READY) retStat = Src_status;
         if (Src_status == SOURCE_READY){
-            status_code =2;
         }
-        std::cout << "waveosc source status  " << status_code << std::endl;    
     }
 
     return retStat;

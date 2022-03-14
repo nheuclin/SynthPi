@@ -11,8 +11,6 @@ PlaybackEngine::PlaybackEngine(SoundModelPoly &playout):
 {}
 
 std::vector<sample_t> PlaybackEngine::getSamples(int nSamples) {
-    // Create temporary buffer for source returns
-    std::vector<sample_t> temp(nSamples);
 
     // Clear object buffer and set the size
     buffer.clear();
@@ -20,5 +18,8 @@ std::vector<sample_t> PlaybackEngine::getSamples(int nSamples) {
 
     //just call getSamples from the soundmodelpoly instance.
     buffer = playout.getSamples(nSamples);
+    for (unsigned int i = 0; i<nSamples; i++){
+        buffer[i]=buffer[i]*0.3;
+    }   
     return buffer;
 }

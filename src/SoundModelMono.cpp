@@ -16,22 +16,25 @@ SoundModelMono::SoundModelMono() {
 	this->noteOn = false;
 	this->currentNote = -1;
 	this->release = 0; //replace by waveosc.getRelease();
-	std::cout << "SMM created " << std::endl;
+	//std::cout << "SMM created " << std::endl;
 }
 
 std::vector<sample_t> SoundModelMono::getSamples(int nSamples) {
-	std::vector<sample_t> buffer;
+	
+	std::vector<sample_t> buffer(nSamples);
 	lock.acquire();
-	//std::cout <<"smm playback called" << std::endl;
+	
+	if (noteOn==false){
+		
+		for (unsigned int i = 0; i<nSamples; i++){
+			buffer[i]=0.;
+		}
+	}
 	/* Allows us to render sound when in release or on state */
-	if(noteOn || release > 0) {
+	if(noteOn==true ) { //  || release > 0
 		buffer= waveosc.getSamples(nSamples);
 		release -= nSamples;
 		if(release < 0) release = 0;
-	}  
-	else {
-            std::fill(buffer.begin(), buffer.end(), 0); //might just get rid of that if the ADSR returns 0 when called and not in any states
-		/* This is negligable in terms of time compared to rendering the sound */
 	}
 
 	lock.release();
@@ -56,22 +59,16 @@ void SoundModelMono::setNoteOn(int midinote) {
 	lock.acquire();
 
 	if(noteOn == false || currentNote != midinote) {
-		std::cout << "note on " << midinote << std::endl;
+
 		try{
 			waveosc.setSemitone(midinote); //get the frequency to play at and point to the according set of wavetables 
-			waveosc.trigAttack(); //trigAttack should rettriger the envelope if it's already playing
-			noteOn = true;
+			//waveosc.trigAttack(); //trigAttack should rettriger the envelope if it's already playing
+			this-> noteOn = true;
 			currentNote = midinote;
-
 		} 
-		catch (const char* e) {
-		//	std::cerr << "Midi note on (note " << midinote
-		//	          << ") out of range!" << std::endl;
-		}
+		catch (const char* e) {}
 	}
-
 	lock.release();
-
 }
 
 void SoundModelMono::setNoteOff(int midinote) { 
@@ -80,11 +77,13 @@ void SoundModelMono::setNoteOff(int midinote) {
 
 	/* Only turn of if we're actually playing that note */
 	if(currentNote == midinote) { 
-		noteOn = false;
-		release = waveosc.getRelease(); //return release time as a number of samples it will take for the ADSR to get back to 0 based on sampling rate
-		waveosc.trigRelease(); //trigger ADSR release stage.
+		try{
+			this-> noteOn = false;
+			//currentNote = -1;
+			//release = waveosc.getRelease(); //return release time as a number of samples it will take for the ADSR to get back to 0 based on sampling rate
+			//waveosc.trigRelease(); //trigger ADSR release stage.
+		}
+		catch (const char* e) {}
 	}
-
 	lock.release();
-
 }

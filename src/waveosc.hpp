@@ -95,14 +95,18 @@ class WaveOSC {
         float frequency; 
 
         /*! float value to know which waves to average !*/
-        float wavemix_val;
+        float wavemix_val=0.0;
 
-        int Wave_index;
+        int Wave_index=0;
 
-        float wave1_avg;
+        float wave1_avg=0.5;
         
-        float wave2_avg;
+        float wave2_avg=0.5;
 
+        float index_increment1=1.0;
+        float index_increment2=1.0;
+
+        float midinotef;
 
         /*! \ref SampleSource object pointers. */
         std::array<std::unique_ptr<SampleSource>, _NUM_WAVES> sources;

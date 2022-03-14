@@ -14,13 +14,16 @@ SoundModelPoly::SoundModelPoly(const int poly, const int samplerate, double gain
 		//soundModelList[i].loadBank(1, audio::SOURCE_PREGENERATED); //init synth to bank 1, done in soundmodelmono
 	}
 	VoiceNo=poly;
+	midiNoteList.resize(VoiceNo);
+	lastSoundModel.resize(VoiceNo);
 	std::cout << "SMP created" << std::endl;
 }
 
 std::vector<sample_t> SoundModelPoly::getSamples(int nSamples){
 
     std::vector<sample_t> temp(nSamples);
-    // Clear object polybuffer and set the size
+    
+	// Clear object polybuffer and set the size
     polybuffer.clear();
     polybuffer.resize(nSamples);
 
@@ -28,7 +31,7 @@ std::vector<sample_t> SoundModelPoly::getSamples(int nSamples){
 		temp=soundModelList[j]->getSamples(nSamples);
 
 		for (unsigned int i = 0; i < nSamples; i++) {
-			polybuffer[i] += temp[i] * master_vol;
+			polybuffer[i] += temp[i] * 0.3;
 		}
 	}
 	return polybuffer;
@@ -36,6 +39,7 @@ std::vector<sample_t> SoundModelPoly::getSamples(int nSamples){
 
 void SoundModelPoly::setNoteOn(int midinote) { //add note priority here
 	int active=0;
+	
 	for(unsigned int i = 0; i < soundModelList.size(); i++)
 		if (soundModelList[i]->isPlaying()){
 			active++;
@@ -47,37 +51,35 @@ void SoundModelPoly::setNoteOn(int midinote) { //add note priority here
 	}
 
 	for(unsigned int i = 0; i < soundModelList.size(); i++)		
-		if(!(soundModelList[i]->isPlaying())) {
+		
+		if(soundModelList[i]->isPlaying()==false) {
 			soundModelList[i]->setNoteOn(midinote);
 			midiNoteList[i]=midinote;
 			lastSoundModel.push_back(i);
-
-			return;
 		}
+	}
+	return;
 }
 
 void SoundModelPoly::setNoteOff(int midinote) {
 
-	for(unsigned int i = 0; i < soundModelList.size(); i++)
+	for(unsigned int i = 0; i < midiNoteList.size(); i++){
 		if (midiNoteList[i]==midinote){
+			
 			soundModelList[i]->setNoteOff(midinote);
-			//position = std::find(lastSoundModel.begin(), lastSoundModel.end(), i); //does that work to get the position 
 			std::vector<int>::iterator it = std::find(lastSoundModel.begin(), lastSoundModel.end(), i);
 			position = std::distance(lastSoundModel.begin(), it);
 			lastSoundModel.erase(lastSoundModel.begin()+position);
 		}
-
+	}
 }
 
 bool SoundModelPoly::isPlaying() {
-
 	for(unsigned int i = 0; i < soundModelList.size(); i++) {
 		if(soundModelList[i]->isPlaying()) {
 			return true;
-		}
-			
+		}			
 	}
-
 	return false;
 }
 

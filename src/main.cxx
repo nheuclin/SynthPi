@@ -23,7 +23,7 @@ std::function<void(int)> shutdownHandler;
 int verbosity = 1;
 
 /*!number of available voices*/
-const int poly=1; //number of voices
+const int poly=6; //number of voices
 
 
 /*! ID and port to connect midi keyboard to*/
@@ -43,22 +43,17 @@ int main(int argc, char* argv[]){
     std::cout << std::endl << PROJECT_NAME << " v" << PROJECT_VERSION << std::endl;
    
     audio::JackClient audioEngine("SynthPi");
-    //audio::SoundModelPoly *mainmodel_ptr;
+    
 	/*! SoundModelPoly object. */
 	audio::SoundModelPoly mainmodel(poly, samplerate, output_gain);
     
-    //mainmodel_ptr= &mainmodel;
 	/*! PlaybackEngine object. */
 	audio::PlaybackEngine playbackengine(mainmodel);
 
 	audio::Controller controller(&mainmodel);
 	
 	audio::Keyboard keyboard(&controller, keyboard_ID, keyboard_port, verbosity);
-
-    //Application app(mainmodel,playbackengine,controller,keyboard);
-
-    //Application* appPtr;
-    //signal(SIGINT, signalHandler);
+    
     signal(SIGQUIT, signalHandler);
     signal(SIGTERM, signalHandler);
     signal(SIGHUP, signalHandler);
@@ -66,25 +61,20 @@ int main(int argc, char* argv[]){
     signal(SIGTSTP, signalHandler);
 
     bool running = true;   
+    
     shutdownHandler = [&](int signal) {
         std::cout << "SynthPi: caught signal " << signal << std::endl;
         running = false;
-        //appPtr->running = false;
+
     };
     
-	//controller.run();
-	//keyboard.run();
-
+	controller.start();
+	keyboard.start();
     audioEngine.start(playbackengine);
 
 	while(running) {}
 
 	audioEngine.stop();
-
-    //appPtr = &app;
-
-    //app.setup();
-    //app.run();
 
     return 0;
 }
