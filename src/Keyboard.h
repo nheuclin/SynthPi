@@ -31,7 +31,7 @@ class Keyboard : public Thread {
 	*  because the sustain pedal is pressed.
 	*/
 	keyset deferred_noteoff;
-	bool sustain; /**< whether sustain pedal is depressed */
+	bool sustain=false; /**< whether sustain pedal is depressed */
 	
 	/**
      * Send a MIDI note on event,  taking the sustain pedal into account
