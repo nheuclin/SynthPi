@@ -20,10 +20,10 @@ using namespace SYNTHPI;
 /*! Wrapper for the signal handling lambda expression. */
 std::function<void(int)> shutdownHandler;
 
-int verbosity = 1;
+int verbosity = 0;
 
 /*!number of available voices*/
-const int poly=6; //number of voices
+const int poly=12; //number of voices
 
 
 /*! ID and port to connect midi keyboard to*/
