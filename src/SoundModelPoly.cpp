@@ -48,6 +48,7 @@ void SoundModelPoly::setNoteOn(int midinote) { //add note priority here
 	if (active==VoiceNo){ //if all voices are playing reset the oldest voice to the new note
 		soundModelList[lastSoundModel[0]]->setNoteOn(midinote);
 		midiNoteList[lastSoundModel[0]]=midinote;
+		return;
 	}
 
 	for(unsigned int i = 0; i < soundModelList.size(); i++){
@@ -56,6 +57,7 @@ void SoundModelPoly::setNoteOn(int midinote) { //add note priority here
 			soundModelList[i]->setNoteOn(midinote);
 			midiNoteList[i]=midinote;
 			lastSoundModel.push_back(i);
+			return;
 		}
 	}
 	return;

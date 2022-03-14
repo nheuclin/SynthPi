@@ -37,9 +37,10 @@ std::vector<sample_t> AudioClip::getSamples(int nSamples, double index_increment
     Src_status == SOURCE_ACTIVE;
 
     for (unsigned int i = 0; i < nSamples; i++) {
-        if (playhead >= numSamples) { // if playhead overran the wav file samples then loop back to beginning 
+        if (playhead > numSamples-1) { // if playhead overran the wav file samples then loop back to beginning 
             //std::cout << "playhead overrun if statement" << std::endl;
-            playhead = index_increment- playhead + numSamples; //accounting that we might not want to start back at 0 exactly
+            playhead =  playhead-static_cast<float>(numSamples-1); //accounting that we might not want to start back at 0 exactly
+
         }
 
         int_playhead=static_cast<int> (playhead);
@@ -47,16 +48,14 @@ std::vector<sample_t> AudioClip::getSamples(int nSamples, double index_increment
         interpolation_val1= 1.0 - interpolation_val2;
 
         
-/*         if (int_playhead >= numSamples){
-            int_playhead=0;
+
+        // Copy samples from clip 
+        if (int_playhead+1==numSamples){
+            b[i] = (interpolation_val1*clip[int_playhead]+ interpolation_val2*clip[0]); 
         }
-
-        b[i]=clip[int_playhead];
-        int_playhead++;
-        std::cout << b[i]; */
-
-        // Copy samples from clip   
-        b[i] = (interpolation_val1*clip[int_playhead]+ interpolation_val2*clip[int_playhead+1]); //1st order interpolation
+        else {
+            b[i] = (interpolation_val1*clip[int_playhead]+ interpolation_val2*clip[int_playhead+1]); //1st order interpolation
+        }
         playhead= playhead+index_increment;
         //std::cout << b[i];
 

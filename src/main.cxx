@@ -23,14 +23,14 @@ std::function<void(int)> shutdownHandler;
 int verbosity = 0;
 
 /*!number of available voices*/
-const int poly=12; //number of voices
+const int poly=6; //number of voices
 
 
 /*! ID and port to connect midi keyboard to*/
 int keyboard_ID=28;
 int keyboard_port=0;
 
-double output_gain =0.2;
+double output_gain =0.5;
 
 
 /*! Global function that can be given as a signal handler.
