@@ -50,7 +50,7 @@ void SoundModelPoly::setNoteOn(int midinote) { //add note priority here
 		midiNoteList[lastSoundModel[0]]=midinote;
 	}
 
-	for(unsigned int i = 0; i < soundModelList.size(); i++)		
+	for(unsigned int i = 0; i < soundModelList.size(); i++){
 		
 		if(soundModelList[i]->isPlaying()==false) {
 			soundModelList[i]->setNoteOn(midinote);
