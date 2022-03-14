@@ -105,7 +105,7 @@ class WaveOSC {
 
         float index_increment1=1.0;
         float index_increment2=1.0;
-
+        float sampleratef;
         float midinotef;
 
         /*! \ref SampleSource object pointers. */
