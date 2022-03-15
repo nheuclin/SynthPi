@@ -6,11 +6,10 @@
  * @authors Aaron Collins
  * @date March 2022
  */
-#include "application.hpp"
+
 #include "SoundModelPoly.h"
 #include "Controller.h"
 #include "Keyboard.h"
-#include "playback.hpp"
 #include "audio.hpp"
 #include <iostream>
 #include <functional>
