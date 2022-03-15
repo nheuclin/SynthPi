@@ -75,7 +75,7 @@ void SoundModelPoly::setNoteOff(int midinote) {
 			return;
 		}
 	}
-	return;
+	//return;
 }
 
 bool SoundModelPoly::isPlaying() {
