@@ -60,7 +60,7 @@ JackClient::~JackClient() {
     if (open) jack_client_close(client);
 }
 
-audioError_t JackClient::start(AudioCallback& callback) {
+audioError_t JackClient::start(SoundModelPoly& callback) {
     // Establish if any errors occurred in setup routine (in constructor)
     if (errorStatus != NO_ERROR) {
         return errorStatus;

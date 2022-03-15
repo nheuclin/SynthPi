@@ -46,9 +46,6 @@ int main(int argc, char* argv[]){
     
 	/*! SoundModelPoly object. */
 	audio::SoundModelPoly mainmodel(poly, samplerate, output_gain);
-    
-	/*! PlaybackEngine object. */
-	audio::PlaybackEngine playbackengine(mainmodel);
 
 	audio::Controller controller(&mainmodel);
 	
@@ -70,7 +67,7 @@ int main(int argc, char* argv[]){
     
 	controller.start();
 	keyboard.start();
-    audioEngine.start(playbackengine);
+    audioEngine.start(mainmodel);
 
 	while(running) {}
 

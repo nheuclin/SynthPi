@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 #include <memory>
-
+#include <SoundModelPoly.h>
 #include <jack/jack.h>
 
 #include "defs.hpp"
@@ -13,15 +13,6 @@
 namespace SYNTHPI {
 namespace audio {
 
-/*! Abstract sample retieval callback class. */
-class AudioCallback {
-    public:
-        /*! Called by a \ref JackClient object when samples are requested by
-        Jack.
-        \param nSamples the number of samples requested.
-        \return a vector of samples, of type \ref sample_t (`float`) */
-        virtual std::vector<sample_t> getSamples(int nSamples) = 0;
-};
 
 /*! Audio engine class for interacting with the Jack server. */
 class JackClient {
@@ -40,7 +31,7 @@ class JackClient {
         /*! Informs Jack that the program is ready to go.
         \param callback \ref AudioCallback object to fetch output samples from.
         \return error code. */
-        audioError_t start(AudioCallback& callback);
+        audioError_t start(SoundModelPoly& callback);
 
         /*! Stops the Jack engine.
         \param closeClient whether to close the Jack client or just deactivate 
@@ -71,7 +62,7 @@ class JackClient {
     private:
         /*! Pointer to the \ref AudioCallback object that fetches output
         samples. */
-        AudioCallback* callback;
+        SoundModelPoly* callback;
 
         /*! Sets the number of Jack ports.
         \param nOutPorts number of output ports.
