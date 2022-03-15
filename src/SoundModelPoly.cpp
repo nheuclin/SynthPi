@@ -72,8 +72,10 @@ void SoundModelPoly::setNoteOff(int midinote) {
 			std::vector<int>::iterator it = std::find(lastSoundModel.begin(), lastSoundModel.end(), i);
 			position = std::distance(lastSoundModel.begin(), it);
 			lastSoundModel.erase(lastSoundModel.begin()+position);
+			return;
 		}
 	}
+	return;
 }
 
 bool SoundModelPoly::isPlaying() {
