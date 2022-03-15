@@ -10,7 +10,7 @@ WaveOSC::WaveOSC(){
     this-> frequency =0.;
     this-> wavemix_val = 0.;
     this-> sampleratef=static_cast<float> (samplerate);
-    //load 1st bank
+    this-> numberSamples_bySR.resize(_NUM_WAVES);
 }
 
 
@@ -30,14 +30,8 @@ std::vector<sample_t> WaveOSC::getSamples(int nSamples) {
     wave1_avg=wavemix_val-Wave_index;
     wave2_avg=1.0-wave1_avg;
 
-    numberOfSamples1=sources[Wave_index] -> getNumSamples();
-    numberOfSamples2=sources[Wave_index+1] -> getNumSamples();
-
-    float nsamplef1=static_cast<float> (numberOfSamples1);
-    float nsamplef2=static_cast<float> (numberOfSamples2);
-    
-    index_increment1=(nsamplef1/sampleratef)*frequency;
-    index_increment2=(nsamplef2/sampleratef)*frequency;
+    index_increment1=numberSamples_bySR[Wave_index]*frequency;
+    index_increment2=numberSamples_bySR[Wave_index+1]*frequency;
 
     temp1=sources[Wave_index] -> getSamples(nSamples,index_increment1);
     temp2=sources[Wave_index+1] -> getSamples(nSamples,index_increment2);
@@ -92,6 +86,7 @@ sampleSourceStatus_t WaveOSC::setSource(WaveID_t wave, int bank, sampleSourceTyp
         case SOURCE_PREGENERATED:
             sources[wave].reset(new AudioClip(library.getFilepath(wave, bank, type)));
             Src_status = sources[wave]->getStatus();
+            numberSamples_bySR[wave]=(static_cast<float>(sources[wave]->getNumSamples())/sampleratef);
             break;
     }
 

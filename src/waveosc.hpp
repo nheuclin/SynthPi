@@ -88,9 +88,6 @@ class WaveOSC {
         /*! The number of Samples in the second Wave buffer */
         int numberOfSamples2;
 
-        /*! value to increment wave buffer by to return the wave at the desired frequency !*/
-        float index_increment;
-
         /*! frequency to play at from midinote !*/
         float frequency; 
 
@@ -104,18 +101,17 @@ class WaveOSC {
         float wave2_avg=0.5;
 
         float index_increment1=1.0;
+        
         float index_increment2=1.0;
+        
         float sampleratef;
+        
         float midinotef;
+        
+        std::vector<float> numberSamples_bySR;
 
         /*! \ref SampleSource object pointers. */
         std::array<std::unique_ptr<SampleSource>, _NUM_WAVES> sources;
-
-        //****DONTTHINK THE FOLLOWING IS NEEDED****
-
-
-        /*! Switches to store whether each source is being played. */
-        //std::array<bool, NUM_WAVES> isActive;
 
 }; //WaveOSC class
 
