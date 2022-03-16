@@ -13,8 +13,8 @@
 #include <vector>
 #include <stdio.h>
 #include <string.h>
-
 #include <iostream>
+#include "Thread.h"
 
 namespace SYNTHPI{
 
