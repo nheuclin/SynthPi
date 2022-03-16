@@ -230,6 +230,14 @@ class Display: public MAX7219 {
          */
         void setParam(unsigned int param, bool redraw);
 
+        /**
+        *  Checks incoming CC values and sends them for processing to display
+        * 
+        *  @param address Numerical representation of which MIDI parameter is being changed.
+        *  @param value Value of MIDI parameter that is being changed.
+        */
+        void ccToDisplay(unsigned int address, unsigned int value);
+
        // ~Display(); ///Destructor.
 
 
