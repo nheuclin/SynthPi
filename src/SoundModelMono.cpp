@@ -149,4 +149,4 @@ void SoundModelMono::updateCutoff(unsigned int parameter) {}
 
 void SoundModelMono::updateRes(unsigned int parameter) {}
 
-void SoundModelPoly::updateSlope(unsigned int parameter){}
+void SoundModelMono::updateSlope(unsigned int parameter){}

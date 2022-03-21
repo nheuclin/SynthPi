@@ -8,7 +8,7 @@
 using namespace SYNTHPI;
 using namespace audio;
 
-SoundModelPoly::SoundModelPoly(const int poly, const int samplerate):
+SoundModelPoly::SoundModelPoly(const int poly, const int samplerate)
 {
 	VoiceNo=poly;
 	for (int i = 0; i < VoiceNo; i++) {

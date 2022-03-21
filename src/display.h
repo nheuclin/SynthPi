@@ -244,6 +244,8 @@ class DisplayThread: public Thread{
 
     public:
 
+        unsigned int currentParam;
+
         DisplayThread(Display *display); // Constructor
 
         ~DisplayThread(); //Destructor
@@ -258,7 +260,7 @@ class DisplayThread: public Thread{
     
 
 
-}
+};
 
 } //close namespace
 
