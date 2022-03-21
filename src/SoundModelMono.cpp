@@ -27,7 +27,7 @@ std::vector<sample_t> SoundModelMono::getSamples(int nSamples) {
 	release=myadsr.inRelease();
 
 	/* Allows us to render sound when in release or on state */
-	if(noteOn==true || release>true) {
+	if(noteOn==true || release==true) {
 		OSCbuffer= waveosc.getSamples(nSamples);
 		adsrbuffer=myadsr.getSamples(nSamples);
 		

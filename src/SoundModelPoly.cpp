@@ -81,8 +81,8 @@ void SoundModelPoly::setNoteOn(int midinote) { //add note priority here
 			active++;
 		}
 
-	if (active==VoiceNo){ //if all voices are playing reset the oldest voice to the new note
-		setNoteOff(lastSoundModel[0]);
+	if (active==VoiceNo){ //if all voices are playing turn the oldest voice off
+		setNoteOff(midiNoteList[lastSoundModel[0]]);
 		//soundModelList[]->setNoteOn(midinote);
 		//midiNoteList[lastSoundModel[0]]=midinote;
 		//return;
