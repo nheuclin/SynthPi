@@ -1,18 +1,14 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "Thread.h"
-#include "Lock.h"
-#include "SoundModel.h"
+#include <Thread.h>
+#include <Lock.h>
+#include <SoundModel.h>
 
 #include <queue>
 #include <string>
 #include <iostream>
 
- /**
- *Controls interaction between input and output stages of the hurdy gurdy.
- *
- */
 
 namespace SYNTHPI {
 namespace audio{
@@ -58,10 +54,18 @@ class Controller: public Thread{
   //Lock for accessing the noteQueue.
   Lock queueLock;
 
+  //The last modulation value sent to the MIDI interface
+  double modulation;
+
+  //Default gain of the SoundModel (adjusted by autofading)
+  double default_output_gain;
   
   float volume;
   float wavemix_val;
-
+  float attack_time;
+  float decay_time;
+  float sustain_level;
+  float release_time;
   int bank_number;
   
  public:
@@ -94,8 +98,20 @@ class Controller: public Thread{
 
   void updateWavemix(unsigned int parameter);
 
+  void updateAttack(unsigned int parameter);
+
+  void updateDecay(unsigned int parameter);
+
+  void updateSustain(unsigned int parameter);
+
+  void updateRelease(unsigned int parameter);
 
   void updateBank(unsigned int parameter);
+
+  void updateCutoff(unsigned int parameter);
+
+  void updateRes(unsigned int parameter);
+
 
   /**
    *Starts the running of playout

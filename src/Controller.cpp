@@ -1,4 +1,4 @@
-//Controller.cpp
+
 #include "Controller.h"
 
 
@@ -64,6 +64,30 @@ void Controller::updateWavemix(unsigned int parameter){
 	playout->updateWavemix(parameter);
 }
 
+void Controller::updateAttack(unsigned int parameter){
+	playout->updateAttack(parameter);
+}
+
+void Controller::updateDecay(unsigned int parameter){
+	playout->updateDecay(parameter);
+}
+
+void Controller::updateSustain(unsigned int parameter){
+	playout->updateSustain(parameter);
+}
+
+void Controller::updateRelease(unsigned int parameter){
+	playout->updateRelease(parameter);
+}
+
 void Controller::updateBank(unsigned int parameter){
 	playout-> updateBank(parameter);
+}
+
+void Controller::updateCutoff(unsigned int parameter){
+	playout->updateCutoff(parameter);
+}
+
+void Controller::updateRes(unsigned int parameter){
+	playout->updateRes(parameter);
 }
