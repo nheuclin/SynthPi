@@ -56,6 +56,7 @@ endif(ALSA_FOUND)
 
 add_subdirectory(
     ${PROJECT_SOURCE_DIR}/lib/AudioFile
+    ${PROJECT_SOURCE_DIR}/lib/DSP-Cpp-filters-master/lib
 )
 
 
@@ -63,6 +64,7 @@ add_subdirectory(
 # Include
 include_directories(
     ${PROJECT_SOURCE_DIR}/lib/AudioFile
+    ${PROJECT_SOURCE_DIR}/lib/DSP-Cpp-filters-master/lib
 )
 
 find_package (Threads)
