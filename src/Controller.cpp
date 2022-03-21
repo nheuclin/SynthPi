@@ -7,7 +7,7 @@ using namespace audio;
 
 Controller::Controller(SoundModel *playout) :
 	isPlaying(true),
-	noteQueue(),
+	noteQueue()
 {
 	this->playout = playout;
 }

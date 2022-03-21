@@ -17,28 +17,39 @@
 //
 //  1.01  2016-01-02  njr   added calcCoef to SetTargetRatio functions that were in the ADSR widget but missing in this code
 //  1.02  2017-01-04  njr   in calcCoef, checked for rate 0, to support non-IEEE compliant compilers
-//  1.03  2020-04-08  njr   changed float to double; large target ratio and rate resulted in exp returning 1 in calcCoef
+//  1.03  2020-04-08  njr   changed float to float; large target ratio and rate resulted in exp returning 1 in calcCoef
 //
 
 #ifndef ADRS_h
 #define ADRS_h
 
+#include <vector>
+#include "defs.hpp"
+
+namespace SYNTHPI {
+namespace audio {
 
 class ADSR {
 public:
-	ADSR(void);
-	~ADSR(void);
-	double process(void);
-    double getOutput(void);
+
+    std::vector<sample_t> adsr;
+    float sampleratef;
+    bool inrelease;
+
+	ADSR();
+	~ADSR();
+	float process();
+    std::vector<sample_t> getSamples(int nSamples);
     int getState(void);
 	void gate(int on);
-    void setAttackRate(double rate);
-    void setDecayRate(double rate);
-    void setReleaseRate(double rate);
-	void setSustainLevel(double level);
-    void setTargetRatioA(double targetRatio);
-    void setTargetRatioDR(double targetRatio);
+    void setAttackRate(float rate);
+    void setDecayRate(float rate);
+    void setReleaseRate(float rate);
+	void setSustainLevel(float level);
+    void setTargetRatioA(float targetRatio);
+    void setTargetRatioDR(float targetRatio);
     void reset(void);
+    bool inRelease();
 
     enum envState {
         env_idle = 0,
@@ -50,71 +61,23 @@ public:
 
 protected:
 	int state;
-	double output;
-	double attackRate;
-	double decayRate;
-	double releaseRate;
-	double attackCoef;
-	double decayCoef;
-	double releaseCoef;
-	double sustainLevel;
-    double targetRatioA;
-    double targetRatioDR;
-    double attackBase;
-    double decayBase;
-    double releaseBase;
+	float output;
+	float attackRate;
+	float decayRate;
+	float releaseRate;
+	float attackCoef;
+	float decayCoef;
+	float releaseCoef;
+	float sustainLevel;
+    float targetRatioA;
+    float targetRatioDR;
+    float attackBase;
+    float decayBase;
+    float releaseBase;
  
-    double calcCoef(double rate, double targetRatio);
+    float calcCoef(float rate, float targetRatio);
 };
 
-inline double ADSR::process() {
-	switch (state) {
-        case env_idle:
-            break;
-        case env_attack:
-            output = attackBase + output * attackCoef;
-            if (output >= 1.0) {
-                output = 1.0;
-                state = env_decay;
-            }
-            break;
-        case env_decay:
-            output = decayBase + output * decayCoef;
-            if (output <= sustainLevel) {
-                output = sustainLevel;
-                state = env_sustain;
-            }
-            break;
-        case env_sustain:
-            break;
-        case env_release:
-            output = releaseBase + output * releaseCoef;
-            if (output <= 0.0) {
-                output = 0.0;
-                state = env_idle;
-            }
-	}
-	return output;
 }
-
-inline void ADSR::gate(int gate) {
-	if (gate)
-		state = env_attack;
-	else if (state != env_idle)
-        state = env_release;
 }
-
-inline int ADSR::getState() {
-    return state;
-}
-
-inline void ADSR::reset() {
-    state = env_idle;
-    output = 0.0;
-}
-
-inline double ADSR::getOutput() {
-	return output;
-}
-
 #endif

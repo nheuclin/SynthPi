@@ -54,12 +54,6 @@ class Controller: public Thread{
   //Lock for accessing the noteQueue.
   Lock queueLock;
 
-  //The last modulation value sent to the MIDI interface
-  double modulation;
-
-  //Default gain of the SoundModel (adjusted by autofading)
-  double default_output_gain;
-  
   float volume;
   float wavemix_val;
   float attack_time;

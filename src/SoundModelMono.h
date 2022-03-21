@@ -30,7 +30,6 @@ class SoundModelMono : public SoundModel {
 		int safeBank=1;
 		float sampleratef;
 		Lock lock; /* Main lock for all methods */
-		float sampleratef;
 
 	public:
 
