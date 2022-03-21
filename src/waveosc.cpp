@@ -18,37 +18,42 @@ WaveOSC::~WaveOSC(){}
 
 std::vector<sample_t> WaveOSC::getSamples(int nSamples) {
     
-
-    std::vector<sample_t> temp1(nSamples);
-    std::vector<sample_t> temp2(nSamples);
+    std::vector<std::vector<sample_t>> tempvector(_NUM_WAVES);
+    std::vector<float> increments(_NUM_WAVES);
 
     mixBuffer.clear();
     mixBuffer.resize(nSamples);
 
-    //wavemix_val = getMixVal(); CCs not implemented yet
-    Wave_index=static_cast<int> (wavemix_val);
-    wave1_avg=wavemix_val-Wave_index;
-    wave2_avg=1.0-wave1_avg;
-
-    index_increment1=numberSamples_bySR[Wave_index]*frequency;
-    index_increment2=numberSamples_bySR[Wave_index+1]*frequency;
-
-    temp1=sources[Wave_index] -> getSamples(nSamples,index_increment1);
-    temp2=sources[Wave_index+1] -> getSamples(nSamples,index_increment2);
+    for (unsigned int i=0;i<_NUM_WAVES;i++){
+        increments[i]=numberSamples_bySR[i]*frequency;
+        tempvector[i].clear();
+        tempvector[i].resize(nSamples);
+        tempvector[i]=sources[i]->getSamples(nSamples,increments[i]);
+    }
+    
+    float wavemix_step = (wavemix_val_target-wavemix_val)/nSamples; //step to deziper mix value
 
     for (unsigned int i=0; i <nSamples; i++){
-        mixBuffer[i]=  wave1_avg*temp1[i]+wave2_avg*temp2[i]; //add ADSR multiplication here
+        
+        Wave_index=static_cast<int> (wavemix_val);
+        
+        wave1_avg=wavemix_val-static_cast<float>(Wave_index);
+        wave2_avg=1.0-wave1_avg;
+
+        Wave_index2=Wave_index+1;
+        if (Wave_index==_NUM_WAVES-1){
+            Wave_index2=0;
+        }
+        
+        mixBuffer[i]= wave2_avg*tempvector[Wave_index][i]+wave1_avg*tempvector[Wave_index2][i];
+        
+        wavemix_val+=wavemix_step;
     }
+    wavemix_val=wavemix_val_target;
 
     return mixBuffer;
 
 }
-
-void WaveOSC::trigAttack(){}
-
-void WaveOSC::trigRelease(){}
-
-int WaveOSC::getRelease(){}
 
 
 void WaveOSC::setSemitone(int midinote) { 
@@ -56,8 +61,8 @@ void WaveOSC::setSemitone(int midinote) {
     frequency = 440.0*powf(2.0,((midinotef-69.0)/12.0)); //converts midinote to frequency
 }
 
-float WaveOSC::getMixVal(int MIX_CC){
-    return wavemix_val;
+void WaveOSC::updateWavemix(unsigned int parameter){
+    wavemix_val_target=(static_cast<float>(parameter)/127.0)*(static_cast<float>(_NUM_WAVES)-1.0);
 }
 
 sampleSourceStatus_t WaveOSC::loadBank(int bank, sampleSourceType_t type) {

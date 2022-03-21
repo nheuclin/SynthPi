@@ -1,11 +1,17 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
-#include "Thread.h"
-#include "Lock.h"
-#include "Controller.h"
 #include <set>
 #include <alsa/asoundlib.h>
+#include <stdio.h>
+#include <iostream>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "Thread.h"
+#include "Lock.h"
+#include "defs.hpp"
+#include "Controller.h"
 
 
 /**
@@ -21,18 +27,27 @@ class Keyboard : public Thread {
 
 	Controller* controller;
 	snd_seq_t* sequencer;
+
 	int myId;
 	int myPort;
 	int keyboardId;
 	int keyboardPort;
 	int announce;
+
 	typedef std::set<int> keyset;
+	
 	/** A list of note off commands not yet sent
 	*  because the sustain pedal is pressed.
 	*/
 	keyset deferred_noteoff;
+
 	bool sustain=false; /**< whether sustain pedal is depressed */
 	
+
+	const int CC1;
+	const int CC2;
+	const int CC3;
+
 	/**
      * Send a MIDI note on event,  taking the sustain pedal into account
 	 * 
@@ -85,7 +100,7 @@ class Keyboard : public Thread {
 		* @param verbosity Print note on/off announcement if > 0
 		*/
 		Keyboard(Controller* controller, int keyId, int keyPort,
-				int verbosity);
+				int verbosity,const int vol_ID, const int wavemix_ID,const int Bank_ID);
 		
 		/**
 		* Poll the MIDI keyboard for key events.

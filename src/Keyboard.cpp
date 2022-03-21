@@ -11,8 +11,12 @@
 using namespace SYNTHPI;
 using namespace audio;
 
-Keyboard::Keyboard(Controller *controller, int keyId, int keyPort, int verbosity) :
-announce(verbosity > 0)
+Keyboard::Keyboard(Controller *controller, int keyId, int keyPort, int verbosity,
+					const int vol_ID, const int wavemix_ID, const int Bank_ID):
+announce(verbosity > 0),
+CC1(vol_ID),
+CC2(wavemix_ID),
+CC3(Bank_ID),
 {
 
 	this->controller = controller;
@@ -151,33 +155,38 @@ void Keyboard::midiAction() {
 
 		case SND_SEQ_EVENT_CONTROLLER:
 			
-			const int p = event->data.control.value;
+			const int v = event->data.control.value;
+			const int p=event->data.control.param;
 
-			switch (event->data.control.param) {
-			case 1:
-				// Forward modulation events to the controller,
-				// just in case anybody is interested.
-				controller->modulationEvent(p);
-				break;
-
-			case 64:
-				// Process sustain pedal events
+			if (p==64){// Process sustain pedal events	
 				bool s {p > 63};
 				if (sustain && !s) release();
-                sustain = s;
+                 	sustain = s;
 				
 				if (announce) {
 					fprintf(stderr, "Sustain pedal change, value %d (sustain %s)\n",
-							p,  sustain ? "on" : "off");
+					p,  sustain ? "on" : "off");
 				}
 				break;
-
-			//case ControlChanges::CC1: //handle different CCs being received, need to link that to the CC defined in defs.hpp
-
-			//	break;
 			}
 
-	
+			if (p==CC1){ //master volume CC
+				//std::cout<<"in CC1 if loop"<<std::endl;
+				controller->updateVolume(v);
+				break;
+			}
+
+			if (p==CC2){ //wavemix value CC
+				//std::cout<<"in CC2 if loop"<<std::endl;
+				controller->updateWavemix(v);
+				break;
+			}
+
+			if (p==CC3){ //Bank select CC
+				//std::cout<<"in CC3 if loop"<<std::endl;
+				controller->updateBank(v);
+				break;
+			}
 
 		}
 	

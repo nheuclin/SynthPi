@@ -1,0 +1,11 @@
+{
+    "poly":12,
+    
+    "keyboard_ID":28,
+    "keyboard_port":0,
+    "verbosity":0,
+    
+    "master_volume_ID":7,
+    "wavemix_ID":1, 
+    "Bank_select_ID":95
+}

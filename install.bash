@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# Run CMake
-echo "Running CMake..."
-cmake .
-
-# Run make
-echo "Running make..."
-make 

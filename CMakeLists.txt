@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.12)
 
 # Project name and version
-project(SynthPi VERSION "0.1")
+project(SynthPi VERSION "0.5")
 
 # Project name and version macros
 add_definitions(-DPROJECT_NAME="${CMAKE_PROJECT_NAME}")
@@ -36,8 +36,6 @@ set_target_properties(source PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURC
 # Link source library to SynthPi
 target_link_libraries(SynthPi source)
 
-
-
 ### LIBRARIES ###
 
 # Create base library from dummy file
@@ -58,7 +56,6 @@ endif(ALSA_FOUND)
 
 add_subdirectory(
     ${PROJECT_SOURCE_DIR}/lib/AudioFile
-    #${PROJECT_SOURCE_DIR}/../usr/include/alsa
 )
 
 
@@ -66,24 +63,18 @@ add_subdirectory(
 # Include
 include_directories(
     ${PROJECT_SOURCE_DIR}/lib/AudioFile
-    #${PROJECT_SOURCE_DIR}/../usr/include/alsa
 )
 
 find_package (Threads)
 
-#find_library(ASOUNDLIB_LIBRARY asoundlib HINTS /usr/include/alsa)
-
 # Link
 target_link_libraries(library
     jack     
-    #asoundlib
     ${CMAKE_THREAD_LIBS_INIT}
 )
 
 # Link sum library to SynthPi
 target_link_libraries(SynthPi library)
-
-
 
 ### UNIT TESTING ###
 

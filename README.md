@@ -10,4 +10,21 @@ This code also make use of the following libraries without any modification :
 
 # Documentation 
 
+run "sudo apt-get install git cmake libjack-jackd2-dev qjackctl libasound-dev libboost-dev"
+
+run "git clone https://github.com/nheuclin/SynthPi"
+
+"cd SynthPi"
+"cmake ."
+"make -j"
+"chmod u+x SynthPi"
+
+use "aconnect-l" to list the ID/port of connected devices, note down the ID and port number (port number is usually 0) of your midi keyboard. 
+
+use "aseqdump -p xxx" where xxx is the midi ID number to get the ID numbers of the physical midi control changes you want to use to control each of the SYNTHPI's parameters. You can then edit config.json with your midi Keyboard ID and Port number as well as the ID numbers for each CC.
+
+To edit config.json, navigate to the SynthPi folder and run "nano config.json"  
+when done editing type ctrl+x then Y and enter
+
+You're ready to go! run "./SynthPi" and enjoy your wavetable synthesizer.
 

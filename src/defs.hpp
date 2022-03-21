@@ -2,8 +2,7 @@
 #ifndef SYNTHPI_DEFS_H
 #define SYNTHPI_DEFS_H
 
-/*! Use this file to define types, constants etc that are needed in the program.
-DO NOT instantiate any objects, variables etc here. */
+/*! Use this file to define types, constants etc that are needed in the program. */
 
 #include <jack/jack.h>
 
@@ -34,28 +33,6 @@ typedef enum _WaveIDs {
 /*! The number of waves available in the SYNTHPI. */
 #define NUM_WAVES (int)_WaveIDs::_NUM_VOICES
 
-
-/*! ID numbers for each of the SYNTHPI's control changes. */
-enum class ControlChanges {
-    CC1 = 30, //output volume
-    CC2 = 31, //avemix value
-    CC3 = 32, //Attack value
-    CC4 = 33, //Decay value
-    CC5 = 34, //Sustain Value
-    CC6 = 35, //Release value
-
-    // Number of CCs
-    // ALWAYS LEAVE LAST!
-    _NUM_CCs
-};
-
-
-
-/*! ID labels for the SYNTHPI's operational modes. */
-typedef enum _StateLabels {
-    PLAY_MODE,
-    SET_WAVE_BANK_MODE
-} stateLabel_t;
 
 /*! The namespace for audio system related items. */
 namespace audio {

@@ -4,9 +4,10 @@
 #include "Thread.h"
 #include "Lock.h"
 #include "SoundModel.h"
-#include "ModulationEventListener.h"
+
 #include <queue>
 #include <string>
+#include <iostream>
 
  /**
  *Controls interaction between input and output stages of the hurdy gurdy.
@@ -58,13 +59,10 @@ class Controller: public Thread{
   Lock queueLock;
 
   
-  //The last modulation value sent to the MIDI interface
-  double modulation;
+  float volume;
+  float wavemix_val;
 
-
-
-  //Default gain of the SoundModel (adjusted by autofading)
-  double default_output_gain;
+  int bank_number;
   
  public:
 
@@ -92,19 +90,12 @@ class Controller: public Thread{
    */
   void keyEvent(bool noteOff, int note);
   
-   /**
-    * Called by the keyboard interface whenever a modulation event happens.
-    * 
-    * The pedal may access the midi modulation parameter, which is normalised
-    * in the range 0.0 to 1.0, in order to influence the effect of the pedal
-    * position. If a callback is registered by the pedal, it is called
-    * every time the modulation control event is received. Alternatively, the
-    * pedal may query the current modulation setting by calling
-    * get_modulation()
-    * 
-    * @param midiParam The new MIDI modulation setting (in the range 0..255)
-    */
-  void modulationEvent(int midiParam);
+  void updateVolume(unsigned int parameter);
+
+  void updateWavemix(unsigned int parameter);
+
+
+  void updateBank(unsigned int parameter);
 
   /**
    *Starts the running of playout
@@ -112,34 +103,8 @@ class Controller: public Thread{
   virtual void run();
 
 
-
-  
-  /**
-   * Access the current modulation
-   * 
-   * @return Modulation setting in the range 0.0 - 1.0.
-   */
-  double get_modulation() const { return modulation; }
-  
-  /**
-   * Register a new modulation event listener overriding the current one.
-   * 
-   * The new event listner must deregister itself on destruction.
-   * Registering NULL as the listener suppresses any handling of
-   * MIDI CC1 (Modulation Wheel) events.
-   * 
-   * @param listener The new listener
-   * @return the previous listner which the new one replaces.
-   */
-  ModulationEventListener *registerEventListener(ModulationEventListener *listener);
-
-  
-protected:
-  // The Modulation Event Wheel listener to call (if any)
-  ModulationEventListener *modulationEventListener;
-  
-
 };
+
 }
 }
 #endif /* CONTROLLER_H */

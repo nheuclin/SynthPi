@@ -3,6 +3,9 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <queue>
+
+
 #ifndef SOUND_MODEL_POLY_H
 #define SOUND_MODEL_POLY_H
 
@@ -18,12 +21,11 @@ class SoundModelPoly : public SoundModel {
 	private:
 		/*! a vector of soundmodelmono, ie a vector of the voices in synthpi */
 		std::vector<SoundModel*> soundModelList;
+		
+		/*!  */
+		int	soundModelNo;
 
-		/*! a vector of int which keeps track of the order the voices are being turned on*/
-		std::vector<int> lastSoundModel;
-
-		/*! same as std::vector<int> lastSoundModel but keeps track of the midinotes  */
-		std::vector<int> midiNoteList;
+		int	lastSoundModel;
 
 		/*!  */
 		int	soundModelNo;
@@ -35,7 +37,9 @@ class SoundModelPoly : public SoundModel {
 		int position;
 
 		/*!  */
-		double master_vol=0.2;//should it be public since it is changed by the controller ? 
+		double master_vol=0.05;
+
+		float target_vol=0.2; 
 
 		/*!  a buffer to return the sum of voices to playback engine*/
 		std::vector<sample_t> polybuffer;
@@ -49,7 +53,7 @@ class SoundModelPoly : public SoundModel {
 		 * (optional) Multiply model outputs by this to yield the
 		 * final result
 		 */
-		SoundModelPoly(const int poly, const int samplerate, double gain);
+		SoundModelPoly(const int poly, const int samplerate);
 
 		/**
 		 * Start a note playing. 
@@ -92,6 +96,13 @@ class SoundModelPoly : public SoundModel {
 		/** Thrown when empty SoundModel vector passed into constructor */
 		class NoSoundModelException {};
 
+    	virtual void updateVolume(unsigned int parameter) override;
+
+		virtual void updateWavemix(unsigned int parameter) override;
+
+		virtual void updateBank(unsigned int parameter) override;
+
+		
 };
 
 } // namespace audio

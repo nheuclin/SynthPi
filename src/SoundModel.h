@@ -42,6 +42,12 @@ class SoundModel {
         \return a buffer of samples. */
         virtual std::vector<sample_t> getSamples(int nSamples) = 0;
 
+    	virtual void updateVolume(unsigned int parameter)= 0;
+
+		virtual void updateWavemix(unsigned int parameter)= 0;
+
+		virtual void updateBank(unsigned int parameter)= 0;
+
 
 };
 

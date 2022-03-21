@@ -1,10 +1,6 @@
-#include <queue>
+//Controller.cpp
 #include "Controller.h"
-#include "SoundModel.h"
-#include "Lock.h"
-#include "Thread.h"
-#include <string>
-#include <iostream>
+
 
 using namespace SYNTHPI;
 using namespace audio;
@@ -12,16 +8,11 @@ using namespace audio;
 Controller::Controller(SoundModel *playout) :
 	isPlaying(true),
 	noteQueue(),
-	modulation(0), 
-	modulationEventListener(NULL)
 {
-
 	this->playout = playout;
-	//default_output_gain = playout->getOutputGain();
 }
 
-Controller::~Controller(){
-}
+Controller::~Controller(){}
 
 
 void Controller::run(){
@@ -65,18 +56,14 @@ void Controller::keyEvent(bool type, int note){
 	outputLock.release();
 }
 
-void Controller::modulationEvent(int parameter) {
-	// Store new modulation value
-	modulation = (double)parameter / 127.0;
-	if (modulationEventListener)
-		modulationEventListener->modulationEventCallback(parameter);
+void Controller::updateVolume(unsigned int parameter){
+	playout->updateVolume(parameter);
 }
 
-ModulationEventListener *
-  Controller::registerEventListener(ModulationEventListener *listener) {
-  
-  ModulationEventListener *oldListener = modulationEventListener;
-  modulationEventListener = listener;
+void Controller::updateWavemix(unsigned int parameter){
+	playout->updateWavemix(parameter);
+}
 
-  return oldListener;
+void Controller::updateBank(unsigned int parameter){
+	playout-> updateBank(parameter);
 }

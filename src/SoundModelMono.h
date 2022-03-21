@@ -1,10 +1,10 @@
 #include "Thread.h"
 #include "waveosc.hpp"
-//#include "OutputAdaptor.h"
 #include "SoundModel.h"
 #include "defs.hpp"
 #include "Lock.h"
 #include <string>
+#include <math.h>
 
 #ifndef SOUND_MODEL_MONO_H
 #define SOUND_MODEL_MONO_H
@@ -27,7 +27,10 @@ class SoundModelMono : public SoundModel {
 		int  currentNote;	/* Current note being played */
 		int release;		/* Countdown for how long isPlaying should return true after note released (number of samples it'll take the adsr to get back to 0 based on sampling rate) */
 	
-	Lock lock; /* Main lock for all methods */
+
+		int safeBank=1;
+		float sampleratef;
+		Lock lock; /* Main lock for all methods */
 
 	public:
 
@@ -68,6 +71,12 @@ class SoundModelMono : public SoundModel {
  		 */
 		virtual void setNoteOff(int semitone) override; //override? 
 
+    	virtual void updateVolume(unsigned int parameter) override;
+
+		virtual void updateWavemix(unsigned int parameter) override;
+
+		virtual void updateBank(unsigned int parameter) override;
+		
 };
 
 } // namespace audio

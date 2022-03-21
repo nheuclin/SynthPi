@@ -8,15 +8,13 @@
 using namespace SYNTHPI;
 using namespace audio;
 
-SoundModelPoly::SoundModelPoly(const int poly, const int samplerate, double gain) {
-	for (int i = 0; i < poly; i++) {
-		soundModelList.push_back(new SoundModelMono);
-		//soundModelList[i].loadBank(1, audio::SOURCE_PREGENERATED); //init synth to bank 1, done in soundmodelmono
-	}
+SoundModelPoly::SoundModelPoly(const int poly, const int samplerate) {
 	VoiceNo=poly;
-	midiNoteList.resize(VoiceNo);
-	lastSoundModel.resize(VoiceNo);
-	std::cout << "SMP created" << std::endl;
+	for (int i = 0; i < VoiceNo; i++) {
+		soundModelList.push_back(new SoundModelMono);
+
+	}
+	//std::cout << "SMP created" << std::endl;
 }
 
 std::vector<sample_t> SoundModelPoly::getSamples(int nSamples){
@@ -31,9 +29,20 @@ std::vector<sample_t> SoundModelPoly::getSamples(int nSamples){
 		temp=soundModelList[j]->getSamples(nSamples);
 
 		for (unsigned int i = 0; i < nSamples; i++) {
-			polybuffer[i] += temp[i] * 0.3;
+			polybuffer[i] += temp[i];
 		}
 	}
+		
+	// Dezipper the audio output by changing the output gain progressively along the outbut buffer length,
+	float gain_step = (target_vol-master_vol)/nSamples;
+
+	for(unsigned int i = 0; i < nSamples; i++) {
+
+		polybuffer[i] = polybuffer[i] * master_vol;
+
+		master_vol += gain_step;
+	}
+	master_vol = target_vol;
 	return polybuffer;
 }
 
@@ -88,12 +97,18 @@ bool SoundModelPoly::isPlaying() {
 }
 
 
+void SoundModelPoly::updateVolume(unsigned int parameter) {
+	target_vol=0.4*(static_cast<float>(parameter)/127.0);
+}
 
-	// Dezipper the audio output by changing the output gain
-	// progressively along the outbut buffer length
-	//double gain_step { (double)(target_gain-gain)/bufferSize };
-	//for(i = 0; i < bufferSize; i++) {
-	//	samples[i] = accumulator[i] * gain;
-	//	gain += gain_step;
-	//}
-	//gain = target_gain;
+void SoundModelPoly::updateWavemix(unsigned int parameter){
+	for (unsigned int i=0; i<soundModelList.size();i++){
+		soundModelList[i]->updateWavemix(parameter);
+	}
+}
+
+void SoundModelPoly::updateBank(unsigned int parameter) {
+		for (unsigned int i=0; i<soundModelList.size();i++){
+		soundModelList[i]->updateBank(parameter);
+	}
+}

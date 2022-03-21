@@ -1,8 +1,6 @@
-//#include "waveosc.hpp"
+//SoundModelMono.cpp
+
 #include "SoundModelMono.h"
-//#include "OutputAdaptor.h"
-#include "Lock.h"
-#include <string>
 #include <iostream> 
 
 using namespace SYNTHPI;
@@ -11,30 +9,32 @@ using namespace audio;
 #define RELEASE_INIT (1024*1600) //? maybe just put that to 0.
 
 SoundModelMono::SoundModelMono() {
-  	//this-> waveosc = new WaveOSC(samplerate); //is that right ? 
+  	this-> sampleratef=static_cast<float>(samplerate);
 	this-> waveosc.loadBank(1, SOURCE_PREGENERATED);
 	this->noteOn = false;
 	this->currentNote = -1;
 	this->release = 0; //replace by waveosc.getRelease();
-	//std::cout << "SMM created " << std::endl;
 }
 
 std::vector<sample_t> SoundModelMono::getSamples(int nSamples) {
 	
 	std::vector<sample_t> buffer(nSamples);
+	std::vector<sample_t> OSCbuffer(nSamples);
 	lock.acquire();
 	
-	if (noteOn==false){
+
+	/* Allows us to render sound when in release or on state */
+	if(noteOn==true || release>0) { 
+		OSCbuffer= waveosc.getSamples(nSamples);
 		
+		
+		for (unsigned int i =0;i<nSamples;i++){
+			buffer[i]=OSCbuffer[i] //add ADSR mult here
+		}
+	}else{		
 		for (unsigned int i = 0; i<nSamples; i++){
 			buffer[i]=0.;
 		}
-	}
-	/* Allows us to render sound when in release or on state */
-	if(noteOn==true ) { //  || release > 0
-		buffer= waveosc.getSamples(nSamples);
-		release -= nSamples;
-		if(release < 0) release = 0;
 	}
 
 	lock.release();
@@ -58,15 +58,12 @@ bool SoundModelMono::isPlaying() {
 void SoundModelMono::setNoteOn(int midinote) {
 	lock.acquire();
 
-	if(noteOn == false || currentNote != midinote) {
+	if(noteOn == false ){//|| currentNote != midinote) {
 
-		try{
-			waveosc.setSemitone(midinote); //get the frequency to play at and point to the according set of wavetables 
-			//waveosc.trigAttack(); //trigAttack should rettriger the envelope if it's already playing
-			this-> noteOn = true;
-			currentNote = midinote;
-		} 
-		catch (const char* e) {}
+		waveosc.setSemitone(midinote); //get the frequency to play at
+		noteOn = true;
+		currentNote = midinote;
+		 
 	}
 	lock.release();
 }
@@ -78,7 +75,7 @@ void SoundModelMono::setNoteOff(int midinote) {
 	/* Only turn of if we're actually playing that note */
 	if(currentNote == midinote) { 
 		try{
-			this-> noteOn = false;
+			noteOn = false;
 			//currentNote = -1;
 			//release = waveosc.getRelease(); //return release time as a number of samples it will take for the ADSR to get back to 0 based on sampling rate
 			//waveosc.trigRelease(); //trigger ADSR release stage.
@@ -87,3 +84,30 @@ void SoundModelMono::setNoteOff(int midinote) {
 	}
 	lock.release();
 }
+
+
+void SoundModelMono::updateWavemix(unsigned int parameter){
+	waveosc.updateWavemix(parameter);
+}
+
+void SoundModelMono::updateBank(unsigned int parameter) {
+	sampleSourceStatus_t loadStatus = SOURCE_READY;
+	int bank= static_cast<int>(static_cast<float>(((parameter)/127.0)*5.0))+1; //hard limit on 12 banks
+	if (bank != safeBank){
+		loadStatus=waveosc.loadBank(bank, SOURCE_PREGENERATED);
+	}
+	if (loadStatus != SOURCE_READY) {
+		std::cout << std::endl << "Could not load bank " << bank << std::endl;
+		std::cout << "Returning to bank " << safeBank << std::endl;
+		bank = safeBank;
+		waveosc.loadBank(bank, SOURCE_PREGENERATED);
+	}else {
+		safeBank = bank;
+	}
+}
+
+
+
+//next functions are unused
+
+void SoundModelMono::updateVolume(unsigned int parameter) {}

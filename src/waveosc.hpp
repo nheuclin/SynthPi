@@ -5,8 +5,10 @@
 #include <vector>
 #include <memory>
 #include <array>
-//#include "SoundModelMono.h"
-//#include "defs.hpp"
+#include <math.h>
+#include <iostream>
+
+#include "defs.hpp"
 #include "sampleSource.hpp"
 #include "audioLibrary.hpp"
 
@@ -35,12 +37,9 @@ class WaveOSC {
         \param midinote Semitone value to be played (0-127) */
         void setSemitone(int midinote);
 
-        /*! get current mix value
-        \param MIX_CC current value of mix CC control
-        \return MixVal, a float which tells us which waves to average and by which amount */
-
-        float getMixVal(int MIX_CC);
-
+        /*! updates get current mix value
+        \param parameter current value of mix CC control */
+        void updateWavemix(unsigned int parameter);
 
         /*! Loads a bank of waves of a homogenous \ref sampleSourceType_t.
         Equivalent to calling \ref setSource for each wave with the given arguments.
@@ -94,15 +93,16 @@ class WaveOSC {
         /*! float value to know which waves to average !*/
         float wavemix_val=0.0;
 
+        /*!float to dezipper wave mixing !*/
+        float wavemix_val_target=0.0; 
+
         int Wave_index=0;
+
+        int Wave_index2=0;
 
         float wave1_avg=0.5;
         
         float wave2_avg=0.5;
-
-        float index_increment1=1.0;
-        
-        float index_increment2=1.0;
         
         float sampleratef;
         
