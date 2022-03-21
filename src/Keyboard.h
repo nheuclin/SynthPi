@@ -53,6 +53,7 @@ class Keyboard : public Thread {
 	const int CC7;
 	const int CC8;
 	const int CC9;
+	const int CC10;
 
 	/**
      * Send a MIDI note on event,  taking the sustain pedal into account
@@ -107,7 +108,7 @@ class Keyboard : public Thread {
 		*/
 		Keyboard(Controller* controller, int keyId, int keyPort, int verbosity,const int vol_ID, 
 				const int wavemix_ID, const int Bank_ID, const int Attack_ID,const int Decay_ID, const int Sustain_ID,
-		 		const int Release_ID, const int Cutoff_ID,const int Res_ID);
+		 		const int Release_ID, const int Cutoff_ID,const int Res_ID, const int Slope_ID);
 		
 		/**
 		* Poll the MIDI keyboard for key events.

@@ -7,7 +7,7 @@ using namespace audio;
 
 Keyboard::Keyboard(Controller *controller, int keyId, int keyPort, int verbosity, const int vol_ID, 
 					const int wavemix_ID, const int Bank_ID,const int Attack_ID,const int Decay_ID, const int Sustain_ID,
-		 			const int Release_ID,const int Cutoff_ID,const int Res_ID):
+		 			const int Release_ID,const int Cutoff_ID,const int Res_ID, const int Slope_ID):
 announce(verbosity > 0),
 CC1(vol_ID),
 CC2(wavemix_ID),
@@ -17,7 +17,8 @@ CC5(Decay_ID),
 CC6(Sustain_ID),
 CC7(Release_ID),
 CC8(Cutoff_ID),
-CC9(Res_ID)
+CC9(Res_ID),
+CC10(Slope_ID)
 {
 
 	this->controller = controller;
@@ -224,6 +225,11 @@ void Keyboard::midiAction() {
 			if (p==CC9){ // Resonance amount CC
 				//std::cout<<"in CC9 if loop"<<std::endl;
 				controller->updateRes(v);
+				break;
+			}
+			if (p==CC10){ // Filter slope select CC
+				//std::cout<<"in CC10 if loop"<<std::endl;
+				controller->updateSlope(v);
 				break;
 			}
 

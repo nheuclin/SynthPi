@@ -61,6 +61,7 @@ class SoundModel {
   		virtual void updateRes(unsigned int parameter) =0;
 
 
+		virtual void updateSlope(unsigned int parameter) =0;
 };
 
 } // namespace audio

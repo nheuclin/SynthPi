@@ -91,3 +91,7 @@ void Controller::updateCutoff(unsigned int parameter){
 void Controller::updateRes(unsigned int parameter){
 	playout->updateRes(parameter);
 }
+
+void Controller::updateSlope(unsigned int parameter){
+	playout->updateSlope(parameter);
+}

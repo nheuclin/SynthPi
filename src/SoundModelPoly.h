@@ -29,7 +29,7 @@ class SoundModelPoly : public SoundModel {
 		float Fc=20000;
 
 		float target_Q=0.707;
-		float target_Fc=1500;
+		float target_Fc=20000;
 		
 		/*! a vector of soundmodelmono, ie a vector of the voices in synthpi */
 		std::vector<SoundModel*> soundModelList;
@@ -57,7 +57,7 @@ class SoundModelPoly : public SoundModel {
 		/*!  a buffer to return the sum of voices to playback engine*/
 		std::vector<sample_t> polybuffer;
 
-		int midinoteoffbuffer =-1;
+		bool slope;
 
 	public:
 		/**
@@ -65,7 +65,7 @@ class SoundModelPoly : public SoundModel {
 		 * @param poly The numer of monophonic sound models to create
 		 * @param samplerate Operating sample rate
 		 */
-		SoundModelPoly(const int poly, const int samplerate);
+		SoundModelPoly(const int poly, const int samplerate, const int Slope_ID);
 
 		/**
 		 * Start a note playing. 
@@ -125,6 +125,8 @@ class SoundModelPoly : public SoundModel {
 		virtual void updateCutoff(unsigned int parameter) override;
 
   		virtual void updateRes(unsigned int parameter) override;
+
+		virtual void updateSlope(unsigned int parameter) override;
 
 		
 };

@@ -8,12 +8,16 @@
 using namespace SYNTHPI;
 using namespace audio;
 
-SoundModelPoly::SoundModelPoly(const int poly, const int samplerate) {
-	for (int i = 0; i < poly; i++) {
+SoundModelPoly::SoundModelPoly(const int poly, const int samplerate):
+{
+	VoiceNo=poly;
+	for (int i = 0; i < VoiceNo; i++) {
 		soundModelList.push_back(new SoundModelMono);
 
 	}
-	VoiceNo=poly;
+	
+	lastSoundModel.resize(VoiceNo);
+	midiNoteList.resize(VoiceNo);
 }
 
 std::vector<sample_t> SoundModelPoly::getSamples(int nSamples){
@@ -37,17 +41,32 @@ std::vector<sample_t> SoundModelPoly::getSamples(int nSamples){
 	float gain_step = (target_vol-master_vol)/nSamples;
 	float Fc_step = (target_Fc-Fc)/nSamples;
 	float Q_step = (target_Q-Q)/nSamples;
-	for(unsigned int i = 0; i < nSamples; i++) {
+	if (slope==true){
+		for(unsigned int i = 0; i < nSamples; i++) {
 
-		auto coeffs12=filter12.calculate_coeffs(Q,Fc,samplerate);
-		auto coeffs24=filter24.calculate_coeffs(Q,Fc,samplerate);
+			auto coeffs12=filter12.calculate_coeffs(Q,Fc,samplerate);
+			auto coeffs24=filter24.calculate_coeffs(Q,Fc,samplerate);
 
-		polybuffer[i] = filter24.process(filter12.process(polybuffer[i])) * master_vol;
+			polybuffer[i] = filter24.process(filter12.process(polybuffer[i])) * master_vol;
 
-		master_vol += gain_step;
-		Fc+=Fc_step;
-		Q+=Q_step;
+			master_vol += gain_step;
+			Fc+=Fc_step;
+			Q+=Q_step;
+		}
 	}
+	else{
+		for(unsigned int i = 0; i < nSamples; i++) {
+
+			auto coeffs12=filter12.calculate_coeffs(Q,Fc,samplerate);
+
+			polybuffer[i] = filter12.process(polybuffer[i]) * master_vol;
+
+			master_vol += gain_step;
+			Fc+=Fc_step;
+			Q+=Q_step;
+		}
+	}
+
 	master_vol = target_vol;
 	Fc=target_Fc;
 	Q=target_Q;
@@ -151,5 +170,13 @@ void SoundModelPoly::updateCutoff(unsigned int parameter){
 }
 
 void SoundModelPoly::updateRes(unsigned int parameter){
-	target_Q=0.707+10.0*(static_cast<float>(parameter)/127.0);
+	target_Q=0.707+5.0*(static_cast<float>(parameter)/127.0);
+}
+
+void SoundModelPoly::updateSlope(unsigned int parameter){
+	if (parameter > 63){
+		slope = true;
+	}else{
+		slope=false;
+	}
 }

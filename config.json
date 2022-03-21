@@ -2,19 +2,20 @@
     "poly":12,
     
     "keyboard_ID":28,
-    "keyboard_port":0,
+    "keyboard_port":1,
     "verbosity":0,
     
-    "master_volume_ID":7,
-    "wavemix_ID":1, 
-    "Bank_select_ID":95,
+    "master_volume_ID":28,
+    "wavemix_ID":36, 
+    "Bank_select_ID":26,
 
-    "Attack_time_ID":73,
-    "Decay_time_ID":72,
-    "Sustain_level_ID":5, 
-    "Release_time_ID":84, 
+    "Attack_time_ID":35,
+    "Decay_time_ID":39,
+    "Sustain_level_ID":37, 
+    "Release_time_ID":40, 
 
-    "Filter_Slope_ID":2,
-    "Filter_Cutoff_ID":71,
-    "Filter_Resonance_ID":91
+    "Filter_Slope_ID":61,
+    "Filter_Cutoff_ID":43,
+    "Filter_Resonance_ID":44,
+
 }

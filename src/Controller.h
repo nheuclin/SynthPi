@@ -112,7 +112,7 @@ class Controller: public Thread{
 
   void updateRes(unsigned int parameter);
 
-
+  void updateSlope(unsigned int parameter);
   /**
    *Starts the running of playout
    */

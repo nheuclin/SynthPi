@@ -74,7 +74,7 @@ int main(int argc, char* argv[]){
 	
 	/*! Keyboard object. */
 	audio::Keyboard keyboard(&controller, keyboard_ID, keyboard_port, verbosity, vol_ID,
-	wavemix_ID, Bank_ID, Attack_ID, Decay_ID, Sustain_ID, Release_ID,  Cutoff_ID, Res_ID); 
+	wavemix_ID, Bank_ID, Attack_ID, Decay_ID, Sustain_ID, Release_ID,  Cutoff_ID, Res_ID, Slope_ID); 
 	
     signal(SIGQUIT, signalHandler);
     signal(SIGTERM, signalHandler);

@@ -89,6 +89,7 @@ class SoundModelMono : public SoundModel {
 
   		virtual void updateRes(unsigned int parameter) override;
 
+		virtual void updateSlope(unsigned int parameter) override;
 };
 
 } // namespace audio
