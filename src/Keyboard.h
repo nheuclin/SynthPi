@@ -8,9 +8,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "Thread.h"
-#include "Lock.h"
-#include "defs.hpp"
+#include <Thread.h>
+#include <Lock.h>
+#include <defs.hpp>
 #include "Controller.h"
 
 
@@ -27,12 +27,13 @@ class Keyboard : public Thread {
 
 	Controller* controller;
 	snd_seq_t* sequencer;
-
 	int myId;
 	int myPort;
 	int keyboardId;
 	int keyboardPort;
 	int announce;
+
+	
 
 	typedef std::set<int> keyset;
 	
@@ -40,13 +41,18 @@ class Keyboard : public Thread {
 	*  because the sustain pedal is pressed.
 	*/
 	keyset deferred_noteoff;
-
 	bool sustain=false; /**< whether sustain pedal is depressed */
 	
 
 	const int CC1;
 	const int CC2;
 	const int CC3;
+	const int CC4;
+	const int CC5;
+	const int CC6;
+	const int CC7;
+	const int CC8;
+	const int CC9;
 
 	/**
      * Send a MIDI note on event,  taking the sustain pedal into account
@@ -99,8 +105,9 @@ class Keyboard : public Thread {
 		* @param keyPort Port number on the given client
 		* @param verbosity Print note on/off announcement if > 0
 		*/
-		Keyboard(Controller* controller, int keyId, int keyPort,
-				int verbosity,const int vol_ID, const int wavemix_ID,const int Bank_ID);
+		Keyboard(Controller* controller, int keyId, int keyPort, int verbosity,const int vol_ID, 
+				const int wavemix_ID, const int Bank_ID, const int Attack_ID,const int Decay_ID, const int Sustain_ID,
+		 		const int Release_ID, const int Cutoff_ID,const int Res_ID);
 		
 		/**
 		* Poll the MIDI keyboard for key events.

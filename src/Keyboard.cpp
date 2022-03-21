@@ -1,22 +1,23 @@
 #include "Keyboard.h"
-#include <stdio.h>
-#include <iostream>
-#include <stdlib.h>
-#include <unistd.h>
-#include "Controller.h"
-#include <set>
-#include <alsa/asoundlib.h>
+
 //#include "defs.hpp"
 
 using namespace SYNTHPI;
 using namespace audio;
 
-Keyboard::Keyboard(Controller *controller, int keyId, int keyPort, int verbosity,
-					const int vol_ID, const int wavemix_ID, const int Bank_ID):
+Keyboard::Keyboard(Controller *controller, int keyId, int keyPort, int verbosity, const int vol_ID, 
+					const int wavemix_ID, const int Bank_ID,const int Attack_ID,const int Decay_ID, const int Sustain_ID,
+		 			const int Release_ID,const int Cutoff_ID,const int Res_ID):
 announce(verbosity > 0),
 CC1(vol_ID),
 CC2(wavemix_ID),
 CC3(Bank_ID),
+CC4(Attack_ID),
+CC5(Decay_ID),
+CC6(Sustain_ID),
+CC7(Release_ID),
+CC8(Cutoff_ID),
+CC9(Res_ID)
 {
 
 	this->controller = controller;
@@ -94,9 +95,9 @@ void Keyboard::connectKeyboard()
 
 void Keyboard::noteOn(unsigned char note,  unsigned char velocity) {
 	//  Send a note off if already sounding
-	if (deferred_noteoff.find(note) !=  deferred_noteoff.end()){
-		controller->keyEvent(true, note);
-	}
+	// if (deferred_noteoff.find(note) !=  deferred_noteoff.end()){
+	// 	controller->keyEvent(true, note);
+	// }
 	//  sound the note (velocity is ignored)
 	controller->keyEvent(false, note);
 	
@@ -139,12 +140,14 @@ void Keyboard::midiAction() {
 			note =  event->data.note.note;
 			velocity = event->data.note.velocity;
 
-			if (velocity != 0)
+			if (velocity != 0){
 				noteOn(note,  velocity);
-			else
+				break;
+			}
+			else{
 				noteOff(note);
-			
-			break; 
+				break;
+			} 
 
 		case SND_SEQ_EVENT_NOTEOFF:
 			note =  event->data.note.note;
@@ -185,6 +188,42 @@ void Keyboard::midiAction() {
 			if (p==CC3){ //Bank select CC
 				//std::cout<<"in CC3 if loop"<<std::endl;
 				controller->updateBank(v);
+				break;
+			}
+
+			if (p==CC4){ //Attack time CC
+				//std::cout<<"in CC4 if loop"<<std::endl;
+				controller->updateAttack(v);
+				break;
+			}
+
+			if (p==CC5){ // Decay time CC
+				//std::cout<<"in CC5 if loop"<<std::endl;
+				controller->updateDecay(v);
+				break;
+			}
+
+			if (p==CC6){ //Sustain Level CC
+				//std::cout<<"in CC6 if loop"<<std::endl;
+				controller->updateSustain(v);
+				break;
+			}
+
+			if (p==CC7){ //Release time CC
+				//std::cout<<"in CC7 if loop"<<std::endl;
+				controller->updateRelease(v);
+				break;
+			}
+
+			if (p==CC8){ // Cutoff Frequency CC
+				//std::cout<<"in CC8 if loop"<<std::endl;
+				controller->updateCutoff(v);
+				break;
+			}
+
+			if (p==CC9){ // Resonance amount CC
+				//std::cout<<"in CC9 if loop"<<std::endl;
+				controller->updateRes(v);
 				break;
 			}
 
