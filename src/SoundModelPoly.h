@@ -65,7 +65,7 @@ class SoundModelPoly : public SoundModel {
 		 * @param poly The numer of monophonic sound models to create
 		 * @param samplerate Operating sample rate
 		 */
-		SoundModelPoly(const int poly, const int samplerate, const int Slope_ID);
+		SoundModelPoly(const int poly, const int samplerate);
 
 		/**
 		 * Start a note playing. 

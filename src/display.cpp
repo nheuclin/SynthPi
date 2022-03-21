@@ -15,7 +15,7 @@
 
 #define SYSFS_GPIO_DIR "/sys/class/gpio"
 
-#include "spitest.h"
+#include "display.h"
 
 using namespace SYNTHPI;
 

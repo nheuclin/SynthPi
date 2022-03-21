@@ -41,7 +41,7 @@ public:
 	float process();
     std::vector<sample_t> getSamples(int nSamples);
     int getState(void);
-	void gate(int on);
+	void gate(bool on);
     void setAttackRate(float rate);
     void setDecayRate(float rate);
     void setReleaseRate(float rate);
