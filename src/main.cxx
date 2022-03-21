@@ -13,7 +13,9 @@
 #include "audio.hpp"
 #include "json.hpp"
 
+#include <array>
 #include <fstream>
+#include <string>
 #include <iostream>
 #include <functional>
 #include <signal.h>
@@ -48,21 +50,32 @@ int main(int argc, char* argv[]){
 	const int vol_ID=j.at("master_volume_ID");
 	const int wavemix_ID=j.at("wavemix_ID");
 	const int Bank_ID=j.at("Bank_select_ID");
+	
+	const int Attack_ID=j.at("Attack_time_ID");
+	const int Decay_ID=j.at("Decay_time_ID");
+	const int Sustain_ID=j.at("Sustain_level_ID");
+	const int Release_ID=j.at("Release_time_ID");
 
+	const int Cutoff_ID=j.at("Filter_Cutoff_ID");
+	const int Res_ID=j.at("Filter_Resonance_ID");
 
+	const int Slope_ID=j.at("Filter_Slope_ID");
 
     std::cout << std::endl << PROJECT_NAME << " v" << PROJECT_VERSION << std::endl;
-   
+	
+	/*! Jack Client Object. */
     audio::JackClient audioEngine("SynthPi");
     
 	/*! SoundModelPoly object. */
-	audio::SoundModelPoly mainmodel(poly, samplerate, output_gain);
+	audio::SoundModelPoly mainmodel(poly, samplerate);
 
+	/*! Controller object. */
 	audio::Controller controller(&mainmodel);
 	
+	/*! Keyboard object. */
 	audio::Keyboard keyboard(&controller, keyboard_ID, keyboard_port, verbosity, vol_ID,
-	                        wavemix_ID, Bank_ID);
-    
+	wavemix_ID, Bank_ID, Attack_ID, Decay_ID, Sustain_ID, Release_ID,  Cutoff_ID, Res_ID); 
+	
     signal(SIGQUIT, signalHandler);
     signal(SIGTERM, signalHandler);
     signal(SIGHUP, signalHandler);
