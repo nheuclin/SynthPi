@@ -30,19 +30,18 @@ class SoundModelPoly : public SoundModel {
 
 		float target_Q=0.707;
 		float target_Fc=1500;
+		
 		/*! a vector of soundmodelmono, ie a vector of the voices in synthpi */
 		std::vector<SoundModel*> soundModelList;
 
 		/*! a vector of int which keeps track of the order the voices are being turned on*/
-		//std::vector<int> lastSoundModel;
-
+		std::vector<int> lastSoundModel;
+		
 		/*! same as std::vector<int> lastSoundModel but keeps track of the midinotes  */
 		std::vector<int> midiNoteList;
 
 		/*!  */
 		int	soundModelNo;
-
-		int	lastSoundModel;
 
 		/*!  */
 		int VoiceNo;

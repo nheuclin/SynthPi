@@ -63,9 +63,10 @@ void SoundModelPoly::setNoteOn(int midinote) { //add note priority here
 		}
 
 	if (active==VoiceNo){ //if all voices are playing reset the oldest voice to the new note
-		soundModelList[lastSoundModel[0]]->setNoteOn(midinote);
-		midiNoteList[lastSoundModel[0]]=midinote;
-		return;
+		setNoteOff(lastSoundModel[0]);
+		//soundModelList[]->setNoteOn(midinote);
+		//midiNoteList[lastSoundModel[0]]=midinote;
+		//return;
 	}
 
 	for(unsigned int i = 0; i < soundModelList.size(); i++){
@@ -103,7 +104,6 @@ bool SoundModelPoly::isPlaying() {
 	}
 	return false;
 }
-
 
 void SoundModelPoly::updateVolume(unsigned int parameter) {
 	target_vol=0.4*(static_cast<float>(parameter)/127.0);
