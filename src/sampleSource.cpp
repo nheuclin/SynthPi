@@ -26,7 +26,7 @@ AudioClip::AudioClip(std::string filepath) {
     loadFile(filepath);
 
     numSamples = clip.size();
-    std::cout<<"samples in clip"<< numSamples<<std::endl;
+   // std::cout<<"samples in clip"<< numSamples<<std::endl;
 
     reset();
 }
