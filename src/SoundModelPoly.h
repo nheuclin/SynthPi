@@ -1,10 +1,12 @@
 #include "SoundModel.h"
-#include "defs.hpp"
+#include <defs.hpp>
 #include <string>
 #include <vector>
 #include <list>
 #include <queue>
 
+#include <filter_includes.h>
+#include <filter_common.h>
 
 #ifndef SOUND_MODEL_POLY_H
 #define SOUND_MODEL_POLY_H
@@ -19,16 +21,28 @@ namespace audio {
 class SoundModelPoly : public SoundModel {
 
 	private:
+
+		SO_LPF filter12;
+		SO_LPF filter24;
+		//float filtered_sample;
+		float Q=0.707;
+		float Fc=20000;
+
+		float target_Q=0.707;
+		float target_Fc=1500;
 		/*! a vector of soundmodelmono, ie a vector of the voices in synthpi */
 		std::vector<SoundModel*> soundModelList;
-		
+
+		/*! a vector of int which keeps track of the order the voices are being turned on*/
+		//std::vector<int> lastSoundModel;
+
+		/*! same as std::vector<int> lastSoundModel but keeps track of the midinotes  */
+		std::vector<int> midiNoteList;
+
 		/*!  */
 		int	soundModelNo;
 
 		int	lastSoundModel;
-
-		/*!  */
-		int	soundModelNo;
 
 		/*!  */
 		int VoiceNo;
@@ -44,14 +58,13 @@ class SoundModelPoly : public SoundModel {
 		/*!  a buffer to return the sum of voices to playback engine*/
 		std::vector<sample_t> polybuffer;
 
+		int midinoteoffbuffer =-1;
+
 	public:
 		/**
 		 * Create a SoundModelPoly with a given number of SoundModelMonos
 		 * @param poly The numer of monophonic sound models to create
 		 * @param samplerate Operating sample rate
-		 * @param gain
-		 * (optional) Multiply model outputs by this to yield the
-		 * final result
 		 */
 		SoundModelPoly(const int poly, const int samplerate);
 
@@ -101,6 +114,18 @@ class SoundModelPoly : public SoundModel {
 		virtual void updateWavemix(unsigned int parameter) override;
 
 		virtual void updateBank(unsigned int parameter) override;
+
+		virtual void updateAttack(unsigned int parameter) override;
+
+		virtual void updateDecay(unsigned int parameter) override;
+
+		virtual void updateSustain(unsigned int parameter) override;
+
+		virtual void updateRelease(unsigned int parameter) override;
+
+		virtual void updateCutoff(unsigned int parameter) override;
+
+  		virtual void updateRes(unsigned int parameter) override;
 
 		
 };

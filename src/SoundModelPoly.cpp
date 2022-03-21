@@ -9,12 +9,11 @@ using namespace SYNTHPI;
 using namespace audio;
 
 SoundModelPoly::SoundModelPoly(const int poly, const int samplerate) {
-	VoiceNo=poly;
-	for (int i = 0; i < VoiceNo; i++) {
+	for (int i = 0; i < poly; i++) {
 		soundModelList.push_back(new SoundModelMono);
 
 	}
-	//std::cout << "SMP created" << std::endl;
+	VoiceNo=poly;
 }
 
 std::vector<sample_t> SoundModelPoly::getSamples(int nSamples){
@@ -34,15 +33,24 @@ std::vector<sample_t> SoundModelPoly::getSamples(int nSamples){
 	}
 		
 	// Dezipper the audio output by changing the output gain progressively along the outbut buffer length,
+	// does the same for the filter cutoff and Q factor
 	float gain_step = (target_vol-master_vol)/nSamples;
-
+	float Fc_step = (target_Fc-Fc)/nSamples;
+	float Q_step = (target_Q-Q)/nSamples;
 	for(unsigned int i = 0; i < nSamples; i++) {
 
-		polybuffer[i] = polybuffer[i] * master_vol;
+		auto coeffs12=filter12.calculate_coeffs(Q,Fc,samplerate);
+		auto coeffs24=filter24.calculate_coeffs(Q,Fc,samplerate);
+
+		polybuffer[i] = filter24.process(filter12.process(polybuffer[i])) * master_vol;
 
 		master_vol += gain_step;
+		Fc+=Fc_step;
+		Q+=Q_step;
 	}
 	master_vol = target_vol;
+	Fc=target_Fc;
+	Q=target_Q;
 	return polybuffer;
 }
 
@@ -111,4 +119,37 @@ void SoundModelPoly::updateBank(unsigned int parameter) {
 		for (unsigned int i=0; i<soundModelList.size();i++){
 		soundModelList[i]->updateBank(parameter);
 	}
+}
+
+void SoundModelPoly::updateAttack(unsigned int parameter) {
+	for (unsigned int i=0; i<soundModelList.size();i++){
+		soundModelList[i]->updateAttack(parameter);
+	}
+}
+
+void SoundModelPoly::updateDecay(unsigned int parameter) {
+	for (unsigned int i=0; i<soundModelList.size();i++){
+		soundModelList[i]->updateDecay(parameter);
+	}
+}
+
+void SoundModelPoly::updateSustain(unsigned int parameter) {
+	for (unsigned int i=0; i<soundModelList.size();i++){
+		soundModelList[i]->updateSustain(parameter);
+	}
+}
+
+void SoundModelPoly::updateRelease(unsigned int parameter) {
+	for (unsigned int i=0; i<soundModelList.size();i++){
+		soundModelList[i]->updateRelease(parameter);
+	}
+}
+
+
+void SoundModelPoly::updateCutoff(unsigned int parameter){
+	target_Fc=80.0+powf(18000.0,(static_cast<float>(parameter)/127.0));
+}
+
+void SoundModelPoly::updateRes(unsigned int parameter){
+	target_Q=0.707+10.0*(static_cast<float>(parameter)/127.0);
 }

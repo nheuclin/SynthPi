@@ -2,7 +2,7 @@
 #define SOUNDMODEL_H
 
 #include <vector>
-#include "defs.hpp"
+#include <defs.hpp>
 
 namespace SYNTHPI {
 namespace audio {
@@ -47,6 +47,18 @@ class SoundModel {
 		virtual void updateWavemix(unsigned int parameter)= 0;
 
 		virtual void updateBank(unsigned int parameter)= 0;
+
+		virtual void updateAttack(unsigned int parameter)= 0;
+
+		virtual void updateDecay(unsigned int parameter)= 0;
+
+		virtual void updateSustain(unsigned int parameter)= 0;
+
+		virtual void updateRelease(unsigned int parameter)= 0;
+
+		virtual void updateCutoff(unsigned int parameter) =0;
+
+  		virtual void updateRes(unsigned int parameter) =0;
 
 
 };

@@ -1,10 +1,11 @@
-#include "Thread.h"
-#include "waveosc.hpp"
+#include <Thread.h>
+#include <waveosc.hpp>
 #include "SoundModel.h"
-#include "defs.hpp"
-#include "Lock.h"
+#include <defs.hpp>
+#include <Lock.h>
 #include <string>
 #include <math.h>
+#include <ADSR.h>
 
 #ifndef SOUND_MODEL_MONO_H
 #define SOUND_MODEL_MONO_H
@@ -21,16 +22,15 @@ namespace audio {
 class SoundModelMono : public SoundModel {
 
 	protected:
-
+		ADSR myadsr;
 		WaveOSC waveosc;    /* instance of a wave oscillator */
 		bool noteOn;		/* True if a note is currently playing (not counting release) */
 		int  currentNote;	/* Current note being played */
-		int release;		/* Countdown for how long isPlaying should return true after note released (number of samples it'll take the adsr to get back to 0 based on sampling rate) */
-	
-
+		bool release=false;		/* bool to check if isPlaying should return true even if the note is off */
 		int safeBank=1;
 		float sampleratef;
 		Lock lock; /* Main lock for all methods */
+		float sampleratef;
 
 	public:
 
@@ -77,6 +77,18 @@ class SoundModelMono : public SoundModel {
 
 		virtual void updateBank(unsigned int parameter) override;
 		
+		virtual void updateAttack(unsigned int parameter) override;
+
+		virtual void updateDecay(unsigned int parameter) override;
+
+		virtual void updateSustain(unsigned int parameter) override;
+
+		virtual void updateRelease(unsigned int parameter) override;
+
+		virtual void updateCutoff(unsigned int parameter) override;
+
+  		virtual void updateRes(unsigned int parameter) override;
+
 };
 
 } // namespace audio
