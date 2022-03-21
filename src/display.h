@@ -7,8 +7,7 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <linux/types.h>
-#include <linux/spi/spidev.h>
-#include <thread>  
+#include <linux/spi/spidev.h> 
 #include <string>
 #include <vector>
 #include <stdio.h>
@@ -18,13 +17,6 @@
 
 namespace SYNTHPI{
 
-
-// struct MAX7219settings {
-// 	/**
-// 	 * The SPI device in /dev used.
-// 	 **/
-// 	std::string spiDevice = "/dev/spidev0.0";
-// };
 
 class MAX7219 {
 
@@ -242,6 +234,31 @@ class Display: public MAX7219 {
 
 
 };
+
+class DisplayThread: public Thread{
+
+    protected:
+    
+        Display *display;
+        bool isPLaying;
+
+    public:
+
+        DisplayThread(Display *display); // Constructor
+
+        ~DisplayThread(); //Destructor
+
+        virtual void run();
+
+        void ccToDisplay(unsigned int address, unsigned int value);
+
+        
+        
+
+    
+
+
+}
 
 } //close namespace
 

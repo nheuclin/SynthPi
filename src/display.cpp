@@ -206,15 +206,24 @@ void Display::setParam(unsigned int param, bool redraw) {
     if (redraw) flush();
 }
 
-void Display::ccToDisplay(unsigned int address, unsigned int value){
+//Display::~Display(){
+
+// End Display
+
+// DisplayThread
+
+
+void DisplayThread::ccToDisplay(unsigned int address, unsigned int value){
     if (currentParam != address){
-        setParam(address, true);
+        display-> setParam(address, true);
         currentParam = address;
     }
-    setVal(value, true);
+    display-> setVal(value, true);
 
 }
 
-//Display::~Display(){
+
+
+
 
 //}
