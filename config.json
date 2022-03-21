@@ -7,5 +7,14 @@
     
     "master_volume_ID":7,
     "wavemix_ID":1, 
-    "Bank_select_ID":95
+    "Bank_select_ID":95,
+
+    "Attack_time_ID":73,
+    "Decay_time_ID":72,
+    "Sustain_level_ID":5, 
+    "Release_time_ID":84, 
+
+    "Filter_Slope_ID":2,
+    "Filter_Cutoff_ID":71,
+    "Filter_Resonance_ID":91
 }
