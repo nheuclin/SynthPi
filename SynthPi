@@ -1,0 +1,35 @@
+#!/bin/bash
+
+
+# Trap interupt signals to terminate jackd
+trap "killall -s SIGINT jackd; exit" SIGINT
+
+# Close any active JACK servers and start a new one
+bash scripts/start_jackd.bash
+
+# If the startup script fails with code 1, no USB audio device is connected
+if [ $? -eq 1 ]; then
+    echo "Please connect THE IQaudIO soundcard and try again."
+    trap -- SIGINT
+    exit 1
+fi
+
+# Release the trapped signal handler
+trap -- SIGINT
+# Send interrupt signals to the SynthPi
+trap "killall -s SIGINT SynthPi" SIGINT
+
+# Start the SynthPi program
+echo "Starting SynthPi..."
+./bin/SynthPi
+
+# Release the trapped signal handler
+trap -- SIGINT
+
+# When SynthPi has been quit, say goodbye
+echo ""
+echo ""
+echo "SynthPi closed."
+
+# Close JACK server
+bash scripts/close_jackd.bash
