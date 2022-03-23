@@ -5,7 +5,7 @@
 using namespace SYNTHPI;
 using namespace audio;
 
-Keyboard::Keyboard(Controller *controller, DisplayThread* mydisplay, int keyId, int keyPort, int verbosity, const int vol_ID, 
+Keyboard::Keyboard(Controller *controller, DisplayThread* mydisplaythread, int keyId, int keyPort, int verbosity, const int vol_ID, 
 					const int wavemix_ID, const int Bank_ID,const int Attack_ID,const int Decay_ID, const int Sustain_ID,
 		 			const int Release_ID,const int Cutoff_ID,const int Res_ID, const int Slope_ID):
 announce(verbosity > 0),
@@ -22,7 +22,7 @@ CC10(Slope_ID)
 {
 
 	this->controller = controller;
-	this->mydisplay = mydisplay;
+	this->mydisplaythread = mydisplaythread;
 	this->keyboardId = keyId;
 	this->keyboardPort = keyPort;
 
@@ -179,69 +179,69 @@ void Keyboard::midiAction() {
 			if (p==CC1){ //master volume CC
 				//std::cout<<"in CC1 if loop"<<std::endl;
 				controller->updateVolume(v);
-				mydisplay->ccToDisplay(0,v);
+				mydisplaythread->ccToDisplay(0,v);
 				break;
 			}
 
 			if (p==CC2){ //wavemix value CC
 				//std::cout<<"in CC2 if loop"<<std::endl;
 				controller->updateWavemix(v);
-				mydisplay->ccToDisplay(1,v);
+				mydisplaythread->ccToDisplay(1,v);
 				break;
 			}
 
 			if (p==CC3){ //Bank select CC
 				//std::cout<<"in CC3 if loop"<<std::endl;
 				controller->updateBank(v);
-				mydisplay->ccToDisplay(2,v);
+				mydisplaythread->ccToDisplay(2,v);
 				break;
 			}
 
 			if (p==CC4){ //Attack time CC
 				//std::cout<<"in CC4 if loop"<<std::endl;
 				controller->updateAttack(v);
-				mydisplay->ccToDisplay(3,v);
+				mydisplaythread->ccToDisplay(3,v);
 				break;
 			}
 
 			if (p==CC5){ // Decay time CC
 				//std::cout<<"in CC5 if loop"<<std::endl;
 				controller->updateDecay(v);
-				mydisplay->ccToDisplay(4,v);
+				mydisplaythread->ccToDisplay(4,v);
 				break;
 			}
 
 			if (p==CC6){ //Sustain Level CC
 				//std::cout<<"in CC6 if loop"<<std::endl;
 				controller->updateSustain(v);
-				mydisplay->ccToDisplay(5,v);
+				mydisplaythread->ccToDisplay(5,v);
 				break;
 			}
 
 			if (p==CC7){ //Release time CC
 				//std::cout<<"in CC7 if loop"<<std::endl;
 				controller->updateRelease(v);
-				mydisplay->ccToDisplay(6,v);
+				mydisplaythread->ccToDisplay(6,v);
 				break;
 			}
 
 			if (p==CC8){ // Cutoff Frequency CC
 				//std::cout<<"in CC8 if loop"<<std::endl;
 				controller->updateCutoff(v);
-				mydisplay->ccToDisplay(7,v);
+				mydisplaythread->ccToDisplay(7,v);
 				break;
 			}
 
 			if (p==CC9){ // Resonance amount CC
 				//std::cout<<"in CC9 if loop"<<std::endl;
 				controller->updateRes(v);
-				mydisplay->ccToDisplay(8,v);
+				mydisplaythread->ccToDisplay(8,v);
 				break;
 			}
 			if (p==CC10){ // Filter slope select CC
 				//std::cout<<"in CC10 if loop"<<std::endl;
 				controller->updateSlope(v);
-				mydisplay->ccToDisplay(9,v);
+				mydisplaythread->ccToDisplay(9,v);
 				break;
 			}
 

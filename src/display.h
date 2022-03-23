@@ -243,12 +243,12 @@ class DisplayThread: public Thread{
     protected:
     
         Display* display;
-        bool isPLaying;
+        bool isPlaying;
         unsigned int currentParam;
 
     public:
 
-        DisplayThread(); // Constructor
+        DisplayThread(Display* display); // Constructor
 
         ~DisplayThread(); //Destructor
 
