@@ -26,10 +26,12 @@ echo "Starting SynthPi..."
 # Release the trapped signal handler
 trap -- SIGINT
 
+
+# Close JACK server
+bash scripts/close_jackd.bash
+
 # When SynthPi has been quit, say goodbye
 echo ""
 echo ""
 echo "SynthPi closed."
 
-# Close JACK server
-bash scripts/close_jackd.bash
