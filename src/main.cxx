@@ -64,7 +64,7 @@ int main(int argc, char* argv[]){
 
     std::cout << std::endl << PROJECT_NAME << " v" << PROJECT_VERSION << std::endl;
 
-	DisplayThread mydisplay;
+	Display mydisplay;
 
 	DisplayThread mydisplaythread(&mydisplay);
 	
