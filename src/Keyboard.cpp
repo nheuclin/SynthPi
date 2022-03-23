@@ -162,7 +162,8 @@ void Keyboard::midiAction() {
 			
 			const int v = event->data.control.value;
 			const int p=event->data.control.param;
-
+			unsigned int display_val=static_cast<unsigned int>(v);
+			
 			if (p==64){// Process sustain pedal events	
 				bool s {p > 63};
 				if (sustain && !s) release();
@@ -185,53 +186,62 @@ void Keyboard::midiAction() {
 			if (p==CC2){ //wavemix value CC
 				//std::cout<<"in CC2 if loop"<<std::endl;
 				controller->updateWavemix(v);
+				mydisplay->ccToDisplay(1,v);
 				break;
 			}
 
 			if (p==CC3){ //Bank select CC
 				//std::cout<<"in CC3 if loop"<<std::endl;
 				controller->updateBank(v);
+				mydisplay->ccToDisplay(2,v);
 				break;
 			}
 
 			if (p==CC4){ //Attack time CC
 				//std::cout<<"in CC4 if loop"<<std::endl;
 				controller->updateAttack(v);
+				mydisplay->ccToDisplay(3,v);
 				break;
 			}
 
 			if (p==CC5){ // Decay time CC
 				//std::cout<<"in CC5 if loop"<<std::endl;
 				controller->updateDecay(v);
+				mydisplay->ccToDisplay(4,v);
 				break;
 			}
 
 			if (p==CC6){ //Sustain Level CC
 				//std::cout<<"in CC6 if loop"<<std::endl;
 				controller->updateSustain(v);
+				mydisplay->ccToDisplay(5,v);
 				break;
 			}
 
 			if (p==CC7){ //Release time CC
 				//std::cout<<"in CC7 if loop"<<std::endl;
 				controller->updateRelease(v);
+				mydisplay->ccToDisplay(6,v);
 				break;
 			}
 
 			if (p==CC8){ // Cutoff Frequency CC
 				//std::cout<<"in CC8 if loop"<<std::endl;
 				controller->updateCutoff(v);
+				mydisplay->ccToDisplay(7,v);
 				break;
 			}
 
 			if (p==CC9){ // Resonance amount CC
 				//std::cout<<"in CC9 if loop"<<std::endl;
 				controller->updateRes(v);
+				mydisplay->ccToDisplay(8,v);
 				break;
 			}
 			if (p==CC10){ // Filter slope select CC
 				//std::cout<<"in CC10 if loop"<<std::endl;
 				controller->updateSlope(v);
+				mydisplay->ccToDisplay(9,v);
 				break;
 			}
 

@@ -65,6 +65,8 @@ int main(int argc, char* argv[]){
     std::cout << std::endl << PROJECT_NAME << " v" << PROJECT_VERSION << std::endl;
 
 	DisplayThread mydisplay;
+
+	DisplayThread mydisplaythread(&mydisplay);
 	
 	/*! Jack Client Object. */
     audio::JackClient audioEngine("SynthPi");
@@ -76,7 +78,7 @@ int main(int argc, char* argv[]){
 	audio::Controller controller(&mainmodel);
 	
 	/*! Keyboard object. */
-	audio::Keyboard keyboard(&controller, &mydisplay, keyboard_ID, keyboard_port, verbosity, vol_ID,
+	audio::Keyboard keyboard(&controller, &mydisplaythread, keyboard_ID, keyboard_port, verbosity, vol_ID,
 	wavemix_ID, Bank_ID, Attack_ID, Decay_ID, Sustain_ID, Release_ID,  Cutoff_ID, Res_ID, Slope_ID); 
 	
     signal(SIGQUIT, signalHandler);
@@ -94,7 +96,7 @@ int main(int argc, char* argv[]){
     };
     
 	controller.start();
-	mydisplay.start();
+	mydisplaythread.start();
 	keyboard.start();
     audioEngine.start(mainmodel);
     running = true;

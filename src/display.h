@@ -170,12 +170,15 @@ class Display: public MAX7219 {
 
         const std::vector<std::vector<unsigned char>> params = {
             {0x3E,0x1D,0x0E,0x00}, // VOL
-            {0x77,0x0F,0x77,0x4E}, // BLND
+            {0x77,0x0E,0x77,0x4E}, // BLND
+            {0x1F,0x77,0x15,0x37}, // BANK
             {0x77,0x0F,0x77,0x4E}, // ATAC
             {0x3D,0x4E,0x77,0x3B}, // DCAY
             {0x5B,0x1C,0x5B,0x0F}, // SUST
             {0x05,0x4F,0x0E,0x00}, // REL
-            {0x1F,0x77,0x15,0x37}, // BANK
+            {0x4E,0x1D,0x47,0x47}, //CoFF
+            {0x05,0x4F,0x5B,0x1D}, //RESO
+            {0x5B,0x0E,0x1D,0x67}, //SLOP
             
         };
 
@@ -239,26 +242,19 @@ class DisplayThread: public Thread{
 
     protected:
     
-        Display *display;
+        Display* display;
         bool isPLaying;
+        unsigned int currentParam;
 
     public:
 
-        unsigned int currentParam;
+        DisplayThread(); // Constructor
 
-        DisplayThread(){}; // Constructor
-
-        ~DisplayThread(){}; //Destructor
+        ~DisplayThread(); //Destructor
 
         virtual void run();
 
         void ccToDisplay(unsigned int address, unsigned int value);
-
-        
-        
-
-    
-
 
 };
 
