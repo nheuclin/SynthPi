@@ -12,6 +12,7 @@
 #include "Keyboard.h"
 #include "audio.hpp"
 #include "json.hpp"
+#include "display.h"
 
 #include <array>
 #include <fstream>
@@ -62,6 +63,8 @@ int main(int argc, char* argv[]){
 	const int Slope_ID=j.at("Filter_Slope_ID");
 
     std::cout << std::endl << PROJECT_NAME << " v" << PROJECT_VERSION << std::endl;
+
+	DisplayThread mydisplay;
 	
 	/*! Jack Client Object. */
     audio::JackClient audioEngine("SynthPi");
@@ -73,7 +76,7 @@ int main(int argc, char* argv[]){
 	audio::Controller controller(&mainmodel);
 	
 	/*! Keyboard object. */
-	audio::Keyboard keyboard(&controller, keyboard_ID, keyboard_port, verbosity, vol_ID,
+	audio::Keyboard keyboard(&controller, &mydisplay, keyboard_ID, keyboard_port, verbosity, vol_ID,
 	wavemix_ID, Bank_ID, Attack_ID, Decay_ID, Sustain_ID, Release_ID,  Cutoff_ID, Res_ID, Slope_ID); 
 	
     signal(SIGQUIT, signalHandler);
@@ -91,6 +94,7 @@ int main(int argc, char* argv[]){
     };
     
 	controller.start();
+	mydisplay.start();
 	keyboard.start();
     audioEngine.start(mainmodel);
     running = true;

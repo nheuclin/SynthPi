@@ -212,6 +212,9 @@ void Display::setParam(unsigned int param, bool redraw) {
 
 // DisplayThread
 
+DisplayThread::DisplayThread();
+DisplayThread::~DisplayThread(); //Destructor
+
 
 void DisplayThread::ccToDisplay(unsigned int address, unsigned int value){
     if (currentParam != address){
@@ -222,7 +225,9 @@ void DisplayThread::ccToDisplay(unsigned int address, unsigned int value){
 
 }
 
-
+void DisplayThread::run(){
+    while (isPLaying==true){}
+}
 
 
 

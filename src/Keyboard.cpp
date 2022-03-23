@@ -5,7 +5,7 @@
 using namespace SYNTHPI;
 using namespace audio;
 
-Keyboard::Keyboard(Controller *controller, int keyId, int keyPort, int verbosity, const int vol_ID, 
+Keyboard::Keyboard(Controller *controller, DisplayThread* mydisplay, int keyId, int keyPort, int verbosity, const int vol_ID, 
 					const int wavemix_ID, const int Bank_ID,const int Attack_ID,const int Decay_ID, const int Sustain_ID,
 		 			const int Release_ID,const int Cutoff_ID,const int Res_ID, const int Slope_ID):
 announce(verbosity > 0),
@@ -22,6 +22,7 @@ CC10(Slope_ID)
 {
 
 	this->controller = controller;
+	this->mydisplay = mydisplay;
 	this->keyboardId = keyId;
 	this->keyboardPort = keyPort;
 
@@ -177,6 +178,7 @@ void Keyboard::midiAction() {
 			if (p==CC1){ //master volume CC
 				//std::cout<<"in CC1 if loop"<<std::endl;
 				controller->updateVolume(v);
+				mydisplay->ccToDisplay(0,v);
 				break;
 			}
 

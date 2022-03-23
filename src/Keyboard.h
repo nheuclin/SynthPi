@@ -12,6 +12,7 @@
 #include <Lock.h>
 #include <defs.hpp>
 #include "Controller.h"
+#include "display.h"
 
 
 /**
@@ -26,6 +27,7 @@ namespace audio {
 class Keyboard : public Thread {
 
 	Controller* controller;
+	DisplayThread* mydisplay;
 	snd_seq_t* sequencer;
 	int myId;
 	int myPort;
@@ -106,7 +108,7 @@ class Keyboard : public Thread {
 		* @param keyPort Port number on the given client
 		* @param verbosity Print note on/off announcement if > 0
 		*/
-		Keyboard(Controller* controller, int keyId, int keyPort, int verbosity,const int vol_ID, 
+		Keyboard(Controller* controller, DisplayThread* mydisplay, int keyId, int keyPort, int verbosity,const int vol_ID, 
 				const int wavemix_ID, const int Bank_ID, const int Attack_ID,const int Decay_ID, const int Sustain_ID,
 		 		const int Release_ID, const int Cutoff_ID,const int Res_ID, const int Slope_ID);
 		

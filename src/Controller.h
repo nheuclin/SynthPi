@@ -53,7 +53,7 @@ class Controller: public Thread{
 
   //Lock for accessing the noteQueue.
   Lock queueLock;
-
+0
   float volume;
   float wavemix_val;
   float attack_time;
