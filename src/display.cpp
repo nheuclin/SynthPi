@@ -51,7 +51,20 @@ MAX7219::MAX7219(){
     command(MAX7219_REG_SHUTDOWN, shutdown);
     command(MAX7219_REG_DISPLAYTEST, displayTest);
 
-	std::cout << "device setup" << std::endl;
+	//std::cout << "device setup" << std::endl;
+
+    for (int j=0; j<1000; j++){
+        setDigit(7, 0x5B, false);
+        setDigit(6, 0x3B, false);
+        setDigit(5, 0x15, false);
+        setDigit(4, 0x0F, false);
+        setDigit(3, 0x97, false);
+        setDigit(2, 0x67, false);
+        setDigit(1, 0x04, true);
+        command(0xA, (j/10));
+    }
+
+    clear(true);
 }
 
 
