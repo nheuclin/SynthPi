@@ -246,9 +246,9 @@ class DisplayThread: public Thread{
 
         unsigned int currentParam;
 
-        DisplayThread(Display *display); // Constructor
+        DisplayThread(){}; // Constructor
 
-        ~DisplayThread(); //Destructor
+        ~DisplayThread(){}; //Destructor
 
         virtual void run();
 
