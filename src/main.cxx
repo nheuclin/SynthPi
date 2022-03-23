@@ -38,9 +38,11 @@ void signalHandler(int signal) { shutdownHandler(signal); }
 /*! Main function of execution. */
 int main(int argc, char* argv[]){
 
+	/*! Open the config file */
 	myfile.open("config.json");
 	myfile >> j;
 
+	/*! load the config file variables to be parsed */
 	int poly=j.at("poly");
 
 	int keyboard_ID=j.at("keyboard_ID");
@@ -59,13 +61,14 @@ int main(int argc, char* argv[]){
 
 	const int Cutoff_ID=j.at("Filter_Cutoff_ID");
 	const int Res_ID=j.at("Filter_Resonance_ID");
-
 	const int Slope_ID=j.at("Filter_Slope_ID");
 
     std::cout << std::endl << PROJECT_NAME << " v" << PROJECT_VERSION << std::endl;
 
+	/*! Display object */
 	Display mydisplay;
 
+	/*! Display thread to have the display run concurently of the DSP section */
 	DisplayThread mydisplaythread(&mydisplay);
 	
 	/*! Jack Client Object. */
@@ -87,6 +90,7 @@ int main(int argc, char* argv[]){
     signal(SIGKILL, signalHandler);
     signal(SIGTSTP, signalHandler);
 
+
     bool running = false;   
     
     shutdownHandler = [&](int signal) {
@@ -94,15 +98,22 @@ int main(int argc, char* argv[]){
         running = false;
 
     };
-    
+
+	/*! start the SynthPi threads */
 	controller.start();
 	mydisplaythread.start();
 	keyboard.start();
     audioEngine.start(mainmodel);
+
     running = true;
+	
 	while(running) {}
 
+	/*! stop the SynthPi threads once it is not running anymore */
 	audioEngine.stop();
+	keyboard.stop();
+	mydisplaythread.stop();
+	controller.stop();
 
     return 0;
 }

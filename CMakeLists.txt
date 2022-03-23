@@ -49,7 +49,6 @@ if (ALSA_FOUND)
     target_link_libraries (library ${ALSA_LIBRARIES})      
 endif(ALSA_FOUND)  
 
-#add_library(asoundlib.h  ${PROJECT_SOURCE_DIR}/../usr/include/alsa/)
 ## Add, include and link each library subdirector
 # For pre-compiled libraries (e.g. Jack) only linking is needed
 # Add
@@ -58,8 +57,6 @@ add_subdirectory(
     ${PROJECT_SOURCE_DIR}/lib/AudioFile
     ${PROJECT_SOURCE_DIR}/lib/DSP-Cpp-filters-master/lib
 )
-
-
 
 # Include
 include_directories(

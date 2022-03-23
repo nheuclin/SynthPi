@@ -7,5 +7,5 @@ cmake .
 # Run make
 echo "Running make..."
 make -j
-
+chmod a+x ./SynthPi
 echo "SynthPi is installed"

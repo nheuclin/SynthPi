@@ -31,7 +31,7 @@ typedef enum _WaveIDs {
 
 
 /*! The number of waves available in the SYNTHPI. */
-#define NUM_WAVES (int)_WaveIDs::_NUM_VOICES
+//#define NUM_WAVES (int)_WaveIDs::_NUM_VOICES
 
 
 /*! The namespace for audio system related items. */

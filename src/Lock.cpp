@@ -1,8 +1,5 @@
-/**
- *Adapter for handling a lock
- *
- *Provides easy mutex and condition variable initialisation.
- */
+/*! Adapter for handling a lock
+Provides easy mutex and condition variable initialisation. */
 
 #include "Lock.h"
 #include <pthread.h>

@@ -81,9 +81,7 @@ void SoundModelMono::setNoteOff(int midinote) {
 		try{
 			myadsr.gate(false);
 			noteOn = false;
-			//currentNote = -1;
-			//release = waveosc.getRelease(); //return release time as a number of samples it will take for the ADSR to get back to 0 based on sampling rate
-			//waveosc.trigRelease(); //trigger ADSR release stage.
+
 		}
 		catch (const char* e) {}
 	}

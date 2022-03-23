@@ -1,5 +1,4 @@
 #include "sampleSource.hpp"
-
 #include <AudioFile.h>
 
 using namespace SYNTHPI;
@@ -18,16 +17,11 @@ sampleSourceType_t SampleSource::getType() {
     return type;
 }
 
-
 // class AudioClip
-
 AudioClip::AudioClip(std::string filepath) {
     type = SOURCE_PREGENERATED;
     loadFile(filepath);
-
     numSamples = clip.size();
-   // std::cout<<"samples in clip"<< numSamples<<std::endl;
-
     reset();
 }
 
@@ -37,17 +31,15 @@ std::vector<sample_t> AudioClip::getSamples(int nSamples, double index_increment
     Src_status == SOURCE_ACTIVE;
 
     for (unsigned int i = 0; i < nSamples; i++) {
-        if (playhead > numSamples-1) { // if playhead overran the wav file samples then loop back to beginning 
-            //std::cout << "playhead overrun if statement" << std::endl;
-            playhead =  playhead-static_cast<float>(numSamples-1); //accounting that we might not want to start back at 0 exactly
-
+        // if playhead overran the wav file samples then loop back to beginning 
+        if (playhead > numSamples-1) { 
+            //accounting that we might not want to start back at 0 exactly
+            playhead =  playhead-static_cast<float>(numSamples-1); 
         }
 
         int_playhead=static_cast<int> (playhead);
         interpolation_val2= playhead - int_playhead;
         interpolation_val1= 1.0 - interpolation_val2;
-
-        
 
         // Copy samples from clip 
         if (int_playhead+1==numSamples){
@@ -57,12 +49,8 @@ std::vector<sample_t> AudioClip::getSamples(int nSamples, double index_increment
             b[i] = (interpolation_val1*clip[int_playhead]+ interpolation_val2*clip[int_playhead+1]); //1st order interpolation
         }
         playhead= playhead+index_increment;
-        //std::cout << b[i];
-
     }
-    //std::cout << "one samplesource call" <<std::endl;
     return b;
-
 }
 
 void AudioClip::reset() {
@@ -75,7 +63,6 @@ void AudioClip::updateStatus() {
         Src_status = SOURCE_ERROR;
         return;
     }
-
     if (playhead == 0) {
         Src_status = SOURCE_READY;
     } else if (playhead >= 0 && playhead < numSamples) {

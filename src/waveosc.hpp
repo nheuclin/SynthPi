@@ -60,18 +60,6 @@ class WaveOSC {
         /*! Returns the source \ref sampleSourceType_t for the given drum. 
         \return source type. */
         sampleSourceType_t getSourceType(WaveID_t wave);
-
-        /*! function to trigger ADSR attack stage*/
-        void trigAttack();
-
-        /*!function to trigger ADSR release stage*/
-        void trigRelease();
-
-        /*!function to return the number of samples it will take for the ADSR (depedending 
-        on the sample rate) to get back to 0 once the release stage is triggered 
-        \return ReleaseSampleNo the number of samples it'll take for the ADSR to get back to 0 */
-        int getRelease();
-
     
 
     private:
@@ -96,18 +84,26 @@ class WaveOSC {
         /*!float to dezipper wave mixing !*/
         float wavemix_val_target=0.0; 
 
+        /*! the wave index of the first wave to interpolate from, this value might change on a per sample basis*/
         int Wave_index=0;
 
+        /*! the wave index of the second wave to interpolate from, this value might change on a per sample basis*/
         int Wave_index2=0;
 
+        /*! the value to average the first wave by , this value might change on a per sample basis*/
         float wave1_avg=0.5;
         
+        /*! the value to average the second wave by , this value might change on a per sample basis*/
         float wave2_avg=0.5;
         
+        /*! a static cast of the operating samplerate to a float value*/
         float sampleratef;
-        
+
+        /*! a static cast of the midi note to convert to frequency to a float value */
         float midinotef;
         
+
+        /*! a list that holds the number of sample in each wave buffer to calculate the frequency they've been recorded at */
         std::vector<float> numberSamples_bySR;
 
         /*! \ref SampleSource object pointers. */

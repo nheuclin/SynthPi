@@ -18,6 +18,8 @@ class SampleSource {
 
         /*! Returns a buffer of samples.
         \param nSamples number of samples to be returned.
+        \param index_increment the floating point "perfect" increment to go through the single cycle 
+        waveform at the right speed.
         \return a sample buffer of length nSamples. */
         virtual std::vector<sample_t> getSamples(int nSamples, double index_increment) = 0;
 
