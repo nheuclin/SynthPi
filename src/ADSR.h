@@ -40,7 +40,7 @@ public:
 	~ADSR();
 	float process();
     std::vector<sample_t> getSamples(int nSamples);
-    int getState(void);
+    int getState();
 	void gate(bool on);
     void setAttackRate(float rate);
     void setDecayRate(float rate);
@@ -48,7 +48,7 @@ public:
 	void setSustainLevel(float level);
     void setTargetRatioA(float targetRatio);
     void setTargetRatioDR(float targetRatio);
-    void reset(void);
+    void reset();
     bool inRelease();
 
     enum envState {
