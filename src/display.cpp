@@ -64,7 +64,6 @@ MAX7219::MAX7219(){
         command(0xA, (j/10));
     }
 
-    clear(true);
 }
 
 
