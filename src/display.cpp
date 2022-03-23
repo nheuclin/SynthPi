@@ -26,17 +26,17 @@ MAX7219::MAX7219(){
 	
 	 //fd = open(settings.spiDevice.c_str(), O_RDWR);
         fd = open("/dev/spidev0.0", O_RDWR);
-		std::cout << "devices opened: " << std::endl;
+		//std::cout << "devices opened: " << std::endl;
 	if (fd < 0){
 		throw "Can't open device";
 	}
 	// set SPI mode
 	int ret = ioctl(fd, SPI_IOC_WR_MODE, 1);
-	std::cout << "Spi mode set " << std::endl;
+	//std::cout << "Spi mode set " << std::endl;
 	if (ret == -1) {
 		//throw "can't set spi mode";
 	}
-	std::cout << "device setup" << std::endl;
+	//std::cout << "device setup" << std::endl;
 
 
      //Allocate digit buffer and init to 0
@@ -56,13 +56,13 @@ MAX7219::MAX7219(){
 
 
 void MAX7219::command(unsigned char reg, unsigned char data) {
-	std::cout << "command " <<reg <<"  "<< data << std::endl;
+	//std::cout << "command " <<reg <<"  "<< data << std::endl;
     unsigned char tx[2] = {reg, data};
     spi_transfer(fd, tx, 2);
 }
 
 int MAX7219::spi_transfer(int fd, unsigned char* tx, int n) {
-	std::cout << "transfered: "<< tx << std::endl;
+	//std::cout << "transfered: "<< tx << std::endl;
 	struct spi_ioc_transfer tr;
 	memset(&tr,0,sizeof(struct spi_ioc_transfer));
 	tr.tx_buf = (unsigned long)tx;
