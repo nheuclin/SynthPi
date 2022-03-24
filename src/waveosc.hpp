@@ -31,8 +31,8 @@ class WaveOSC {
         /*! Retrieves wave samples.
         \param nSamples number of samples to return.
         \return a buffer of samples. */
-        virtual std::vector<sample_t> getSamples(int nSamples); //override ? don't think it's needed
-
+        std::vector<sample_t> getSamples(int nSamples); 
+          
         /*! sets osc frequency 
         \param midinote Semitone value to be played (0-127) */
         void setSemitone(int midinote);
