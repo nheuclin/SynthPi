@@ -1,6 +1,4 @@
-
 #include "Controller.h"
-
 
 using namespace SYNTHPI;
 using namespace audio;
@@ -84,7 +82,7 @@ void Controller::updateBank(int parameter){
 	playout-> updateBank(parameter);
 }
 
-void Controller::updateCutoff(const int parameter){
+void Controller::updateCutoff(unsigned int parameter){
 	playout->updateCutoff(parameter);
 }
 

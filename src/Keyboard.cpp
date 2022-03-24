@@ -192,7 +192,7 @@ void Keyboard::midiAction() {
 			}
 
 			if (p==CC3){ //Bank select CC
-				int bank= static_cast<int>(Bank_No*static_cast <float>(v)/127.0);
+				int bank= 1+static_cast<int>((Bank_No-1)*static_cast<float>(v)/127.0);
 				//std::cout<<"in CC3 if loop"<<std::endl;
 				controller->updateBank(bank);
 				mydisplaythread->ccToDisplay(2,bank);

@@ -9,3 +9,4 @@ sleep 2
 
 # Inform the user the JACK server has closed
 echo "JACK server closed."
+

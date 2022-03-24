@@ -112,9 +112,6 @@ int main(int argc, char* argv[]){
 
 	/*! stop the SynthPi threads once it is not running anymore */
 	audioEngine.stop();
-	keyboard.stop();
-	mydisplaythread.stop();
-	controller.stop();
 
     return 0;
 }
