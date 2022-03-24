@@ -111,9 +111,9 @@ class Controller: public Thread{
   \param parameter the midi value which represents the release time */ 
   void updateRelease(unsigned int parameter);
 
-  /*! Called by keyboard interface when it receives a value from the CC associated to the bank sekect control
-  \param parameter the midi value which represents the bank to play from */ 
-  void updateBank(unsigned int parameter);
+  /*! Called by keyboard interface when it receives a value from the CC associated to the bank select control
+  \param parameter the value which represents the bank to play from */ 
+  void updateBank(int parameter);
 
   /*! Called by keyboard interface when it receives a value from the CC associated to the filter cutoff frequency
   control

@@ -74,12 +74,14 @@ class SoundModelMono : public SoundModel {
 		virtual void setNoteOff(int semitone) override;  
 
 
-		/*! updates wavemix value for wave interpolation */
+		/*! updates wavemix value for wave interpolation
+		\param parameter the midi value which represents the wavemix ratio */
 		virtual void updateWavemix(unsigned int parameter) override;
 
 
-		/*! update associated waveosc banks */
-		virtual void updateBank(unsigned int parameter) override;
+		/*! update associated waveosc banks 
+		\param parameter the midi value which represents the bank to play from */
+		virtual void updateBank(int parameter) override;
 
 
 		/*! passes the value from the CC associated to the attack time control

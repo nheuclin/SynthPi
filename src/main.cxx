@@ -44,6 +44,7 @@ int main(int argc, char* argv[]){
 
 	/*! load the config file variables to be parsed */
 	int poly=j.at("poly");
+	int Bank_No=j.at("Bank_No");
 
 	int keyboard_ID=j.at("keyboard_ID");
 	int keyboard_port=j.at("keyboard_port");
@@ -82,7 +83,7 @@ int main(int argc, char* argv[]){
 	
 	/*! Keyboard object. */
 	audio::Keyboard keyboard(&controller, &mydisplaythread, keyboard_ID, keyboard_port, verbosity, vol_ID,
-	wavemix_ID, Bank_ID, Attack_ID, Decay_ID, Sustain_ID, Release_ID,  Cutoff_ID, Res_ID, Slope_ID); 
+	wavemix_ID, Bank_ID, Bank_No, Attack_ID, Decay_ID, Sustain_ID, Release_ID,  Cutoff_ID, Res_ID, Slope_ID); 
 	
     signal(SIGQUIT, signalHandler);
     signal(SIGTERM, signalHandler);

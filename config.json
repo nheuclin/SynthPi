@@ -1,6 +1,7 @@
 {
     "poly":12,
-    
+    "Bank_No":6,
+
     "keyboard_ID":28,
     "keyboard_port":1,
     "verbosity":0,
@@ -17,5 +18,4 @@
     "Filter_Slope_ID":61,
     "Filter_Cutoff_ID":43,
     "Filter_Resonance_ID":44
-
 }

@@ -80,11 +80,11 @@ void Controller::updateRelease(unsigned int parameter){
 	playout->updateRelease(parameter);
 }
 
-void Controller::updateBank(unsigned int parameter){
+void Controller::updateBank(int parameter){
 	playout-> updateBank(parameter);
 }
 
-void Controller::updateCutoff(unsigned int parameter){
+void Controller::updateCutoff(const int parameter){
 	playout->updateCutoff(parameter);
 }
 

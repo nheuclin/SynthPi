@@ -93,19 +93,18 @@ void SoundModelMono::updateWavemix(unsigned int parameter){
 	waveosc.updateWavemix(parameter);
 }
 
-void SoundModelMono::updateBank(unsigned int parameter) {
-	sampleSourceStatus_t loadStatus = SOURCE_READY;
-	int bank= static_cast<int>(static_cast<float>(((parameter)/127.0)*5.0))+1; //hard limit on 12 banks
-	if (bank != safeBank){
-		loadStatus=waveosc.loadBank(bank, SOURCE_PREGENERATED);
+void SoundModelMono::updateBank(int parameter) {
+	sampleSourceStatus_t loadStatus = SOURCE_READY; 
+	if (parameter != safeBank){
+		loadStatus=waveosc.loadBank(parameter, SOURCE_PREGENERATED);
 	}
 	if (loadStatus != SOURCE_READY) {
-		std::cout << std::endl << "Could not load bank " << bank << std::endl;
+		std::cout << std::endl << "Could not load bank " << parameter << std::endl;
 		std::cout << "Returning to bank " << safeBank << std::endl;
-		bank = safeBank;
-		waveosc.loadBank(bank, SOURCE_PREGENERATED);
+		parameter = safeBank;
+		waveosc.loadBank(parameter, SOURCE_PREGENERATED);
 	}else {
-		safeBank = bank;
+		safeBank = parameter;
 	}
 }
 

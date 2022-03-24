@@ -6,7 +6,7 @@ using namespace SYNTHPI;
 using namespace audio;
 
 Keyboard::Keyboard(Controller *controller, DisplayThread* mydisplaythread, int keyId, int keyPort, int verbosity, const int vol_ID, 
-					const int wavemix_ID, const int Bank_ID,const int Attack_ID,const int Decay_ID, const int Sustain_ID,
+					const int wavemix_ID, const int Bank_ID,int Bank_No, const int Attack_ID,const int Decay_ID, const int Sustain_ID,
 		 			const int Release_ID,const int Cutoff_ID,const int Res_ID, const int Slope_ID):
 announce(verbosity > 0),
 CC1(vol_ID),
@@ -18,7 +18,8 @@ CC6(Sustain_ID),
 CC7(Release_ID),
 CC8(Cutoff_ID),
 CC9(Res_ID),
-CC10(Slope_ID)
+CC10(Slope_ID),
+Bank_No(Bank_No)
 {
 
 	this->controller = controller;
@@ -191,9 +192,10 @@ void Keyboard::midiAction() {
 			}
 
 			if (p==CC3){ //Bank select CC
+				int bank= static_cast<int>(Bank_No*static_cast <float>(v)/127.0);
 				//std::cout<<"in CC3 if loop"<<std::endl;
-				controller->updateBank(v);
-				mydisplaythread->ccToDisplay(2,v);
+				controller->updateBank(bank);
+				mydisplaythread->ccToDisplay(2,bank);
 				break;
 			}
 

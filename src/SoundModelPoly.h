@@ -105,17 +105,17 @@ class SoundModelPoly : public SoundModel {
 		/*! Thrown when empty SoundModel vector passed into constructor */
 		class NoSoundModelException {};
 
-		/*! update the synthpi master volume */
+		/*! update the synthpi master volume 
+		\param parameter the midi value which represents the master volume */
     	virtual void updateVolume(unsigned int parameter) override;
 
-
-		/*! passes the wavemix values to all soundmodelmono instances */
+		/*! passes the wavemix values to all soundmodelmono instances 
+		\param parameter the midi value which represents the wavemix ratio */
 		virtual void updateWavemix(unsigned int parameter) override;
 
-
-		/* calls soundmodelmono updateBank for all voices */
-		virtual void updateBank(unsigned int parameter) override;
-
+		/*! calls soundmodelmono updateBank for all voices 
+		\param parameter the midi value which represents the bank to play from */
+		virtual void updateBank(int parameter) override;
 
 		/*! passes the value from the CC associated to the attack time control
   		\param parameter the midi value which represents the attack time */
@@ -133,13 +133,16 @@ class SoundModelPoly : public SoundModel {
   		\param parameter the midi value which represents the release time */
 		virtual void updateRelease(unsigned int parameter) override;
 
-		/*! update the filters cutoff frequency */
+		/*! update the filters cutoff frequency 
+		\param parameter the midi value which represents the filter cutoff frequency */
 		virtual void updateCutoff(unsigned int parameter) override;
 
-		/*! update the filters resonance amounts */
+		/*! update the filters resonance amounts 
+		\param parameter the midi value which represents the filter resonance amount */
   		virtual void updateRes(unsigned int parameter) override;
 
-		/*! update the filter slope */
+		/*! update the filter slope 
+		\param parameter the midi value which represents the filter slope control */
 		virtual void updateSlope(unsigned int parameter) override;
 
 		

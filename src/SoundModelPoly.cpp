@@ -134,7 +134,7 @@ void SoundModelPoly::updateWavemix(unsigned int parameter){
 	}
 }
 
-void SoundModelPoly::updateBank(unsigned int parameter) {
+void SoundModelPoly::updateBank(int parameter) {
 		for (unsigned int i=0; i<soundModelList.size();i++){
 		soundModelList[i]->updateBank(parameter);
 	}

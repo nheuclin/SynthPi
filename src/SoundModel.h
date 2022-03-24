@@ -46,7 +46,7 @@ class SoundModel {
 
 		/*! passes the value from the CC associated to the bank sekect control
   		\param parameter the midi value which represents the bank to play from */
-		virtual void updateBank(unsigned int parameter)= 0;
+		virtual void updateBank(int parameter)= 0;
 
 
 		/*! passes the value from the CC associated to the attack time control

@@ -89,6 +89,9 @@ class Keyboard : public Thread {
 	/*! const int to store the 10th CC ID number from the json file */
 	const int CC10;
 
+	/*! int to store the number of available banks in SynthPi */
+	int Bank_No;
+
 	/*! Send a MIDI note on event,  taking the sustain pedal into account
 	   If a note is already sounding due to sustain and a note-on message
 	   is received,  convention dictates the synth should receive a note-off first.
@@ -129,6 +132,7 @@ class Keyboard : public Thread {
 		\param vol_ID the MIDI CC ID number for volume control
 		\param wavemix_ID the MIDI CC ID number for wavemixing control
 		\param Bank_ID the MIDI CC ID number for changing banks
+		\param Bank_No the number of available banks in synthpi
 		\param Attack_ID the MIDI CC ID number for setting the ADSR attack time
 		\param Decay_ID the MIDI CC ID number for setting the ADSR decay time
 		\param Sustain_ID the MIDI CC ID number for setting the ADSR sustain level
@@ -138,7 +142,7 @@ class Keyboard : public Thread {
 		\param Slope_ID the MIDI CC ID number for selecting the filter slope
 		*/
 		Keyboard(Controller* controller, DisplayThread* mydisplaythread, int keyId, int keyPort, int verbosity,
-				const int vol_ID, const int wavemix_ID, const int Bank_ID, const int Attack_ID,const int Decay_ID,
+				const int vol_ID, const int wavemix_ID, const int Bank_ID, int Bank_No, const int Attack_ID,const int Decay_ID,
 				const int Sustain_ID, const int Release_ID, const int Cutoff_ID,const int Res_ID, const int Slope_ID);
 		
 		/**
