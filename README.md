@@ -1,5 +1,5 @@
 # Realtime Wavetable Synth (SynthPi)
-SynthPi is an open source Realtime Wavetable Synthesizer which runs on Raspberry Pi. It is made for the Realtime Embedded Programming course as part of our Master of Engineering in Electronics with Music at the University of Glasgow (year 2022). 
+SynthPi is an open source Realtime Wavetable Synthesizer which runs on Raspberry Pi. It is made for the Realtime Embedded Programming course as part of our Master of Engineering in Electronics with Music at the University of Glasgow (year 2022). You can find an installation and configuration guide on the other end of this link here: https://youtu.be/ZuCbzoPGmr0
 
 # Credits 
 Authors: Noe Heuclin and Aaron Collins.
