@@ -117,7 +117,7 @@ Below is the UML class diagram of the SynthPi. You can follow the link for more 
 
 <img src="/images/SynthPi UML class.png" alt="UML" height="400">
 
-[SynthPi Documentation](https://nheuclin.github.io/SynthPi/html/index.html)
+[SynthPi Documentation](https://nheuclin.github.io/SynthPi/docs/html/index.html)
 
 ## Stretch Goals
 - Add a second oscillator per voice with detune option with regard to the first oscillator
