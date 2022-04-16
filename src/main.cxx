@@ -1,10 +1,10 @@
 /**
  * @mainpage SynthPi
  * @brief A Wavetable Synthesizer made for the Raspberry Pi.
- * @version 0.1
+ * @version 1.0
  * @authors Noe Heuclin     <2332897H@student.gla.ac.uk>
- * @authors Aaron Collins
- * @date March 2022
+ * @authors Aaron Collins   <2321155C@student.gla.ac.uk>
+ * @date April 2022
  */
 
 #include "SoundModelPoly.h"
