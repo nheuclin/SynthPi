@@ -56,7 +56,7 @@ Credits are due to former students from the [DrumPi project](https://github.com/
 This code also make use of the following libraries without any modification :
 - Adam Stark's [AudioFile library](https://github.com/adamstark/AudioFile), used to load in wavetable to our DSP engine.
 - Dimtass' [DSP CPP Filters library](https://github.com/dimtass/DSP-Cpp-filters), used to implement the SynthPi's lowpass filter. 
-- Nlohmann [JSONh](https://github.com/nlohmann/json), used to read the config file on program startup
+- Nlohmann [JSON](https://github.com/nlohmann/json), used to read the config file on program startup
 
 ### Hardware
 - [Raspberry Pi](https://thepihut.com/collections/raspberry-pi/products/raspberry-pi-3-model-b-plus)
