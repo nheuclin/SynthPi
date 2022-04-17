@@ -54,14 +54,15 @@ Authors: Noe Heuclin and Aaron Collins.
 Credits are due to former students from the [DrumPi project](https://github.com/Quickeman/DrumPi) as well as Nick Bailey and his team of old students for their [SmurdyGurdy](https://github.com/nickbailey/smrgygurdy) Project. Our code is based and adapted from several files belonging to both projects. Likewise, we used Nigel Redmon's [ADSR library](http://www.earlevel.com/main/2013/06/01/envelope-generators/) as a basis to make our own envelope.
 
 This code also make use of the following libraries without any modification :
-    - Adam Stark's [AudioFile library](https://github.com/adamstark/AudioFile), used to load in wavetable to our DSP engine.
-    - Dimtass' [DSP CPP Filters library](https://github.com/dimtass/DSP-Cpp-filters), used to implement the SynthPi's lowpass filter. 
+- Adam Stark's [AudioFile library](https://github.com/adamstark/AudioFile), used to load in wavetable to our DSP engine.
+- Dimtass' [DSP CPP Filters library](https://github.com/dimtass/DSP-Cpp-filters), used to implement the SynthPi's lowpass filter. 
+- Nlohmann [JSONh](https://github.com/nlohmann/json), used to read the config file on program startup
 
 ### Hardware
 - [Raspberry Pi](https://thepihut.com/collections/raspberry-pi/products/raspberry-pi-3-model-b-plus)
 - [ZeroSeg](https://thepihut.com/products/zeroseg) 8-digit 7-segment display
 - [IQaudIO](https://thepihut.com/products/iqaudio-dac) I2S audio interface
-- Any MIDI keyboard or Sequencer with USB MIDI (if your controller does not have USB MIDI, you can use an adaptor such as [this](https://www.amazon.co.uk/OTraki-Interface-Premium-Converter-Keyboard/dp/B07KYDP3GK/ref=pd_lpo_1?pd_rd_i=B07KYDP3GK&psc=1)
+- Any MIDI keyboard or Sequencer with USB MIDI (if your controller does not have USB MIDI, you can use an adaptor such as [this](https://www.amazon.co.uk/OTraki-Interface-Premium-Converter-Keyboard/dp/B07KYDP3GK/ref=pd_lpo_1?pd_rd_i=B07KYDP3GK&psc=1))
 
 ## Quick Start Guide
 ### Installation
