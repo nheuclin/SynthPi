@@ -120,7 +120,7 @@ Below is the UML class diagram of the SynthPi. You can follow the link for more 
 
 [SynthPi Documentation](https://nheuclin.github.io/SynthPi/)
 
-## Stretch Goals
+## Roadmap
 - Add a second oscillator per voice with detune option with regard to the first oscillator
 - Add pitchbend wheel control
 - Add more filter types (high-pass/band-pass/notch)
